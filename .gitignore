@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+.venv-img/
+public/products/_preview/
 
 # debug
 npm-debug.log*
