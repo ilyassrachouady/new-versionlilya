@@ -3,7 +3,6 @@
 import { useState, type FormEvent } from "react";
 
 import { Emblem } from "@/components/brand/Emblem";
-import { BrassRule } from "@/components/brand/BrassRule";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -25,31 +24,31 @@ export function Newsletter({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <section className="surface-grain relative isolate overflow-hidden bg-espresso py-20 text-ivory sm:py-24">
+    <section className="surface-grain relative isolate overflow-hidden bg-forest py-16 text-cream sm:py-24">
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 opacity-80"
+        className="absolute inset-0 -z-10 opacity-50"
         style={{
           backgroundImage: "url(/textures/plaster-espresso.jpg)",
           backgroundSize: "cover",
+          mixBlendMode: "multiply",
         }}
       />
 
       <div className="shell flex flex-col items-center text-center">
         <Reveal className="flex flex-col items-center gap-4">
-          <Emblem className="h-9 w-9 text-brass-light" />
-          <span className="eyebrow text-brass-light">{dict.newsletter.eyebrow}</span>
-          <BrassRule width="short" tone="ivory" className="w-16" />
+          <Emblem tone="auto" className="h-10 w-10 sm:h-11 sm:w-11" />
+          <span className="eyebrow text-cream/70">{dict.newsletter.eyebrow}</span>
         </Reveal>
 
         <Reveal delay={0.05}>
-          <h2 className="display-xl mt-7 text-ivory">{dict.newsletter.title}</h2>
-          <p className="mx-auto mt-5 max-w-md text-[0.95rem] leading-relaxed text-pretty text-ivory/65">
+          <h2 className="display-xl mt-6 text-cream sm:mt-7">{dict.newsletter.title}</h2>
+          <p className="mx-auto mt-4 max-w-md text-[0.9rem] leading-relaxed text-pretty text-cream/65 sm:mt-5 sm:text-[0.95rem]">
             {dict.newsletter.body}
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 w-full max-w-lg">
+        <Reveal delay={0.1} className="mt-8 w-full max-w-lg sm:mt-10">
           <form onSubmit={onSubmit} noValidate className="flex flex-col gap-3 sm:flex-row">
             <div className="flex-1">
               <label htmlFor="newsletter-email" className="sr-only">
@@ -68,12 +67,12 @@ export function Newsletter({ dict }: { dict: Dictionary }) {
                 placeholder={dict.newsletter.placeholder}
                 aria-invalid={status === "error"}
                 aria-describedby="newsletter-status"
-                className="h-14 w-full border border-ivory/25 bg-transparent px-5 text-[0.9rem] text-ivory placeholder:text-ivory/40 transition-colors duration-500 focus:border-brass-light focus:outline-none"
+                className="h-12 w-full border border-cream/25 bg-transparent px-4 text-[0.9rem] text-cream placeholder:text-cream/40 transition-colors duration-500 focus:border-cream focus:outline-none sm:h-14 sm:px-5"
               />
             </div>
             <button
               type="submit"
-              className="h-14 bg-ivory px-9 text-[0.6875rem] tracking-[0.24em] text-espresso uppercase transition-colors duration-500 hover:bg-brass-light"
+              className="h-12 bg-cream px-8 text-[0.6875rem] tracking-[0.24em] text-forest uppercase transition-colors duration-500 hover:bg-ivory sm:h-14 sm:px-9"
             >
               {dict.newsletter.cta}
             </button>
@@ -83,7 +82,7 @@ export function Newsletter({ dict }: { dict: Dictionary }) {
             id="newsletter-status"
             role="status"
             aria-live="polite"
-            className="mt-4 text-[0.75rem] tracking-[0.12em] text-ivory/50"
+            className="mt-4 text-[0.75rem] tracking-[0.12em] text-cream/50"
           >
             {status === "done"
               ? dict.newsletter.success

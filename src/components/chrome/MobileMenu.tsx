@@ -61,14 +61,24 @@ export function MobileMenu({
               >
                 <Dialog.Title className="sr-only">{dict.nav.menu}</Dialog.Title>
                 <Dialog.Description className="sr-only">{dict.nav.openMenu}</Dialog.Description>
-                <div className="relative z-10 flex items-center justify-between px-6 py-5">
-                  <Emblem className="h-8 w-8 text-cream" />
+                <div className="relative z-10 flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5">
+                  <div className="flex items-center gap-2.5">
+                    <Emblem tone="auto" className="h-8 w-8" />
+                    <span className="flex flex-col items-start leading-none">
+                      <span className="font-display text-[0.45rem] tracking-[0.32em] text-cream/70 uppercase">
+                        {site.nameParts.prefix}
+                      </span>
+                      <span className="font-display mt-0.5 text-[0.65rem] tracking-[0.14em] text-cream uppercase">
+                        {site.nameParts.family}
+                      </span>
+                    </span>
+                  </div>
                   <Dialog.Close className="label-xs py-2 text-cream/80 transition-opacity hover:opacity-100">
                     {dict.nav.close}
                   </Dialog.Close>
                 </div>
 
-                <nav className="relative z-10 flex flex-1 flex-col justify-center gap-1 px-6">
+                <nav className="relative z-10 flex flex-1 flex-col justify-center gap-0.5 px-5 sm:gap-1 sm:px-6">
                   {links.map((link, index) => (
                     <motion.div
                       key={link.path}
@@ -83,14 +93,14 @@ export function MobileMenu({
                       <Link
                         href={href(link.path, locale)}
                         onClick={() => onOpenChange(false)}
-                        className="display-lg block py-2 text-cream transition-colors duration-500 hover:text-ivory"
+                        className="block py-2.5 font-display text-[1.65rem] leading-none tracking-[-0.02em] text-cream transition-colors duration-500 hover:text-ivory sm:py-2 sm:text-[1.875rem]"
                       >
                         {link.label}
                       </Link>
                     </motion.div>
                   ))}
 
-                  <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-cream/15 pt-6">
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-cream/15 pt-5 sm:mt-8 sm:gap-x-6 sm:pt-6">
                     {rituals.map((ritual) => (
                       <Link
                         key={ritual.id}
@@ -104,22 +114,22 @@ export function MobileMenu({
                   </div>
                 </nav>
 
-                <div className="relative z-10 flex items-center justify-between gap-4 border-t border-cream/15 px-6 py-5">
+                <div className="relative z-10 flex items-center justify-between gap-3 border-t border-cream/15 px-5 py-4 sm:gap-4 sm:px-6 sm:py-5">
                   <button
                     type="button"
                     onClick={() => {
                       onOpenChange(false);
                       setSearchOpen(true);
                     }}
-                    className="label-xs text-ivory/80"
+                    className="label-xs text-cream/80"
                   >
                     {dict.nav.search}
                   </button>
                   <LocaleSwitcher locale={locale} tone="light" />
                   <CurrencySwitcher tone="light" />
                 </div>
-                <p className="relative z-10 px-6 pb-6 text-[0.625rem] tracking-[0.2em] text-ivory/45 uppercase">
-                  {site.name}
+                <p className="relative z-10 px-5 pb-5 text-[0.5625rem] tracking-[0.2em] text-cream/45 uppercase sm:px-6 sm:pb-6">
+                  {site.tagline}
                 </p>
               </motion.div>
             </Dialog.Content>

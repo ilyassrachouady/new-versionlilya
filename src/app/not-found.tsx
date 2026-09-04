@@ -5,7 +5,7 @@ import { ButtonLink } from "@/components/ui/Button";
 export default function NotFound() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-ivory px-6 text-center">
-      <Emblem className="h-12 w-12 text-brass" />
+      <Emblem tone="dark" className="h-12 w-12" />
       <Wordmark size="lg" className="mt-8 text-espresso" />
       <h1 className="display-xl mt-10 max-w-lg text-balance text-espresso">
         Nothing at this address.

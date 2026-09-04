@@ -47,7 +47,7 @@ export function AccountView({ locale, dict }: { locale: Locale; dict: Dictionary
             <p className="mt-8 text-ink-muted">{dict.common.loading}</p>
           ) : wished.length === 0 ? (
             <div className="mt-12 flex flex-col items-start gap-6">
-              <Emblem className="h-10 w-10 text-brass/40" />
+              <Emblem tone="dark" className="h-10 w-10 opacity-40" />
               <div>
                 <p className="display-md text-espresso">{dict.wishlist.empty}</p>
                 <p className="mt-3 max-w-md text-ink-muted">{dict.wishlist.emptyBody}</p>

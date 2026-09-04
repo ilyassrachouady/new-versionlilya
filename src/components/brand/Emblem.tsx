@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type EmblemProps = {
@@ -5,24 +8,54 @@ type EmblemProps = {
   /** Kept for API compat — the official mark already carries its cartouche. */
   framed?: boolean;
   title?: string;
+  /**
+   * `auto` — cream mark (for dark/forest fields).
+   * `dark` — forest mark (for ivory/light fields).
+   * `plate` — full green square with cream monogram.
+   */
+  tone?: "auto" | "dark" | "plate";
 };
 
+const sources = {
+  auto: "/brand/monogram-mark.png",
+  dark: "/brand/monogram-dark.png",
+  plate: "/brand/monogram.png",
+} as const;
+
 /**
- * Official house monogram from the Maison Lilya Zahra lockup.
- * Coloured via `currentColor` through a CSS mask.
+ * Official Maison Lilya Zahra monogram — real asset, not a CSS mask.
  */
-export function Emblem({ className, title }: EmblemProps) {
+export function Emblem({ className, title, tone = "auto" }: EmblemProps) {
+  const labeled = Boolean(title);
+
   return (
     <span
-      role={title ? "img" : "presentation"}
+      role={labeled ? "img" : "presentation"}
       aria-label={title}
-      aria-hidden={title ? undefined : true}
-      className={cn(
-        "inline-block aspect-square h-6 w-6 shrink-0 bg-current",
-        "[mask-image:url(/brand/monogram-alpha.png)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]",
-        "[-webkit-mask-image:url(/brand/monogram-alpha.png)] [-webkit-mask-size:contain] [-webkit-mask-repeat:no-repeat] [-webkit-mask-position:center]",
-        className,
-      )}
+      aria-hidden={labeled ? undefined : true}
+      className={cn("relative inline-block aspect-square h-6 w-6 shrink-0", className)}
+    >
+      <Image
+        src={sources[tone]}
+        alt={labeled ? title! : ""}
+        fill
+        sizes="96px"
+        className="object-contain"
+        priority={false}
+      />
+    </span>
+  );
+}
+
+/** Full lockup image for large brand moments. */
+export function BrandLockup({ className }: { className?: string }) {
+  return (
+    <Image
+      src="/brand/lockup-on-clear.png"
+      alt={site.name}
+      width={720}
+      height={280}
+      className={cn("h-auto w-full max-w-md object-contain", className)}
     />
   );
 }

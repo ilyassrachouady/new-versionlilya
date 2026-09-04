@@ -39,18 +39,15 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   return (
     <>
-      <header
-        data-solid={!light}
-        className="fixed inset-x-0 top-0 z-50"
-      >
+      <header data-solid={!light} className="fixed inset-x-0 top-0 z-50">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-espresso focus:px-4 focus:py-2 focus:text-[0.6875rem] focus:tracking-[0.2em] focus:text-ivory focus:uppercase"
+          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:bg-forest focus:px-4 focus:py-2 focus:text-[0.6875rem] focus:tracking-[0.2em] focus:text-cream focus:uppercase"
         >
           {dict.nav.skip}
         </a>
 
-        <p className="flex h-[var(--announce-h)] items-center justify-center bg-forest px-4 text-center text-[0.5625rem] font-medium tracking-[0.22em] text-cream uppercase sm:text-[0.625rem] sm:tracking-[0.28em]">
+        <p className="flex min-h-[var(--announce-h)] items-center justify-center bg-forest px-3 py-1.5 text-center text-[0.5rem] font-medium tracking-[0.18em] text-cream uppercase sm:px-4 sm:text-[0.625rem] sm:tracking-[0.28em]">
           {dict.announcement}
         </p>
 
@@ -59,80 +56,87 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             "relative transition-[background-color,border-color,backdrop-filter] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
             light
               ? "border-b border-transparent bg-transparent"
-              : "border-b border-espresso/10 bg-ivory/92 backdrop-blur-md",
+              : "border-b border-forest/10 bg-ivory/94 backdrop-blur-md",
           )}
         >
           <div
             className={cn(
-              "shell flex h-[var(--header-h)] items-center justify-between gap-4 transition-colors duration-[600ms]",
-              light ? "text-ivory" : "text-espresso",
+              "shell relative flex h-[var(--header-h)] items-center justify-between gap-2 transition-colors duration-[600ms] sm:gap-4",
+              light ? "text-cream" : "text-forest",
             )}
           >
-            <nav aria-label="Primary" className="hidden flex-1 items-center gap-9 lg:flex">
-              {primary.map((item) => (
-                <NavLink
-                  key={item.path}
-                  href={href(item.path, locale)}
-                  active={pathname.startsWith(href(item.path, locale))}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
+            {/* Leading: menu (mobile) / nav (desktop) */}
+            <div className="flex min-w-[3.25rem] flex-1 items-center justify-start lg:min-w-0">
+              <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
+                {primary.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    href={href(item.path, locale)}
+                    active={pathname.startsWith(href(item.path, locale))}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
 
-            <button
-              type="button"
-              onClick={() => setMenuOpen(true)}
-              className="label-xs -ms-1 flex items-center gap-2.5 py-2 lg:hidden"
-              aria-label={dict.nav.openMenu}
-              aria-expanded={menuOpen}
-            >
-              <span aria-hidden className="flex flex-col gap-[5px]">
-                <span className="block h-px w-5 bg-current" />
-                <span className="block h-px w-5 bg-current" />
-              </span>
-              <span className="hidden xs:inline">{dict.nav.menu}</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                className="label-xs -ms-1 flex items-center gap-2 py-2 lg:hidden"
+                aria-label={dict.nav.openMenu}
+                aria-expanded={menuOpen}
+              >
+                <span aria-hidden className="flex flex-col gap-[5px]">
+                  <span className="block h-px w-5 bg-current" />
+                  <span className="block h-px w-5 bg-current" />
+                </span>
+              </button>
+            </div>
 
+            {/* Brand — always centered */}
             <Link
               href={href("/", locale)}
-              className="group/mark flex shrink-0 items-center gap-2.5 lg:absolute lg:left-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2"
+              className="group/mark absolute left-1/2 flex -translate-x-1/2 items-center gap-2 rtl:translate-x-1/2 sm:gap-2.5"
               aria-label={site.name}
             >
-              <Emblem className="h-8 w-8 text-current opacity-95 transition-opacity duration-500 group-hover/mark:opacity-100 sm:h-9 sm:w-9" />
+              <Emblem
+                tone={light ? "auto" : "dark"}
+                className="h-7 w-7 sm:h-8 sm:w-8"
+              />
               <span className="flex flex-col items-start leading-none">
-                <span className="font-display text-[0.55rem] tracking-[0.42em] uppercase opacity-75 sm:text-[0.6rem]">
+                <span className="font-display text-[0.45rem] tracking-[0.32em] uppercase opacity-70 sm:text-[0.55rem] sm:tracking-[0.42em]">
                   {site.nameParts.prefix}
                 </span>
-                <span className="font-display mt-1 text-[0.72rem] tracking-[0.2em] uppercase sm:text-[0.8rem]">
+                <span className="font-display mt-0.5 text-[0.625rem] tracking-[0.12em] uppercase sm:mt-1 sm:text-[0.78rem] sm:tracking-[0.18em]">
                   {site.nameParts.family}
                 </span>
               </span>
             </Link>
 
-            <div className="flex flex-1 items-center justify-end gap-5 sm:gap-7">
+            {/* Trailing actions */}
+            <div className="flex min-w-[3.25rem] flex-1 items-center justify-end gap-3 sm:gap-6 lg:min-w-0 lg:gap-7">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="label-xs hidden py-2 transition-opacity duration-500 hover:opacity-65 sm:block"
+                className="label-xs hidden py-2 transition-opacity duration-500 hover:opacity-65 md:block"
               >
                 {dict.nav.search}
               </button>
               <Link
                 href={href("/account", locale)}
-                className="label-xs hidden py-2 transition-opacity duration-500 hover:opacity-65 md:block"
+                className="label-xs hidden py-2 transition-opacity duration-500 hover:opacity-65 lg:block"
               >
                 {dict.nav.account}
               </Link>
               <button
                 type="button"
                 onClick={openCart}
-                className="label-xs flex items-center gap-1.5 py-2 transition-opacity duration-500 hover:opacity-65"
+                className="label-xs flex items-center gap-1 py-2 transition-opacity duration-500 hover:opacity-65"
                 aria-label={`${dict.nav.bag} (${hydrated ? count : 0})`}
               >
-                {dict.nav.bag}
+                <span className="max-w-[4.5rem] truncate sm:max-w-none">{dict.nav.bag}</span>
                 <span
-                  className="tabular inline-flex min-w-[1.05rem] justify-center"
+                  className="tabular inline-flex min-w-[1rem] justify-center"
                   suppressHydrationWarning
                 >
                   ({hydrated ? count : 0})
@@ -145,7 +149,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             {!light && (
               <motion.span
                 aria-hidden
-                className="absolute inset-x-0 bottom-0 block h-px origin-center bg-brass/30"
+                className="absolute inset-x-0 bottom-0 block h-px origin-center bg-forest/20"
                 initial={reduced ? undefined : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 exit={reduced ? undefined : { scaleX: 0 }}

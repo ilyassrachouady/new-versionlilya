@@ -16,13 +16,14 @@ const frame = {
 /** Four worlds, each an arch with one object standing in it. */
 export function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="surface-grain relative overflow-hidden bg-espresso py-20 text-ivory sm:py-28 lg:py-36">
+    <section className="surface-grain relative overflow-hidden bg-forest py-16 text-cream sm:py-28 lg:py-36">
       <div
         aria-hidden
-        className="absolute inset-0 opacity-70"
+        className="absolute inset-0 opacity-50"
         style={{
           backgroundImage: "url(/textures/plaster-espresso.jpg)",
           backgroundSize: "cover",
+          mixBlendMode: "multiply",
         }}
       />
       <div className="shell relative z-10">
@@ -34,7 +35,7 @@ export function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }
           align="center"
         />
 
-        <ul className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-7">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-6 lg:grid-cols-4 lg:gap-7">
           {rituals.map((ritual, index) => (
             <Reveal as="li" key={ritual.id} delay={index * 0.08}>
               <Link
@@ -95,14 +96,14 @@ export function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }
                     />
                   </div>
 
-                  <div className="absolute inset-x-0 bottom-0 px-4 pb-6 text-center sm:px-5">
-                    <h3 className="display-md text-ivory">{ritual.title[locale]}</h3>
-                    <p className="mt-2 text-[0.8rem] leading-snug text-ivory/60">
+                  <div className="absolute inset-x-0 bottom-0 px-2.5 pb-4 text-center sm:px-5 sm:pb-6">
+                    <h3 className="display-md text-cream">{ritual.title[locale]}</h3>
+                    <p className="mt-1.5 text-[0.7rem] leading-snug text-cream/60 sm:mt-2 sm:text-[0.8rem]">
                       {ritual.line[locale]}
                     </p>
                     <span
                       aria-hidden
-                      className="mx-auto mt-4 block h-px w-8 origin-center scale-x-0 bg-brass-light transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+                      className="mx-auto mt-3 block h-px w-8 origin-center scale-x-0 bg-cream/70 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 sm:mt-4"
                     />
                   </div>
                 </div>

@@ -37,7 +37,7 @@ export function SectionHeader({
         <span
           className={cn(
             "eyebrow",
-            tone === "dark" ? "text-brass-deep" : "text-brass-light",
+            tone === "dark" ? "text-forest" : "text-cream/75",
           )}
         >
           {eyebrow}
@@ -59,7 +59,7 @@ export function SectionHeader({
           <h2
             className={cn(
               "display-xl text-balance",
-              tone === "dark" ? "text-espresso" : "text-ivory",
+              tone === "dark" ? "text-espresso" : "text-cream",
             )}
           >
             {title}
@@ -69,7 +69,7 @@ export function SectionHeader({
               className={cn(
                 "mt-5 max-w-xl text-[0.95rem] leading-relaxed text-pretty",
                 centered && "mx-auto",
-                tone === "dark" ? "text-ink-muted" : "text-ink-invert-muted",
+                tone === "dark" ? "text-ink-muted" : "text-cream/65",
               )}
             >
               {body}

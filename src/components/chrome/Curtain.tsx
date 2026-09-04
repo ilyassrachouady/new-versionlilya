@@ -66,7 +66,7 @@ export function Curtain() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Emblem className="h-16 w-16 text-cream" />
+            <Emblem tone="auto" className="h-16 w-16" />
           </motion.div>
         </motion.div>
       )}

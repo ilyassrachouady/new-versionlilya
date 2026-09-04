@@ -11,7 +11,7 @@ export default function ErrorBoundary({
 }) {
   return (
     <div className="flex min-h-[70dvh] flex-col items-center justify-center bg-ivory px-6 pt-[var(--chrome-h)] text-center">
-      <Emblem className="h-10 w-10 text-brass" />
+      <Emblem tone="dark" className="h-10 w-10" />
       <h1 className="display-xl mt-8 max-w-lg text-balance text-espresso">
         The page could not be shown.
       </h1>

@@ -77,11 +77,13 @@ export function TheHouse({ locale, dict }: { locale: Locale; dict: Dictionary })
           </Reveal>
 
           <Reveal delay={0.15}>
-            <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-brass/25 pt-8">
+            <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-forest/15 pt-7 sm:mt-12 sm:gap-6 sm:pt-8">
               {dict.house.stats.map((stat) => (
                 <div key={stat.label}>
-                  <dt className="label-xs text-ink-faint">{stat.label}</dt>
-                  <dd className="font-display mt-2 text-[1.75rem] leading-none text-burgundy">
+                  <dt className="text-[0.55rem] font-medium tracking-[0.14em] text-ink-faint uppercase sm:text-[0.625rem] sm:tracking-[0.22em]">
+                    {stat.label}
+                  </dt>
+                  <dd className="font-display mt-1.5 text-[1.35rem] leading-none text-forest sm:mt-2 sm:text-[1.75rem]">
                     {stat.value}
                   </dd>
                 </div>

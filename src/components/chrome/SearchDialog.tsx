@@ -100,7 +100,7 @@ export function SearchDialog({ locale, dict }: { locale: Locale; dict: Dictionar
 
                   {results.length === 0 ? (
                     <div className="flex flex-col items-center py-20 text-center">
-                      <Emblem className="h-10 w-10 text-brass/40" />
+                      <Emblem tone="dark" className="h-10 w-10 opacity-40" />
                       <p className="display-md mt-6 text-espresso">{dict.search.empty}</p>
                     </div>
                   ) : (

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Emblem } from "@/components/brand/Emblem";
 import { CurrencySwitcher } from "@/components/chrome/CurrencySwitcher";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
-import { OrnamentBand } from "@/components/brand/Ornament";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -42,33 +41,27 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="surface-grain relative overflow-hidden bg-espresso text-ivory">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-45"
-        style={{ backgroundImage: "url(/textures/plaster-espresso.jpg)", backgroundSize: "cover" }}
-      />
-
+    <footer className="surface-grain relative overflow-hidden bg-forest text-cream">
       <div className="relative z-10">
-        <OrnamentBand className="text-brass" />
-
-        <div className="shell pt-16 pb-10 sm:pt-24">
-          <div className="flex flex-col items-center gap-6 text-center">
-            <Emblem className="h-12 w-12 text-cream" />
-            <Wordmark size="xl" className="text-cream" />
-            <p className="eyebrow text-cream/70">{dict.footer.tagline}</p>
+        <div className="shell pt-14 pb-10 sm:pt-20 sm:pb-12">
+          <div className="flex flex-col items-center gap-5 text-center sm:gap-6">
+            <Emblem tone="auto" className="h-14 w-14 sm:h-16 sm:w-16" />
+            <Wordmark size="lg" className="text-cream sm:hidden" />
+            <Wordmark size="xl" className="hidden text-cream sm:flex" />
+            <p className="eyebrow text-cream/65">{dict.footer.tagline}</p>
+            <p className="label-xs text-cream/45">{site.tagline}</p>
           </div>
 
-          <div className="mt-16 grid gap-10 border-t border-ivory/12 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div className="mt-12 grid gap-8 border-t border-cream/15 pt-10 sm:mt-16 sm:grid-cols-2 sm:gap-10 sm:pt-12 lg:grid-cols-4 lg:gap-8">
             {columns.map((column) => (
               <nav key={column.title} aria-label={column.title}>
-                <h2 className="label-xs text-brass-light">{column.title}</h2>
-                <ul className="mt-5 space-y-3">
+                <h2 className="label-xs text-cream/55">{column.title}</h2>
+                <ul className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3">
                   {column.links.map((link) => (
                     <li key={link.path + link.label}>
                       <Link
                         href={href(link.path, locale)}
-                        className="text-[0.875rem] text-ivory/70 transition-colors duration-500 hover:text-ivory"
+                        className="text-[0.875rem] text-cream/70 transition-colors duration-500 hover:text-cream"
                       >
                         {link.label}
                       </Link>
@@ -79,24 +72,24 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             ))}
 
             <div>
-              <h2 className="label-xs text-brass-light">{dict.footer.language}</h2>
-              <LocaleSwitcher locale={locale} tone="light" className="mt-5 gap-4" />
-              <h2 className="label-xs mt-8 text-brass-light">{dict.footer.currency}</h2>
+              <h2 className="label-xs text-cream/55">{dict.footer.language}</h2>
+              <LocaleSwitcher locale={locale} tone="light" className="mt-4 gap-4 sm:mt-5" />
+              <h2 className="label-xs mt-7 text-cream/55 sm:mt-8">{dict.footer.currency}</h2>
               <CurrencySwitcher tone="light" className="mt-4" />
               <a
                 href={`mailto:${site.email}`}
-                className="mt-8 block text-[0.875rem] text-ivory/70 transition-colors duration-500 hover:text-ivory"
+                className="mt-7 block text-[0.875rem] text-cream/70 transition-colors duration-500 hover:text-cream sm:mt-8"
               >
                 {site.email}
               </a>
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-ivory/12 pt-8 sm:flex-row">
-            <p className="label-xs text-ivory/40">
+          <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-cream/15 pt-7 sm:mt-14 sm:flex-row sm:gap-4 sm:pt-8">
+            <p className="label-xs text-center text-cream/40 sm:text-start">
               © {new Date().getFullYear()} {site.name}. {dict.footer.rights}
             </p>
-            <p className="label-xs text-ivory/40">{dict.footer.madeIn}</p>
+            <p className="label-xs text-cream/40">{dict.footer.madeIn}</p>
           </div>
         </div>
       </div>
