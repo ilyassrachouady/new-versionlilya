@@ -56,7 +56,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
 
                 {items.length === 0 ? (
                   <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 px-8 text-center">
-                    <Emblem className="h-12 w-auto text-brass/45" />
+                    <Emblem className="h-12 w-12 text-brass/45" />
                     <div>
                       <p className="display-md text-espresso">{dict.cart.empty}</p>
                       <p className="mt-3 text-sm leading-relaxed text-ink-muted">

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Maison Liya Zahra — Beauty, rooted in Morocco";
+export const alt = "Maison Lilya Zahra — Beauty, rooted in Morocco";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,29 +14,32 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#241815",
-          color: "#F3EDE3",
+          background: "#1c3225",
+          color: "#e6d3bf",
           padding: "72px 80px",
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: 16,
-            letterSpacing: 8,
+            flexDirection: "column",
+            gap: 8,
+            letterSpacing: 10,
             fontSize: 18,
             textTransform: "uppercase",
-            color: "#A77A45",
+            color: "#e6d3bf",
           }}
         >
-          Maison Liya Zahra
+          <div style={{ fontSize: 14, letterSpacing: 12, opacity: 0.75 }}>Maison</div>
+          <div style={{ fontSize: 28, letterSpacing: 8, fontFamily: "Georgia, serif" }}>
+            Lilya Zahra
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <div style={{ fontSize: 84, lineHeight: 0.95, fontFamily: "Georgia, serif" }}>
-            Beauty, rooted in Morocco.
+          <div style={{ fontSize: 76, lineHeight: 0.95, fontFamily: "Georgia, serif" }}>
+            For her & him.
           </div>
-          <div style={{ fontSize: 22, color: "#C9B9A1", marginTop: 12 }}>
+          <div style={{ fontSize: 22, color: "#c9b9a1", marginTop: 12 }}>
             A Moroccan beauty house. One scent. Seven objects.
           </div>
         </div>

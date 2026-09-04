@@ -54,9 +54,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
         <div className="shell pt-16 pb-10 sm:pt-24">
           <div className="flex flex-col items-center gap-6 text-center">
-            <Emblem className="h-10 w-auto text-brass-light" />
-            <Wordmark size="xl" className="text-ivory" />
-            <p className="eyebrow text-brass-light">{dict.footer.tagline}</p>
+            <Emblem className="h-12 w-12 text-cream" />
+            <Wordmark size="xl" className="text-cream" />
+            <p className="eyebrow text-cream/70">{dict.footer.tagline}</p>
           </div>
 
           <div className="mt-16 grid gap-10 border-t border-ivory/12 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">

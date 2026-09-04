@@ -67,8 +67,8 @@ export async function generateMetadata({
   const dict = getDictionary(locale);
 
   const titles: Record<Locale, string> = {
-    en: "Maison Liya Zahra — Beauty, rooted in Morocco",
-    fr: "Maison Liya Zahra — La beauté, enracinée au Maroc",
+    en: "Maison Lilya Zahra — Beauty, rooted in Morocco",
+    fr: "Maison Lilya Zahra — La beauté, enracinée au Maroc",
     ar: "دار ليا زهرة — جمالٌ متجذّرٌ في المغرب",
   };
 

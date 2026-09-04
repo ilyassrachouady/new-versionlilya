@@ -52,7 +52,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           {/* ------------------------------------------------ statement */}
           <div className="order-2 lg:order-1">
             <motion.div className="flex items-center gap-3.5" {...rise(0.1)}>
-              <Emblem className="h-7 w-auto text-brass-light" />
+              <Emblem className="h-7 w-7 text-brass-light" />
               <span className="eyebrow text-brass-light">{dict.hero.maison}</span>
             </motion.div>
 
@@ -114,7 +114,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               >
                 <Image
                   src="/editorial/editorial-hero-still.jpg"
-                  alt="Maison Liya Zahra body oil, body scrub and hair perfume on limestone, with orange blossom."
+                  alt="Maison Lilya Zahra body oil, body scrub and hair perfume on limestone, with orange blossom."
                   fill
                   priority
                   sizes="(max-width: 1024px) 90vw, 32rem"

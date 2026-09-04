@@ -62,7 +62,7 @@ export default async function HousePage({
             ]}
           />
           <Reveal className="mt-12 flex flex-col items-start gap-6">
-            <Emblem className="h-10 w-auto text-brass-light" />
+            <Emblem className="h-10 w-10 text-brass-light" />
             <p className="eyebrow text-brass-light">{dict.housePage.eyebrow}</p>
             <h1 className="display-hero max-w-4xl text-balance">{dict.housePage.title}</h1>
             <p className="max-w-xl text-[1.1rem] leading-relaxed text-pretty text-ivory/70">

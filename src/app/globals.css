@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   MAISON LIYA ZAHRA — DESIGN TOKENS
-   Palette drawn directly from the packaging: amber glass, burgundy label,
-   antique brass, warm ivory paper.
+   MAISON LILYA ZAHRA — DESIGN TOKENS
+   Brand lockup (forest green + cream) + packaging DNA (burgundy, brass, amber).
    ========================================================================== */
 
 @theme {
@@ -12,6 +11,11 @@
   --color-ivory-100: #faf7f1;
   --color-ivory-300: #e9e0d1;
   --color-ivory-500: #ddd1bd;
+
+  /* Official lockup */
+  --color-forest: #1c3225;
+  --color-forest-deep: #14241b;
+  --color-cream: #e6d3bf;
 
   --color-sand: #c9b9a1;
   --color-sand-deep: #ab967a;

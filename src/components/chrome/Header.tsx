@@ -50,7 +50,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           {dict.nav.skip}
         </a>
 
-        <p className="flex h-[var(--announce-h)] items-center justify-center bg-burgundy px-4 text-center text-[0.5625rem] font-medium tracking-[0.22em] text-ivory/92 uppercase sm:text-[0.625rem] sm:tracking-[0.28em]">
+        <p className="flex h-[var(--announce-h)] items-center justify-center bg-forest px-4 text-center text-[0.5625rem] font-medium tracking-[0.22em] text-cream uppercase sm:text-[0.625rem] sm:tracking-[0.28em]">
           {dict.announcement}
         </p>
 
@@ -96,12 +96,17 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
             <Link
               href={href("/", locale)}
-              className="group/mark flex shrink-0 flex-col items-center gap-1.5 lg:absolute lg:left-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2"
+              className="group/mark flex shrink-0 items-center gap-2.5 lg:absolute lg:left-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2"
               aria-label={site.name}
             >
-              <Emblem className="h-5 w-auto text-current opacity-90 transition-opacity duration-500 group-hover/mark:opacity-100" />
-              <span className="font-display text-[0.78rem] leading-none tracking-[0.3em] uppercase sm:text-[0.85rem]">
-                {site.name}
+              <Emblem className="h-8 w-8 text-current opacity-95 transition-opacity duration-500 group-hover/mark:opacity-100 sm:h-9 sm:w-9" />
+              <span className="flex flex-col items-start leading-none">
+                <span className="font-display text-[0.55rem] tracking-[0.42em] uppercase opacity-75 sm:text-[0.6rem]">
+                  {site.nameParts.prefix}
+                </span>
+                <span className="font-display mt-1 text-[0.72rem] tracking-[0.2em] uppercase sm:text-[0.8rem]">
+                  {site.nameParts.family}
+                </span>
               </span>
             </Link>
 

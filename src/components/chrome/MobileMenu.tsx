@@ -50,21 +50,20 @@ export function MobileMenu({
             </Dialog.Overlay>
             <Dialog.Content asChild>
               <motion.div
-                className="surface-grain fixed inset-y-0 start-0 z-[70] flex w-full max-w-[26rem] flex-col bg-burgundy text-ivory"
+                className="surface-grain fixed inset-y-0 start-0 z-[70] flex w-full max-w-[26rem] flex-col bg-forest text-cream"
                 initial={{ x: locale === "ar" ? "100%" : "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: locale === "ar" ? "100%" : "-100%" }}
                 transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
                 style={{
-                  backgroundImage: "url(/textures/plaster-burgundy.jpg)",
-                  backgroundSize: "cover",
+                  backgroundColor: "#1c3225",
                 }}
               >
                 <Dialog.Title className="sr-only">{dict.nav.menu}</Dialog.Title>
                 <Dialog.Description className="sr-only">{dict.nav.openMenu}</Dialog.Description>
                 <div className="relative z-10 flex items-center justify-between px-6 py-5">
-                  <Emblem className="h-6 w-auto text-brass-light" />
-                  <Dialog.Close className="label-xs py-2 text-ivory/80 transition-opacity hover:opacity-100">
+                  <Emblem className="h-8 w-8 text-cream" />
+                  <Dialog.Close className="label-xs py-2 text-cream/80 transition-opacity hover:opacity-100">
                     {dict.nav.close}
                   </Dialog.Close>
                 </div>
@@ -84,20 +83,20 @@ export function MobileMenu({
                       <Link
                         href={href(link.path, locale)}
                         onClick={() => onOpenChange(false)}
-                        className="display-lg block py-2 text-ivory transition-colors duration-500 hover:text-brass-light"
+                        className="display-lg block py-2 text-cream transition-colors duration-500 hover:text-ivory"
                       >
                         {link.label}
                       </Link>
                     </motion.div>
                   ))}
 
-                  <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-ivory/15 pt-6">
+                  <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-cream/15 pt-6">
                     {rituals.map((ritual) => (
                       <Link
                         key={ritual.id}
                         href={href(`/collections/${ritual.id}`, locale)}
                         onClick={() => onOpenChange(false)}
-                        className="label-xs text-ivory/65 transition-colors hover:text-ivory"
+                        className="label-xs text-cream/65 transition-colors hover:text-cream"
                       >
                         {ritual.title[locale]}
                       </Link>
@@ -105,7 +104,7 @@ export function MobileMenu({
                   </div>
                 </nav>
 
-                <div className="relative z-10 flex items-center justify-between gap-4 border-t border-ivory/15 px-6 py-5">
+                <div className="relative z-10 flex items-center justify-between gap-4 border-t border-cream/15 px-6 py-5">
                   <button
                     type="button"
                     onClick={() => {

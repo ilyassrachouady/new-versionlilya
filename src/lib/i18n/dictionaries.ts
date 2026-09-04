@@ -17,7 +17,7 @@ const en = {
     skip: "Skip to content",
   },
   hero: {
-    maison: "Maison Liya Zahra",
+    maison: "Maison Lilya Zahra",
     line: ["Beauty,", "rooted in", "Morocco."],
     sub: "Contemporary beauty rituals shaped by the textures, botanicals and traditions of Morocco.",
     cta: "Explore the house",
@@ -98,7 +98,7 @@ const en = {
   newsletter: {
     eyebrow: "Join the House",
     title: "Join the house.",
-    body: "Stories, rituals and new collections from Maison Liya Zahra.",
+    body: "Stories, rituals and new collections from Maison Lilya Zahra.",
     placeholder: "Email address",
     cta: "Join",
     success: "Welcome to the house.",
@@ -206,7 +206,7 @@ const en = {
   },
   housePage: {
     eyebrow: "The House",
-    title: "The house of Liya Zahra.",
+    title: "The house of Lilya Zahra.",
     standfirst:
       "A Moroccan beauty house, kept small on purpose: one collection, one scent, seven objects.",
     paragraphs: [
@@ -284,7 +284,7 @@ const fr: Dictionary = {
     skip: "Aller au contenu",
   },
   hero: {
-    maison: "Maison Liya Zahra",
+    maison: "Maison Lilya Zahra",
     line: ["La beauté,", "enracinée au", "Maroc."],
     sub: "Des rituels de beauté contemporains façonnés par les matières, les plantes et les traditions du Maroc.",
     cta: "Explorer la maison",
@@ -365,7 +365,7 @@ const fr: Dictionary = {
   newsletter: {
     eyebrow: "Rejoindre la Maison",
     title: "Rejoignez la maison.",
-    body: "Récits, rituels et nouvelles collections de la Maison Liya Zahra.",
+    body: "Récits, rituels et nouvelles collections de la Maison Lilya Zahra.",
     placeholder: "Adresse e-mail",
     cta: "Rejoindre",
     success: "Bienvenue dans la maison.",
@@ -473,7 +473,7 @@ const fr: Dictionary = {
   },
   housePage: {
     eyebrow: "La Maison",
-    title: "La maison Liya Zahra.",
+    title: "La maison Lilya Zahra.",
     standfirst:
       "Une maison de beauté marocaine, volontairement petite : une collection, un parfum, sept objets.",
     paragraphs: [
@@ -548,7 +548,7 @@ const ar: Dictionary = {
     skip: "تخطٍّ إلى المحتوى",
   },
   hero: {
-    maison: "دار ليا زهرة",
+    maison: "دار ليليا زهرة",
     line: ["جمالٌ", "متجذّرٌ في", "المغرب."],
     sub: "طقوس جمالٍ معاصرة، صاغتها موادّ المغرب ونباتاته وتقاليده.",
     cta: "اكتشف الدار",
@@ -629,7 +629,7 @@ const ar: Dictionary = {
   newsletter: {
     eyebrow: "انضمّ إلى الدار",
     title: "انضمّ إلى الدار.",
-    body: "حكاياتٌ وطقوسٌ ومجموعاتٌ جديدة من دار ليا زهرة.",
+    body: "حكاياتٌ وطقوسٌ ومجموعاتٌ جديدة من دار ليليا زهرة.",
     placeholder: "البريد الإلكتروني",
     cta: "انضمام",
     success: "أهلاً بك في الدار.",
@@ -737,7 +737,7 @@ const ar: Dictionary = {
   },
   housePage: {
     eyebrow: "الدار",
-    title: "دار ليا زهرة.",
+    title: "دار ليليا زهرة.",
     standfirst:
       "دار جمالٍ مغربية، بقيت صغيرة عن قصد: مجموعة واحدة، وعطر واحد، وسبعة أشياء.",
     paragraphs: [

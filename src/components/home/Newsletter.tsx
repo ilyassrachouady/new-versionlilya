@@ -37,7 +37,7 @@ export function Newsletter({ dict }: { dict: Dictionary }) {
 
       <div className="shell flex flex-col items-center text-center">
         <Reveal className="flex flex-col items-center gap-4">
-          <Emblem className="h-9 w-auto text-brass-light" />
+          <Emblem className="h-9 w-9 text-brass-light" />
           <span className="eyebrow text-brass-light">{dict.newsletter.eyebrow}</span>
           <BrassRule width="short" tone="ivory" className="w-16" />
         </Reveal>

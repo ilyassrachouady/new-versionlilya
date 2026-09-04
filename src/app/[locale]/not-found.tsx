@@ -10,7 +10,7 @@ export default function LocaleNotFound() {
   return (
     <PageFrame>
       <div className="flex min-h-[70dvh] flex-col items-center justify-center px-6 py-24 text-center">
-        <Emblem className="h-12 w-auto text-brass" />
+        <Emblem className="h-12 w-12 text-brass" />
         <Wordmark size="md" className="mt-8 text-espresso" />
         <h1 className="display-xl mt-10 max-w-lg text-balance text-espresso">
           {dict.common.notFoundTitle}

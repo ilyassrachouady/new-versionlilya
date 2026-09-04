@@ -1,18 +1,14 @@
 /**
- * House-level configuration.
- *
- * NOTE ON THE NAME: the packaging photographed for this build reads
- * "MAISON LILYA ZAHRA". The brief specifies "MAISON LIYA ZAHRA". The brief
- * wins here, but the wordmark is defined once, in this file — change the two
- * strings below and the entire site, metadata and emblem follow.
+ * House-level configuration — aligned to the official lockup.
  */
 export const site = {
-  name: "Maison Liya Zahra",
-  nameParts: { prefix: "Maison", family: "Liya Zahra" },
+  name: "Maison Lilya Zahra",
+  nameParts: { prefix: "Maison", family: "Lilya Zahra" },
   monogram: "LZ",
+  tagline: "For her & him",
   /** Set to your production origin before deploying. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maisonliyazahra.com",
-  email: "bonjour@maisonliyazahra.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maisonlilyazahra.com",
+  email: "bonjour@maisonlilyazahra.com",
   instagram: "https://instagram.com/",
   foundedIn: "Morocco",
 } as const;

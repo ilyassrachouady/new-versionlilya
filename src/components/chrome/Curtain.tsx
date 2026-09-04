@@ -55,9 +55,10 @@ export function Curtain() {
           exit={{ y: "-101%" }}
           transition={{ duration: 0.95, ease: [0.65, 0, 0.35, 1] }}
           style={{
-            backgroundImage: "url(/textures/plaster-burgundy.jpg)",
+            backgroundImage: "url(/textures/plaster-espresso.jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundColor: "#1c3225",
           }}
         >
           <motion.div
@@ -65,7 +66,7 @@ export function Curtain() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Emblem className="h-16 w-auto text-brass-light" />
+            <Emblem className="h-16 w-16 text-cream" />
           </motion.div>
         </motion.div>
       )}
