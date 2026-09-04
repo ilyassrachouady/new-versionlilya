@@ -313,6 +313,136 @@
   }
 }
 
+/* ==========================================================================
+   VERSION TWO — MOROCCAN HAUTE BEAUTÉ
+   A stricter, campaign-led system inspired by lacquer, parchment and brass.
+   ========================================================================== */
+
+@layer components {
+  .v2-home {
+    background: #efe4d7;
+  }
+
+  .v2-shell {
+    width: min(100%, 100rem);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 4.5rem);
+  }
+
+  .v2-display-hero {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.5rem, 8.5vw, 8.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.055em;
+  }
+
+  .v2-display-section {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.7rem, 6.5vw, 6.25rem);
+    line-height: 0.91;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  [lang="ar"] .v2-display-hero,
+  [lang="ar"] .v2-display-section {
+    font-family: var(--font-arabic-display);
+    letter-spacing: 0;
+    line-height: 1.12;
+  }
+
+  .v2-kicker {
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  [lang="ar"] .v2-kicker {
+    font-family: var(--font-arabic-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+
+  .v2-index {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.22em;
+  }
+
+  .v2-text-link {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .v2-text-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0.25rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0.22);
+    transform-origin: var(--rule-origin);
+    transition: transform 650ms var(--ease-maison);
+  }
+
+  .v2-text-link:hover::after,
+  .v2-text-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .v2-product-cream {
+    background:
+      radial-gradient(circle at 50% 14%, rgba(255,255,255,.82), transparent 44%),
+      #d9c2a8;
+  }
+
+  .v2-product-red {
+    background:
+      radial-gradient(circle at 50% 12%, rgba(226,162,115,.22), transparent 46%),
+      #681b16;
+  }
+
+  .v2-product-green {
+    background:
+      radial-gradient(circle at 50% 12%, rgba(209,174,126,.2), transparent 46%),
+      #1c3225;
+  }
+
+  .v2-noise {
+    background-image: url("/textures/grain.png");
+    background-size: 220px 220px;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+
+  .v2-product-rail {
+    scrollbar-width: none;
+  }
+
+  .v2-product-rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .v2-hero .v2-display-hero {
+    font-size: clamp(3.1rem, 15vw, 5.5rem);
+    line-height: 0.84;
+  }
+}
+
 @keyframes emblem-in {
   0% {
     opacity: 0;

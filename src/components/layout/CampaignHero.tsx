@@ -21,8 +21,6 @@ export function CampaignHero({
   texture,
   productSrc,
   productAspect = "tall",
-  productWidth = 200,
-  productHeight = 500,
   crumbs,
   tone = "dark",
 }: {
