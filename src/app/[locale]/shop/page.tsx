@@ -1,13 +1,13 @@
+import { shopProductImages } from "@/lib/shop-product-images";
+import { ShopBanner } from "@/components/shop/ShopBanner";
+import { ShopCatalog } from "@/components/shop/ShopCatalog";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CollectionGrid } from "@/components/commerce/CollectionGrid";
-import { CampaignHero } from "@/components/layout/CampaignHero";
 import { PageFrame } from "@/components/layout/PageFrame";
-import { products } from "@/lib/catalog";
+import { catalogProducts as products, fragrances } from "@/lib/catalog";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { site } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -18,14 +18,10 @@ export async function generateMetadata({
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const titles: Record<Locale, string> = {
-    en: "The Collection",
-    fr: "La Collection",
-    ar: "المجموعة",
-  };
+
   return {
-    title: titles[locale],
-    description: dict.shop.body,
+    title: dict.nav.shop,
+    description: dict.shopPage.body,
     alternates: {
       canonical: `/${locale}/shop`,
       languages: { en: "/en/shop", fr: "/fr/shop", ar: "/ar/shop", "x-default": "/en/shop" },
@@ -42,30 +38,13 @@ export default async function ShopPage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const lead = products[0];
-
-  return (
+return (
     <PageFrame>
-      <CampaignHero
-        locale={locale}
-        eyebrow={dict.shop.eyebrow}
-        title={dict.shop.title}
-        body={dict.shop.body}
-        texture="/editorial/editorial-oil-dark.jpg"
-        productSrc={lead.image}
-        productAspect={lead.aspect}
-        productWidth={lead.imageWidth}
-        productHeight={lead.imageHeight}
-        crumbs={[
-          { name: site.name, path: "/" },
-          { name: dict.shop.title, path: "/shop" },
-        ]}
-      />
-      <section className="surface-grain bg-ivory py-16 sm:py-20 lg:py-24">
-        <div className="shell">
-          <CollectionGrid locale={locale} dict={dict} />
-        </div>
-      </section>
+      <ShopBanner locale={locale} dict={dict} />
+      <ShopCatalog products={products.map(product => ({ ...product, image: shopProductImages[product.slug] ?? product.image })).sort((a, b) => {
+          const types = ["shampoo", "conditioner", "hair-mask", "body-oil", "body-milk", "body-scrub", "shower-gel", "hair-perfume"];
+          return types.indexOf(a.productType) - types.indexOf(b.productType) || Object.keys(fragrances).indexOf(a.fragrance) - Object.keys(fragrances).indexOf(b.fragrance);
+        })} locale={locale} dict={dict} />
     </PageFrame>
   );
 }

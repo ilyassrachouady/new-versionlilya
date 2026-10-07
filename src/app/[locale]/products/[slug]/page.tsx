@@ -9,13 +9,19 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductFold } from "@/components/product/ProductFold";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { QuietLink } from "@/components/ui/Button";
-import { getProduct, products, productsByRitual, relatedProducts } from "@/lib/catalog";
+import { getProduct, catalogProducts as products, productsByRitual, relatedProducts, type Product } from "@/lib/catalog";
 import { getIngredient } from "@/lib/content";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { productSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
+import { shopProductImages } from "@/lib/shop-product-images";
 import { cn } from "@/lib/utils";
+
+function withApprovedPhotography(product: Product): Product {
+  const image = shopProductImages[product.slug];
+  return image ? { ...product, image, gallery: [image] } : product;
+}
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -29,7 +35,8 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const product = getProduct(slug);
+  const catalogProduct = getProduct(slug);
+  const product = catalogProduct && withApprovedPhotography(catalogProduct);
   if (!product) return {};
   return {
     title: `${product.name[locale]} — ${product.scent}`,
@@ -62,12 +69,13 @@ export default async function ProductPage({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const product = getProduct(slug);
+  const catalogProduct = getProduct(slug);
+  const product = catalogProduct && withApprovedPhotography(catalogProduct);
   if (!product) notFound();
   const dict = getDictionary(locale);
-  const sameRitual = productsByRitual(product.ritual).filter((item) => item.slug !== product.slug);
-  const also = relatedProducts(product, 4).filter((item) => item.ritual !== product.ritual);
-  const ingredient = getIngredient(product.ingredients[0]);
+  const sameRitual = productsByRitual(product.ritual).filter((item) => item.slug !== product.slug).map(withApprovedPhotography);
+  const also = relatedProducts(product, 4).filter((item) => item.ritual !== product.ritual).map(withApprovedPhotography);
+  const ingredient = product.ingredients.length ? getIngredient(product.ingredients[0]) : undefined;
 
   return (
     <PageFrame>
@@ -88,7 +96,7 @@ export default async function ProductPage({
         <ProductFold product={product} locale={locale} dict={dict} />
       </section>
 
-      <section className="surface-grain relative overflow-hidden bg-espresso py-20 text-ivory sm:py-28">
+      {product.description[locale] && <section className="surface-grain relative overflow-hidden bg-espresso py-20 text-ivory sm:py-28">
         <div
           aria-hidden
           className="absolute inset-0 opacity-70"
@@ -107,13 +115,13 @@ export default async function ProductPage({
                   "radial-gradient(80% 55% at 50% 0%, rgba(167,122,69,0.28), transparent 62%)",
               }}
             />
-            <div className={cn("absolute", frame[product.aspect])}>
+            <div className={cn("absolute", shopProductImages[product.slug] ? "inset-0" : frame[product.aspect])}>
               <Image
                 src={product.image}
                 alt=""
                 fill
                 sizes="(max-width: 1024px) 90vw, 42vw"
-                className="object-contain drop-shadow-[0_24px_36px_rgba(8,4,4,0.55)]"
+                className={shopProductImages[product.slug] ? "object-cover object-center" : "object-contain drop-shadow-[0_24px_36px_rgba(8,4,4,0.55)]"}
               />
             </div>
           </div>
@@ -125,9 +133,9 @@ export default async function ProductPage({
             </p>
           </div>
         </div>
-      </section>
+      </section>}
 
-      <section className="surface-linen bg-[#eae1d2] py-20 sm:py-28">
+      {ingredient && <section className="bg-[#eae1d2] py-20 sm:py-28">
         <div className="shell grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div>
             <p className="eyebrow text-brass-deep">{dict.product.theIngredient}</p>
@@ -159,7 +167,7 @@ export default async function ProductPage({
             />
           </div>
         </div>
-      </section>
+      </section>}
 
       {(sameRitual.length > 0 || also.length > 0) && (
         <section className="surface-grain bg-ivory py-20 sm:py-28">
@@ -170,7 +178,7 @@ export default async function ProductPage({
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {sameRitual.map((item) => (
                     <li key={item.slug}>
-                      <ProductCard product={item} locale={locale} dict={dict} />
+                      <ProductCard cleanPhotography={Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} />
                     </li>
                   ))}
                 </ul>
@@ -182,7 +190,7 @@ export default async function ProductPage({
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {also.map((item) => (
                     <li key={item.slug}>
-                      <ProductCard product={item} locale={locale} dict={dict} field="sand" />
+                      <ProductCard cleanPhotography={Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} field="sand" />
                     </li>
                   ))}
                 </ul>

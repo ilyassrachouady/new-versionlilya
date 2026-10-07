@@ -45,7 +45,7 @@ export default async function HousePage({
     <PageFrame>
       <section className="surface-grain relative isolate overflow-hidden bg-espresso text-ivory">
         <Image
-          src="/editorial/editorial-oil-dark.jpg"
+          src="/editorial/house-hero-supplied.png"
           alt=""
           fill
           priority
@@ -74,27 +74,19 @@ export default async function HousePage({
 
       <section className="surface-grain bg-ivory py-20 sm:py-28">
         <div className="shell grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <Reveal variant="mask">
-            <figure className="relative aspect-[4/5]">
-              <div className="arch absolute inset-0 overflow-hidden">
+          <div>
+            <figure className="relative aspect-[3/2] overflow-hidden">
                 <Image
-                  src="/editorial/linen.jpg"
+                  src="/editorial/house-story-supplied.png"
                   alt=""
                   fill
+                  unoptimized
+                  loading="eager"
                   sizes="(max-width: 1024px) 90vw, 42vw"
                   className="object-cover"
                 />
-              </div>
-              <Image
-                src="/products/signature-jar.webp"
-                alt=""
-                width={626}
-                height={429}
-                sizes="40vw"
-                className="absolute bottom-[12%] left-1/2 h-auto w-[48%] -translate-x-1/2 object-contain drop-shadow-[0_16px_24px_rgba(60,36,26,0.4)]"
-              />
             </figure>
-          </Reveal>
+          </div>
           <div className="prose-maison max-w-lg">
             {dict.housePage.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>

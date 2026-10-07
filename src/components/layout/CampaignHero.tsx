@@ -23,6 +23,7 @@ export function CampaignHero({
   productAspect = "tall",
   crumbs,
   tone = "dark",
+  compact = false,
 }: {
   locale: Locale;
   eyebrow: string;
@@ -35,6 +36,7 @@ export function CampaignHero({
   productHeight?: number;
   crumbs: Crumb[];
   tone?: "dark" | "burgundy";
+  compact?: boolean;
 }) {
   return (
     <section
@@ -62,14 +64,14 @@ export function CampaignHero({
         }}
       />
 
-      <div className="shell relative grid items-end gap-10 py-16 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-16 lg:py-28">
+      <div className={cn("shell relative grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-16", compact ? "py-10 sm:py-12 lg:py-14" : "py-16 sm:py-20 lg:py-28")}>
         <div>
           <Breadcrumbs trail={crumbs} locale={locale} tone="light" />
           <div className="mt-10 flex items-center gap-3">
             <StarOrnament className="size-3.5 text-brass-light" />
             <span className="eyebrow text-brass-light">{eyebrow}</span>
           </div>
-          <h1 className="display-hero mt-6 text-balance text-ivory">{title}</h1>
+          <h1 className={cn(compact ? "display-xl" : "display-hero", "mt-6 text-balance text-ivory")}>{title}</h1>
           {body && (
             <p className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-pretty text-ivory/70">
               {body}
@@ -79,7 +81,7 @@ export function CampaignHero({
         </div>
 
         {productSrc && (
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[22rem] lg:max-w-none">
+          <div className={cn("relative mx-auto aspect-[4/5] w-full", compact ? "max-w-[14rem] sm:max-w-[18rem]" : "max-w-[22rem] lg:max-w-none")}>
             <div className="arch absolute inset-0 overflow-hidden">
               <Image
                 src={texture}

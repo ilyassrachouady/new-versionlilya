@@ -121,7 +121,13 @@ export function ProductFold({
                     .map((ingredient) => ingredient.origin[locale])
                     .join(" "),
                 },
-              ]}
+              ].filter((item) => {
+                if (item.id === "ritual") return Boolean(product.ritualNote[locale]);
+                if (item.id === "use") return Boolean(product.howToUse[locale]);
+                if (item.id === "ingredients" || item.id === "origin") return named.length > 0;
+                if (item.id === "details") return Boolean(product.sku || product.vessel[locale]);
+                return true;
+              })}
             />
           </div>
         </div>

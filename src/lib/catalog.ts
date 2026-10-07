@@ -1,12 +1,20 @@
+import { importedProducts } from "@/lib/imported-products";
 import type { Locale } from "@/lib/i18n/config";
 
 export type Localized = Record<Locale, string>;
+
+export const fragrances = { "fleur-doranger": "Fleur d'Oranger", "the-vert": "Thé Vert", "ambre-musc": "Ambre Musc", safran: "Safran" } as const;
+export type FragranceId = keyof typeof fragrances;
+export type ProductType = "shampoo" | "conditioner" | "hair-mask" | "body-scrub" | "body-oil" | "body-milk" | "hair-perfume" | "shower-gel" | "face-scrub" | "rose-water";
 
 export type RitualId = "hair" | "body" | "hammam" | "scent";
 
 export type Product = {
   slug: string;
-  sku: string;
+  sku?: string;
+  productType: ProductType;
+  gallery?: string[];
+  imagePresentation?: "cutout" | "photograph";
   /** Cut out from the maison's own studio frames — transparent, on any field. */
   image: string;
   imageWidth: number;
@@ -17,6 +25,7 @@ export type Product = {
   labelFr: string;
   /** Printed on every label of the line. */
   scent: string;
+  fragrance: FragranceId;
   size: string;
   volumeMl: number;
   withArgan: boolean;
@@ -42,13 +51,14 @@ export type IngredientId = "argan" | "orange-blossom";
 
 /* --------------------------------------------------------------------------
  * PRICING
- * Placeholder dirham prices so the storefront is complete end to end.
- * Replace with the maison's real price list before opening the store.
+ * Client-supplied prices for the listed families; existing hair perfume price awaits confirmation.
+ * New products require inspected assets and an authoritative price.
  * ----------------------------------------------------------------------- */
 
 export const products: Product[] = [
   {
     slug: "body-oil-fleur-doranger",
+    productType: "body-oil",
     sku: "MLZ-BO-100",
     image: "/products/body-oil.webp",
     imageWidth: 364,
@@ -60,10 +70,11 @@ export const products: Product[] = [
     },
     labelFr: "Huile Corporelle",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "100 ML",
     volumeMl: 100,
     withArgan: false,
-    priceMAD: 320,
+    priceMAD: 150,
     ritual: "body",
     needs: ["nourish", "glow", "scent"],
     tagline: {
@@ -97,6 +108,7 @@ export const products: Product[] = [
   },
   {
     slug: "hair-perfume-fleur-doranger",
+    productType: "hair-perfume",
     sku: "MLZ-HP-100",
     image: "/products/hair-perfume.webp",
     imageWidth: 363,
@@ -108,6 +120,7 @@ export const products: Product[] = [
     },
     labelFr: "Parfum Pour Cheveux",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "100 ML",
     volumeMl: 100,
     withArgan: false,
@@ -145,6 +158,7 @@ export const products: Product[] = [
   },
   {
     slug: "body-scrub-argan-fleur-doranger",
+    productType: "body-scrub",
     sku: "MLZ-BS-250",
     image: "/products/body-scrub.webp",
     imageWidth: 723,
@@ -156,10 +170,11 @@ export const products: Product[] = [
     },
     labelFr: "Gommage Corporel",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "250 ML",
     volumeMl: 250,
     withArgan: true,
-    priceMAD: 280,
+    priceMAD: 150,
     ritual: "hammam",
     needs: ["cleanse", "glow"],
     tagline: {
@@ -193,6 +208,7 @@ export const products: Product[] = [
   },
   {
     slug: "hair-mask-argan-fleur-doranger",
+    productType: "hair-mask",
     sku: "MLZ-HM-200",
     image: "/products/hair-mask.webp",
     imageWidth: 798,
@@ -204,10 +220,11 @@ export const products: Product[] = [
     },
     labelFr: "Masque Capillaire",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 270,
+    priceMAD: 140,
     ritual: "hair",
     needs: ["nourish", "restore"],
     tagline: {
@@ -241,6 +258,7 @@ export const products: Product[] = [
   },
   {
     slug: "shampoo-argan-fleur-doranger",
+    productType: "shampoo",
     sku: "MLZ-SH-200",
     image: "/products/shampoo.webp",
     imageWidth: 408,
@@ -252,10 +270,11 @@ export const products: Product[] = [
     },
     labelFr: "Shampooing",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 220,
+    priceMAD: 110,
     ritual: "hair",
     needs: ["cleanse"],
     tagline: {
@@ -289,6 +308,7 @@ export const products: Product[] = [
   },
   {
     slug: "conditioner-argan-fleur-doranger",
+    productType: "conditioner",
     sku: "MLZ-CD-200",
     image: "/products/conditioner.webp",
     imageWidth: 410,
@@ -300,10 +320,11 @@ export const products: Product[] = [
     },
     labelFr: "Après-Shampooing",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 220,
+    priceMAD: 120,
     ritual: "hair",
     needs: ["nourish", "restore"],
     tagline: {
@@ -337,6 +358,7 @@ export const products: Product[] = [
   },
   {
     slug: "body-milk-argan-fleur-doranger",
+    productType: "body-milk",
     sku: "MLZ-BM-200",
     image: "/products/body-milk.webp",
     imageWidth: 475,
@@ -348,10 +370,11 @@ export const products: Product[] = [
     },
     labelFr: "Lait Corporel",
     scent: "Fleur d'Oranger",
+    fragrance: "fleur-doranger",
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 260,
+    priceMAD: 130,
     ritual: "body",
     needs: ["hydrate", "scent"],
     tagline: {
@@ -385,23 +408,26 @@ export const products: Product[] = [
   },
 ];
 
+/** Complete sellable catalog. The original products export preserves the homepage cabinet selection. */
+export const catalogProducts: Product[] = [...products, ...importedProducts];
+
 export function getProduct(slug: string): Product | undefined {
-  return products.find((product) => product.slug === slug);
+  return catalogProducts.find((product) => product.slug === slug);
 }
 
 export function productsByRitual(ritual: RitualId): Product[] {
-  return products.filter((product) => product.ritual === ritual);
+  return catalogProducts.filter((product) => product.ritual === ritual);
 }
 
 export function productsByNeed(need: NeedId): Product[] {
-  return products.filter((product) => product.needs.includes(need));
+  return catalogProducts.filter((product) => product.needs.includes(need));
 }
 
 export function relatedProducts(product: Product, count = 4): Product[] {
-  const sameRitual = products.filter(
+  const sameRitual = catalogProducts.filter(
     (item) => item.slug !== product.slug && item.ritual === product.ritual,
   );
-  const rest = products.filter(
+  const rest = catalogProducts.filter(
     (item) => item.slug !== product.slug && item.ritual !== product.ritual,
   );
   return [...sameRitual, ...rest].slice(0, count);

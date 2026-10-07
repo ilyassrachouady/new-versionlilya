@@ -154,6 +154,17 @@ const en = {
     fullList: "The complete ingredient list is printed on the label of every jar and bottle.",
     breadcrumb: "Shop",
   },
+  shopPage: {
+  "title": "The Maison Cabinet",
+  "body": "All objects of the house, gathered in one place.",
+  "catalog": "All objects of the house.",
+  "discover": "Discover the collections",
+  "previous": "Previous",
+  "next": "Next",
+  "page": "Page",
+  "of": "of",
+  "product": "Discover the object"
+},
   shop: {
     eyebrow: "Shop",
     title: "The Collection",
@@ -210,9 +221,8 @@ const en = {
     standfirst:
       "A Moroccan beauty house, kept small on purpose: one collection, one scent, seven objects.",
     paragraphs: [
-      "Fleur d'oranger runs through all of it. Argan oil through most of it. The labels say exactly what is inside — in French, in English, on every jar and bottle.",
-      "The decoration on those labels is old. What we do with it is not. Craft stays in the object. The ritual is given a contemporary order.",
-      "Made for her and for him — not as a split in the catalogue, but as two ways through the same sequence.",
+      "Maison Lilya Zahra is a Moroccan beauty house inspired by the rituals, craftsmanship and rich visual heritage of Morocco. Traditional influences are reimagined through a contemporary approach to beauty, bringing together distinctive objects, thoughtful rituals and a modern expression of Moroccan luxury.",
+      "Through Fleur d’Oranger, Thé Vert, Ambre Musc and Safran, each signature offers its own character while belonging to one Maison. Rooted in Morocco and available worldwide, Lilya Zahra brings its vision of Moroccan beauty from the House to rituals across the world.",
     ],
     contactTitle: "Write to the house",
     contactBody: "We read every letter.",
@@ -421,6 +431,17 @@ const fr: Dictionary = {
     fullList: "La liste complète des ingrédients est imprimée sur l'étiquette de chaque pot et de chaque flacon.",
     breadcrumb: "Boutique",
   },
+  shopPage: {
+  "title": "Le cabinet de la Maison",
+  "body": "Tous les objets de la Maison, réunis en un seul lieu.",
+  "catalog": "Tous les objets de la Maison.",
+  "discover": "Découvrez les collections",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "page": "Page",
+  "of": "sur",
+  "product": "Découvrir l’objet"
+},
   shop: {
     eyebrow: "Boutique",
     title: "La Collection",
@@ -477,9 +498,8 @@ const fr: Dictionary = {
     standfirst:
       "Une maison de beauté marocaine, volontairement petite : une collection, un parfum, sept objets.",
     paragraphs: [
-      "La fleur d'oranger les traverse tous. L'huile d'argan, presque tous. Les étiquettes disent exactement ce qu'elles contiennent — en français, en anglais, sur chaque pot et chaque flacon.",
-      "L'ornement de ces étiquettes est ancien. Ce que nous en faisons ne l'est pas. Le métier reste dans l'objet. Le rituel reçoit un ordre contemporain.",
-      "Faite pour elle et pour lui — non comme une coupure dans le catalogue, mais comme deux façons de traverser la même séquence.",
+      "Maison Lilya Zahra est une maison de beauté marocaine inspirée par les rituels, le savoir-faire artisanal et le riche patrimoine visuel du Maroc. Les influences traditionnelles sont réinterprétées à travers une approche contemporaine de la beauté, réunissant des objets singuliers, des rituels soigneusement pensés et une expression moderne du luxe marocain.",
+      "À travers Fleur d’Oranger, Thé Vert, Ambre Musc et Safran, chaque signature révèle son propre caractère tout en appartenant à une même Maison. Ancrée au Maroc et disponible dans le monde entier, Lilya Zahra fait voyager sa vision de la beauté marocaine, de la Maison aux rituels à travers le monde.",
     ],
     contactTitle: "Écrire à la maison",
     contactBody: "Nous lisons chaque lettre.",
@@ -685,6 +705,17 @@ const ar: Dictionary = {
     fullList: "قائمة المكوّنات الكاملة مطبوعة على ملصق كل مرطبان وكل قارورة.",
     breadcrumb: "المتجر",
   },
+  shopPage: {
+  "title": "خزانة الدار",
+  "body": "جميع قطع الدار، مجتمعة في مكان واحد.",
+  "catalog": "جميع قطع الدار.",
+  "discover": "اكتشف المجموعات",
+  "previous": "السابق",
+  "next": "التالي",
+  "page": "صفحة",
+  "of": "من",
+  "product": "اكتشف القطعة"
+},
   shop: {
     eyebrow: "المتجر",
     title: "المجموعة",
@@ -741,9 +772,8 @@ const ar: Dictionary = {
     standfirst:
       "دار جمالٍ مغربية، بقيت صغيرة عن قصد: مجموعة واحدة، وعطر واحد، وسبعة أشياء.",
     paragraphs: [
-      "يسري زهر البرتقال فيها جميعاً. وزيت الأركان في أكثرها. وتقول الملصقات تماماً ما بداخلها — بالفرنسية والإنجليزية، على كل مرطبان وكل قارورة.",
-      "الزخرفة على تلك الملصقات قديمة. أمّا ما نصنعه بها فليس كذلك. تبقى الحرفة في الشيء، ويُمنَح الطقس ترتيباً معاصراً.",
-      "صُنعت لها وله — لا كقسمة في الكتالوج، بل كطريقين لعبور التسلسل نفسه.",
+      "دار ليليا زهرة هي دار جمال مغربية تستلهم طقوس المغرب وحرفه اليدوية وتراثه البصري الغني. وتعيد صياغة التأثيرات التقليدية برؤية معاصرة للجمال، تجمع بين قطع مميزة وطقوس مدروسة وتعبير حديث عن الفخامة المغربية.",
+      "من خلال زهر البرتقال والشاي الأخضر والعنبر والمسك والزعفران، تحمل كل بصمة عطرية طابعها الخاص، وتنتمي جميعها إلى دار واحدة. بجذورها المغربية وتوفرها في جميع أنحاء العالم، تنقل ليليا زهرة رؤيتها للجمال المغربي من الدار إلى طقوس الجمال حول العالم.",
     ],
     contactTitle: "اكتب إلى الدار",
     contactBody: "نقرأ كل رسالة.",

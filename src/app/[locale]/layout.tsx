@@ -118,7 +118,7 @@ export default async function LocaleLayout({
       : `${bodoni.variable} ${inter.variable}`;
 
   return (
-    <html lang={locale} dir={dir} className={fontVariables} suppressHydrationWarning>
+    <html lang={locale} dir={dir} data-scroll-behavior="smooth" className={fontVariables} suppressHydrationWarning>
       <body className="min-h-dvh antialiased">
         <ArchDefs />
         <StoreProvider>

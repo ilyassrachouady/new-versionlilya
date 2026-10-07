@@ -6,7 +6,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { Price } from "@/components/commerce/Price";
-import { useStore } from "@/components/commerce/store";
+import { ProductQuickAdd } from "@/components/commerce/ProductQuickAdd";
 import type { Product } from "@/lib/catalog";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -30,6 +30,7 @@ export function ProductCard({
   priority = false,
   field = "ivory",
   className,
+  cleanPhotography = false,
 }: {
   product: Product;
   locale: Locale;
@@ -37,8 +38,8 @@ export function ProductCard({
   priority?: boolean;
   field?: "ivory" | "sand" | "espresso";
   className?: string;
+  cleanPhotography?: boolean;
 }) {
-  const { add } = useStore();
   const [hovered, setHovered] = useState(false);
   const reduced = useReducedMotion();
 
@@ -104,7 +105,7 @@ export function ProductCard({
           />
 
           <motion.div
-            className={cn("absolute", frame[product.aspect])}
+            className={cn("absolute", cleanPhotography ? "inset-0" : frame[product.aspect])}
             animate={reduced ? undefined : { y: hovered ? -10 : 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -114,22 +115,11 @@ export function ProductCard({
               fill
               priority={priority}
               sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 24vw"
-              className="object-contain drop-shadow-[0_18px_32px_rgba(20,10,8,0.38)]"
+              className={cleanPhotography ? "object-cover object-center" : "object-contain drop-shadow-[0_18px_32px_rgba(20,10,8,0.38)]"}
             />
           </motion.div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full p-3 opacity-0 transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
-            <button
-              type="button"
-              onClick={(event) => {
-                event.preventDefault();
-                add(product.slug);
-              }}
-              className="h-11 w-full bg-espresso/92 font-sans text-[0.625rem] tracking-[0.24em] text-ivory uppercase backdrop-blur-sm transition-colors duration-500 hover:bg-burgundy"
-            >
-              {dict.product.quickAdd}
-            </button>
-          </div>
+          <ProductQuickAdd slug={product.slug} label={dict.product.quickAdd} />
         </div>
       </Link>
 

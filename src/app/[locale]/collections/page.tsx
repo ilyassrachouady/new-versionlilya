@@ -12,6 +12,7 @@ import { href, isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import styles from "./Collections.module.css";
 
 export async function generateMetadata({
   params,
@@ -37,11 +38,12 @@ export async function generateMetadata({
   };
 }
 
-const frame = {
-  tall: "inset-x-[28%] inset-y-[10%]",
-  column: "inset-x-[24%] inset-y-[8%]",
-  jar: "inset-x-[12%] inset-y-[10%]",
-} as const;
+const campaignImages: Record<string, string> = {
+  hair: "/collections/campaigns/hair.png",
+  body: "/collections/campaigns/body.png",
+  hammam: "/collections/campaigns/hammam.png",
+  scent: "/collections/campaigns/scent.png",
+};
 
 export default async function CollectionsPage({
   params,
@@ -55,7 +57,7 @@ export default async function CollectionsPage({
 
   return (
     <PageFrame>
-      <section className="surface-grain bg-ivory py-16 sm:py-20">
+      <section className="surface-grain bg-ivory py-10 sm:py-14">
         <div className="shell">
           <Breadcrumbs
             locale={locale}
@@ -64,7 +66,7 @@ export default async function CollectionsPage({
               { name: dict.nav.collections, path: "/collections" },
             ]}
           />
-          <div className="mt-12">
+          <div className="mt-7">
             <SectionHeader
               eyebrow={dict.collectionsPage.eyebrow}
               title={dict.collectionsPage.title}
@@ -85,43 +87,17 @@ export default async function CollectionsPage({
                 dark ? "bg-espresso text-ivory" : "bg-ivory text-espresso",
               )}
             >
-              <div className="shell grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-20 lg:py-24">
-                <Reveal
-                  variant="mask"
-                  className={cn(index % 2 === 1 && "lg:order-2")}
-                >
-                  <div className="arch relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={ritual.texture}
-                      alt=""
-                      fill
-                      sizes="(max-width: 1024px) 90vw, 42vw"
-                      className="object-cover"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(23,14,12,0.1), rgba(23,14,12,0.55))",
-                      }}
-                    />
-                    <div className={cn("absolute", frame[ritual.heroAspect])}>
-                      <Image
-                        src={ritual.hero}
-                        alt=""
-                        fill
-                        sizes="(max-width: 1024px) 50vw, 18vw"
-                        className="object-contain drop-shadow-[0_18px_26px_rgba(8,4,4,0.5)]"
-                      />
-                    </div>
+              <div className={cn(styles.row, index % 2 === 1 && styles.reverse)}>
+                <Reveal variant="fade" className={styles.media}>
+                  <div className={styles.photograph}>
+                    <Image src={campaignImages[ritual.id]} alt="" fill sizes="(max-width: 1023px) 100vw, 58vw" quality={92} preload={index === 0} className={styles.image} />
                   </div>
                 </Reveal>
-                <Reveal className={cn(index % 2 === 1 && "lg:order-1")}>
+                <div className={styles.copy}>
                   <p className={cn("eyebrow", dark ? "text-brass-light" : "text-brass-deep")}>
                     {ritual.index}
                   </p>
-                  <h2 className="display-xl mt-5">{ritual.title[locale]}</h2>
+                  <h2 className={"display-xl mt-4 " + styles.title}>{ritual.title[locale]}</h2>
                   <p
                     className={cn(
                       "mt-5 max-w-md text-[1.05rem] leading-relaxed",
@@ -138,7 +114,7 @@ export default async function CollectionsPage({
                       {dict.collectionsPage.enter}
                     </QuietLink>
                   </div>
-                </Reveal>
+                </div>
               </div>
             </section>
           );

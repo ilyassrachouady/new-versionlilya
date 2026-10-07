@@ -9,7 +9,8 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Emblem } from "@/components/brand/Emblem";
 import { useChrome } from "@/components/chrome/chrome-context";
 import { Price } from "@/components/commerce/Price";
-import { products } from "@/lib/catalog";
+import { catalogProducts as products } from "@/lib/catalog";
+import { shopProductImages } from "@/lib/shop-product-images";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -112,15 +113,13 @@ export function SearchDialog({ locale, dict }: { locale: Locale; dict: Dictionar
                               href={href(`/products/${product.slug}`, locale)}
                               className="group flex items-center gap-5 py-4"
                             >
-                              <span className="relative flex h-20 w-14 shrink-0 items-end justify-center bg-ivory-300 pb-2">
+                              <span className="relative h-20 w-14 shrink-0 overflow-hidden bg-ivory-300">
                                 <Image
-                                  src={product.image}
+                                  src={shopProductImages[product.slug] ?? product.image}
                                   alt=""
-                                  width={product.imageWidth}
-                                  height={product.imageHeight}
+                                  fill
                                   sizes="56px"
-                                  className="max-h-[85%] w-auto object-contain"
-                                  style={{ width: "auto", height: "auto" }}
+                                  className="object-cover object-center"
                                 />
                               </span>
                               <span className="min-w-0 flex-1">

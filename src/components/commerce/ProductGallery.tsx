@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import type { Product } from "@/lib/catalog";
+import { shopProductImages } from "@/lib/shop-product-images";
 import { cn } from "@/lib/utils";
 
 const fields = [
@@ -20,8 +21,22 @@ const frame: Record<Product["aspect"], string> = {
 
 export function ProductGallery({ product }: { product: Product }) {
   const [active, setActive] = useState(0);
-  const field = fields[active];
+  const field = fields[active] ?? fields[0];
+  const images = product.gallery;
+  const imageFit = shopProductImages[product.slug] === product.image ? "object-cover object-center" : "object-contain";
   const jar = product.aspect === "jar";
+
+
+  if (images?.length) {
+    return <div>
+      <div className="relative aspect-[4/5] overflow-hidden bg-ivory">
+        <Image src={images[active] ?? images[0]} alt={product.labelFr + " — " + product.scent} fill priority sizes="(max-width: 1024px) 92vw, 46vw" className={imageFit} />
+      </div>
+      {images.length > 1 && <div className="mt-3 grid grid-cols-3 gap-3" role="tablist" aria-label="Views">
+        {images.map((image, index) => <button key={image} type="button" role="tab" aria-selected={active === index} aria-label={String(index + 1)} onClick={() => setActive(index)} className={cn("relative aspect-square overflow-hidden bg-ivory", active === index ? "ring-1 ring-brass ring-offset-2 ring-offset-ivory" : "opacity-80")}><Image src={image} alt="" fill sizes="120px" className="object-contain" /></button>)}
+      </div>}
+    </div>;
+  }
 
   return (
     <div>

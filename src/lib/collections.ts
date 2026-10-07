@@ -1,11 +1,13 @@
-import { getProduct, products, productsByRitual, type Product, type RitualId } from "@/lib/catalog";
+import { getProduct, products, productsByRitual, type Product, type RitualId, type FragranceId } from "@/lib/catalog";
 import { edits, getRitual, rituals, type Edit, type Ritual } from "@/lib/content";
+import { getV2Copy } from "@/lib/v2-content";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 export const ritualIds = ["hair", "body", "hammam", "scent"] as const;
 export const editIds = ["her", "him"] as const;
-export const collectionIds = [...ritualIds, ...editIds] as const;
+export const fragranceIds = ["fleur-doranger"] as const satisfies readonly FragranceId[];
+export const collectionIds = [...ritualIds, ...editIds, ...fragranceIds] as const;
 
 export type CollectionId = (typeof collectionIds)[number];
 
@@ -14,6 +16,18 @@ export function isCollectionId(value: string): value is CollectionId {
 }
 
 export type ResolvedCollection =
+  | {
+      id: FragranceId;
+      kind: "fragrance";
+      eyebrow: string;
+      title: string;
+      line: string;
+      body: string;
+      texture: string;
+      hero: string;
+      heroAspect: Product["aspect"];
+      products: Product[];
+    }
   | {
       id: RitualId;
       kind: "ritual";
@@ -44,6 +58,16 @@ export function resolveCollection(
   locale: Locale,
   dict: Dictionary,
 ): ResolvedCollection {
+  if (id === "fleur-doranger") {
+    const copy = getV2Copy(locale);
+    return {
+      id, kind: "fragrance", eyebrow: copy.hero.eyebrow, title: copy.flower.title,
+      line: copy.flower.note, body: copy.hero.body,
+      texture: "/textures/plaster-terracotta.jpg", hero: "/products/body-oil.webp", heroAspect: "tall",
+      products: products.filter((product) => product.fragrance === id),
+    };
+  }
+
   if (id === "her" || id === "him") {
     const edit = edits.find((item) => item.id === id)!;
     const items = edit.slugs

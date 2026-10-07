@@ -1,0 +1,28 @@
+// Approved generated primary images, scoped to Shop only.
+export const shopProductImages: Record<string, string> = {
+  "shampoo-the-vert": "/products/the-vert/shampoo/shop/02-clean-product.png",
+  "conditioner-the-vert": "/products/the-vert/conditioner/shop/02-clean-product.png",
+  "hair-mask-the-vert": "/products/the-vert/hair-mask/shop/02-clean-product.png",
+  "body-scrub-the-vert": "/products/the-vert/body-scrub/shop/02-clean-product.png",
+  "body-milk-the-vert": "/products/the-vert/body-milk/shop/02-clean-product.png",
+  "shower-gel-the-vert": "/products/the-vert/shower-gel/shop/02-clean-product.png",
+  "shampoo-ambre-musc": "/products/ambre-musc/shampoo/shop/02-clean-product.png",
+  "conditioner-ambre-musc": "/products/ambre-musc/conditioner/shop/02-clean-product.png",
+  "hair-mask-ambre-musc": "/products/ambre-musc/hair-mask/shop/02-clean-product.png",
+  "body-scrub-ambre-musc": "/products/ambre-musc/body-scrub/shop/02-clean-product.png",
+  "body-milk-ambre-musc": "/products/ambre-musc/body-milk/shop/02-clean-product.png",
+  "shower-gel-ambre-musc": "/products/ambre-musc/shower-gel/shop/02-clean-product.png",
+  "shampoo-safran": "/products/safran/shampoo/shop/02-clean-product.png",
+  "conditioner-safran": "/products/safran/conditioner/shop/02-clean-product.png",
+  "hair-mask-safran": "/products/safran/hair-mask/shop/02-clean-product.png",
+  "body-scrub-safran": "/products/safran/body-scrub/shop/02-clean-product.png",
+  "body-milk-safran": "/products/safran/body-milk/shop/02-clean-product.png",
+  "shower-gel-safran": "/products/safran/shower-gel/shop/02-clean-product.png",
+  "body-oil-fleur-doranger": "/products/fleur-doranger/body-oil/shop/02-clean-product.png",
+  "hair-perfume-fleur-doranger": "/products/fleur-doranger/hair-perfume/shop/02-clean-product.png",
+  "body-scrub-argan-fleur-doranger": "/products/fleur-doranger/body-scrub/shop/02-clean-product.png",
+  "hair-mask-argan-fleur-doranger": "/products/fleur-doranger/hair-mask/shop/02-clean-product.png",
+  "shampoo-argan-fleur-doranger": "/products/fleur-doranger/shampoo/shop/02-clean-product.png",
+  "conditioner-argan-fleur-doranger": "/products/fleur-doranger/conditioner/shop/02-clean-product.png",
+  "body-milk-argan-fleur-doranger": "/products/fleur-doranger/body-milk/shop/02-clean-product.png"
+};

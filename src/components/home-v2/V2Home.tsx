@@ -6,25 +6,28 @@ import { Newsletter } from "@/components/home/Newsletter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, QuietLink } from "@/components/ui/Button";
 import { products, signatureSlugs } from "@/lib/catalog";
+import { shopProductImages } from "@/lib/shop-product-images";
 import type { Locale } from "@/lib/i18n/config";
 import { href } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { getV2Copy } from "@/lib/v2-content";
 
+import { V2SignatureShowcase } from "@/components/home-v2/V2SignatureShowcase";
 import { V2Hero } from "@/components/home-v2/V2Hero";
 import { V2ProductRail } from "@/components/home-v2/V2ProductRail";
 
 export function V2Home({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const copy = getV2Copy(locale);
+  const homepageProducts = products.map(product => ({ ...product, image: shopProductImages[product.slug] ?? product.image }));
   const signatures = signatureSlugs
-    .map((slug) => products.find((product) => product.slug === slug))
+    .map((slug) => homepageProducts.find((product) => product.slug === slug))
     .filter((product): product is (typeof products)[number] => Boolean(product));
 
   return (
     <div className="v2-home">
       <V2Hero locale={locale} copy={copy.hero} />
 
-      <V2ProductRail products={products} locale={locale} dict={dict} copy={copy.collection} />
+      <V2ProductRail products={homepageProducts} locale={locale} dict={dict} copy={copy.collection} />
 
       <section id="ritual" className="relative overflow-hidden bg-[#1b3024] py-20 text-[#f0dfce] sm:py-28 lg:py-36">
         <div aria-hidden className="v2-noise absolute inset-0 opacity-20" />
@@ -69,43 +72,7 @@ export function V2Home({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </section>
 
-      <section className="bg-[#f1e7db] text-[#25100e]">
-        <div className="grid min-h-[44rem] lg:grid-cols-2">
-          <div className="relative min-h-[30rem] overflow-hidden lg:min-h-full">
-            <Image
-              src="/campaign-v2/body-oil-ritual.jpg"
-              alt="Body oil and orange blossom ritual in warm Moroccan light."
-              fill
-              quality={90}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="flex items-center px-5 py-16 sm:px-10 sm:py-24 lg:px-[clamp(3rem,8vw,8rem)]">
-            <div className="max-w-xl">
-              <Reveal>
-                <p className="v2-kicker text-[#8b2b23]">{copy.flower.eyebrow}</p>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="v2-display-section mt-5">{copy.flower.title}</h2>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="mt-7 text-[0.96rem] leading-[1.9] text-[#665047]">{copy.flower.body}</p>
-              </Reveal>
-              <Reveal delay={0.14}>
-                <p className="v2-kicker mt-7 border-y border-[#351411]/15 py-4 text-[#856c60]">
-                  {copy.flower.note}
-                </p>
-              </Reveal>
-              <Reveal delay={0.17} className="mt-8">
-                <QuietLink href={href("/ingredients/orange-blossom", locale)}>
-                  {copy.flower.cta}
-                </QuietLink>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
+      <V2SignatureShowcase locale={locale} />
 
       <section className="relative isolate min-h-[88svh] overflow-hidden bg-[#3b110e] text-[#f5e6d6]">
         <Image
@@ -153,6 +120,7 @@ export function V2Home({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             {signatures.map((product, index) => (
               <Reveal as="li" key={product.slug} delay={index * 0.06} className={index === 2 ? "col-span-2 mx-auto w-[62%] lg:col-span-1 lg:w-auto" : ""}>
                 <ProductCard
+                  cleanPhotography
                   product={product}
                   locale={locale}
                   dict={dict}

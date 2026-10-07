@@ -34,6 +34,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const primary = [
     { label: dict.nav.shop, path: "/shop" },
     { label: dict.nav.collections, path: "/collections" },
+    { label: locale === "ar" ? "التوقيعات" : "Signatures", path: "/signature-collections" },
     { label: dict.nav.house, path: "/house" },
   ];
 
@@ -67,7 +68,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           >
             {/* Leading: menu (mobile) / nav (desktop) */}
             <div className="flex min-w-[3.25rem] flex-1 items-center justify-start lg:min-w-0">
-              <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
+              <nav aria-label="Primary" className="hidden items-center gap-2 lg:flex xl:gap-6">
                 {primary.map((item) => (
                   <NavLink
                     key={item.path}

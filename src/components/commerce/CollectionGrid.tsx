@@ -16,11 +16,13 @@ export function CollectionGrid({
   dict,
   items = products,
   filterable = true,
+  cleanPhotography = false,
 }: {
   locale: Locale;
   dict: Dictionary;
   items?: Product[];
   filterable?: boolean;
+  cleanPhotography?: boolean;
 }) {
   const [ritual, setRitual] = useState<RitualId | "all">("all");
 
@@ -69,6 +71,7 @@ export function CollectionGrid({
             <li key={product.slug}>
               <ProductCard
                 product={product}
+                cleanPhotography={cleanPhotography}
                 locale={locale}
                 dict={dict}
                 field={fields[index % fields.length]}
