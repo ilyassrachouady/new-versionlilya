@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { isAllowedAdminEmail } from "@/lib/admin-auth";
 import { supabaseConfigState } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -24,6 +25,14 @@ export async function sendAdminMagicLink(_prev: MagicLinkState, formData: FormDa
     return { sent: false, message: "Supabase n’est pas configuré. Ajoutez les clés dans .env.local." };
   }
 
+  // Keep the response generic so the admin allowlist cannot be enumerated.
+  if (!isAllowedAdminEmail(email)) {
+    return {
+      sent: true,
+      message: "Si cette adresse est autorisée, un lien vient d’être envoyé. Ouvrez-le sur cet appareil.",
+    };
+  }
+
   const origin = requestOrigin(await headers());
   const nextRaw = String(formData.get("next") ?? "/admin");
   const next = nextRaw.startsWith("/admin") && !nextRaw.startsWith("/admin/login") ? nextRaw : "/admin";
@@ -31,12 +40,12 @@ export async function sendAdminMagicLink(_prev: MagicLinkState, formData: FormDa
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      shouldCreateUser: false,
+      shouldCreateUser: true,
       emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}`,
     },
   });
 
-  if (error && !/not allowed|not found|unable to validate|signups not allowed/i.test(error.message)) {
+  if (error) {
     console.error("Admin magic link", error.message);
     return { sent: false, message: "Le lien n’a pas pu être envoyé. Réessayez dans un moment." };
   }
