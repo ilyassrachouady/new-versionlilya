@@ -22,6 +22,11 @@ function allowedEmails() {
     .filter(Boolean);
 }
 
+export function isAllowedAdminEmail(email: string | null | undefined) {
+  const normalized = email?.trim().toLowerCase() ?? "";
+  return normalized.length > 0 && allowedEmails().includes(normalized);
+}
+
 function displayName(user: User) {
   const fromMeta =
     typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name.trim() : "";
@@ -56,8 +61,7 @@ async function provisionOwner(user: User) {
   if (!admin) return null;
 
   const { count } = await admin.from("profiles").select("id", { count: "exact", head: true }).in("role", ["owner", "admin"]);
-  const email = user.email?.toLowerCase() ?? "";
-  const allowlisted = email.length > 0 && allowedEmails().includes(email);
+  const allowlisted = isAllowedAdminEmail(user.email);
   const firstAdmin = (count ?? 0) === 0;
   if (!allowlisted && !firstAdmin) return null;
 
@@ -78,7 +82,11 @@ export async function resolveAdminProfile(user: User): Promise<AdminProfile | nu
   if (existing && isAdminRole(existing.role)) {
     return toProfile(user, existing.full_name, existing.role);
   }
-  if (existing) return null;
+
+  // An allowlisted user may already have a default `staff` profile. In that case,
+  // promote it instead of rejecting access.
+  if (existing && !isAllowedAdminEmail(user.email)) return null;
+
   return provisionOwner(user);
 }
 
