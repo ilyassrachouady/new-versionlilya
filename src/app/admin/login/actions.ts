@@ -1,59 +1,58 @@
 "use server";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { isAllowedAdminEmail } from "@/lib/admin-auth";
+import { isAllowedAdminEmail, resolveAdminProfile } from "@/lib/admin-auth";
 import { supabaseConfigState } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
-export type MagicLinkState = { sent: boolean; message: string } | null;
+export type AdminLoginState = { ok: boolean; message: string } | null;
 
-function requestOrigin(requestHeaders: Headers) {
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const proto =
-    requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
-  return `${proto}://${host}`;
+function safeNext(value: string) {
+  return value.startsWith("/admin") && !value.startsWith("/admin/login") ? value : "/admin";
 }
 
-export async function sendAdminMagicLink(_prev: MagicLinkState, formData: FormData): Promise<MagicLinkState> {
+export async function signInAdmin(_prev: AdminLoginState, formData: FormData): Promise<AdminLoginState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { sent: false, message: "Indiquez une adresse e-mail valide." };
+    return { ok: false, message: "Indiquez une adresse e-mail valide." };
+  }
+  if (!password) {
+    return { ok: false, message: "Indiquez votre mot de passe." };
   }
   if (!supabaseConfigState.publicReady) {
-    return { sent: false, message: "Supabase n’est pas configuré. Ajoutez les clés dans .env.local." };
+    return { ok: false, message: "Supabase n’est pas configuré sur ce serveur." };
   }
 
-  // Keep the response generic so the admin allowlist cannot be enumerated.
+  // Reject every address that is not explicitly present in ADMIN_EMAILS.
+  // Keep the response generic so the allowlist cannot be enumerated.
   if (!isAllowedAdminEmail(email)) {
-    return {
-      sent: true,
-      message: "Si cette adresse est autorisée, un lien vient d’être envoyé. Ouvrez-le sur cet appareil.",
-    };
+    return { ok: false, message: "E-mail ou mot de passe incorrect." };
   }
 
-  const origin = requestOrigin(await headers());
-  const nextRaw = String(formData.get("next") ?? "/admin");
-  const next = nextRaw.startsWith("/admin") && !nextRaw.startsWith("/admin/login") ? nextRaw : "/admin";
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: true,
-      emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}`,
-    },
-  });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error) {
-    console.error("Admin magic link", error.message);
-    return { sent: false, message: "Le lien n’a pas pu être envoyé. Réessayez dans un moment." };
+  if (error || !data.user) {
+    if (error) console.error("Admin password login", error.message);
+    return { ok: false, message: "E-mail ou mot de passe incorrect." };
   }
 
-  return {
-    sent: true,
-    message: "Si cette adresse est autorisée, un lien vient d’être envoyé. Ouvrez-le sur cet appareil.",
-  };
+  // Defence in depth: the authenticated Supabase user must still be allowlisted.
+  if (!isAllowedAdminEmail(data.user.email)) {
+    await supabase.auth.signOut();
+    return { ok: false, message: "E-mail ou mot de passe incorrect." };
+  }
+
+  const profile = await resolveAdminProfile(data.user);
+  if (!profile) {
+    await supabase.auth.signOut();
+    return { ok: false, message: "Ce compte n’a pas accès au bureau." };
+  }
+
+  redirect(safeNext(String(formData.get("next") ?? "/admin")));
 }
 
 export async function signOutAdmin() {
