@@ -58,12 +58,7 @@ async function readProfile(userId: string) {
 
 async function provisionOwner(user: User) {
   const admin = createAdminClient();
-  if (!admin) return null;
-
-  const { count } = await admin.from("profiles").select("id", { count: "exact", head: true }).in("role", ["owner", "admin"]);
-  const allowlisted = isAllowedAdminEmail(user.email);
-  const firstAdmin = (count ?? 0) === 0;
-  if (!allowlisted && !firstAdmin) return null;
+  if (!admin || !isAllowedAdminEmail(user.email)) return null;
 
   const fullName = displayName(user);
   const { error } = await admin.from("profiles").upsert(
@@ -78,15 +73,16 @@ async function provisionOwner(user: User) {
 }
 
 export async function resolveAdminProfile(user: User): Promise<AdminProfile | null> {
+  // ADMIN_EMAILS is the source of truth. Even an existing owner/admin profile is
+  // denied if its authenticated e-mail is no longer on the allowlist.
+  if (!isAllowedAdminEmail(user.email)) return null;
+
   const existing = await readProfile(user.id);
   if (existing && isAdminRole(existing.role)) {
     return toProfile(user, existing.full_name, existing.role);
   }
 
-  // An allowlisted user may already have a default `staff` profile. In that case,
-  // promote it instead of rejecting access.
-  if (existing && !isAllowedAdminEmail(user.email)) return null;
-
+  // Allowlisted users with no profile, or a default staff profile, are promoted.
   return provisionOwner(user);
 }
 
