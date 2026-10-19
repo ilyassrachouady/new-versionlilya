@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 };
 
 const errors: Record<string, string> = {
-  lien: "Ce lien n’est plus valable. Demandez-en un nouveau.",
-  acces: "Cette adresse n’a pas accès au bureau. Écrivez à la Maison.",
+  acces: "Ce compte n’a pas accès au bureau.",
   config: "Supabase n’est pas encore configuré sur ce serveur.",
 };
 
@@ -30,7 +29,7 @@ export default async function AdminLoginPage({
     !supabaseConfigState.publicReady
       ? errors.config
       : erreur
-        ? errors[erreur] ?? errors.lien
+        ? errors[erreur] ?? "La connexion a échoué. Réessayez."
         : undefined;
 
   return (
@@ -38,9 +37,9 @@ export default async function AdminLoginPage({
       <div className="w-full max-w-md border border-[#d8cfc1] bg-[#f9f5ef] px-8 py-10 sm:px-10">
         <Emblem tone="dark" className="h-10 w-10" />
         <p className="admin-label mt-6 text-[#9a7a50]">Bureau de la Maison</p>
-        <h1 className="admin-serif mt-3 text-3xl leading-tight">Un lien, pas un mot de passe.</h1>
+        <h1 className="admin-serif mt-3 text-3xl leading-tight">Connexion administrateur</h1>
         <p className="mt-4 text-sm leading-6 text-[#706b61]">
-          Indiquez l’e-mail autorisé. Nous envoyons un lien unique pour ouvrir le bureau.
+          Connectez-vous avec votre e-mail et votre mot de passe administrateur.
         </p>
         <AdminLoginForm error={error} next={next?.startsWith("/admin") ? next : "/admin"} />
       </div>
