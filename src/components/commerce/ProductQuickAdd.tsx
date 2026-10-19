@@ -3,16 +3,18 @@
 import { useStore } from "@/components/commerce/store";
 
 /** Protected collection interaction: preserve this reveal in unrelated visual changes. */
-export function ProductQuickAdd({ slug, label }: { slug: string; label: string }) {
-  const { add } = useStore();
+export function ProductQuickAdd({ slug, label, soldOutLabel }: { slug: string; label: string; soldOutLabel?: string }) {
+  const { add, catalog } = useStore();
+  const soldOut = catalog.find((item) => item.slug === slug)?.stockQuantity === 0;
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full p-3 opacity-0 transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none">
+    <div className="relative">
       <button
         type="button"
-        onClick={(event) => { event.preventDefault(); add(slug); }}
-        className="h-11 w-full bg-espresso/92 font-sans text-[0.625rem] tracking-[0.24em] text-ivory uppercase backdrop-blur-sm transition-colors duration-500 hover:bg-burgundy"
+        disabled={soldOut}
+        onClick={(event) => { event.preventDefault(); if (!soldOut) add(slug); }}
+        className="h-11 w-full bg-espresso/92 font-sans text-[0.625rem] tracking-[0.24em] text-ivory uppercase transition-colors duration-300 hover:bg-burgundy disabled:opacity-50"
       >
-        {label}
+        {soldOut ? soldOutLabel ?? label : label}
       </button>
     </div>
   );

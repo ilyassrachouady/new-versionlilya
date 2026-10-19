@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { Globe2, MapPin, RotateCcw } from "lucide-react";
+
 import { AddToBag } from "@/components/commerce/AddToBag";
 import { Price } from "@/components/commerce/Price";
 import { ProductGallery } from "@/components/commerce/ProductGallery";
@@ -10,6 +13,7 @@ import { site } from "@/lib/site";
 import type { Product } from "@/lib/catalog";
 import { getIngredient } from "@/lib/content";
 import type { Locale } from "@/lib/i18n/config";
+import { href } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 export function ProductFold({
@@ -31,43 +35,67 @@ export function ProductFold({
         <div>
           <p className="eyebrow text-brass-deep">{site.name}</p>
           <h1 className="display-xl mt-5 text-espresso">{product.name[locale]}</h1>
-          <p className="font-display mt-2 text-[1.2rem] text-ink-faint italic">
-            {product.labelFr}
-          </p>
-          <p className="label-xs mt-4 text-burgundy">{product.scent}</p>
+          <div className="mt-3 flex items-end justify-between gap-6 border-b border-brass/20 pb-6">
+            <div>
+              <p className="font-display text-[1.2rem] text-ink-faint italic">
+                {product.labelFr}
+              </p>
+              <p className="label-xs mt-3 text-burgundy">{product.scent}</p>
+            </div>
+            <Price
+              amountMAD={product.priceMAD}
+              locale={locale}
+              className="shrink-0 font-display text-[1.85rem] leading-none text-burgundy"
+            />
+          </div>
 
-          <p className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-pretty text-ink-muted">
+          <p className="mt-7 max-w-md font-display text-[1.2rem] leading-[1.45] text-pretty text-espresso">
             {product.tagline[locale]}
           </p>
           <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-pretty text-ink-muted">
             {product.description[locale]}
           </p>
 
-          <div className="mt-10 flex items-end justify-between gap-6 border-t border-brass/25 pt-7">
+          <div className="mt-8 flex items-end justify-between gap-6 border-t border-brass/20 pt-6">
             <div>
               <p className="label-xs text-ink-faint">{dict.product.size}</p>
               <p className="mt-1.5 text-[0.95rem] text-espresso">{product.size}</p>
             </div>
-            <Price
-              amountMAD={product.priceMAD}
-              locale={locale}
-              className="font-display text-[1.85rem] leading-none text-burgundy"
-            />
+            {product.withArgan && (
+              <p className="label-xs text-end text-brass-deep">{dict.product.withArgan}</p>
+            )}
           </div>
 
-          {product.withArgan && (
-            <p className="label-xs mt-5 text-brass-deep">{dict.product.withArgan}</p>
-          )}
-
-          <div id="add-to-bag" className="mt-8">
+          <div id="add-to-bag" className="mt-7 scroll-mt-32">
             <AddToBag slug={product.slug} dict={dict} />
           </div>
           <WishlistButton slug={product.slug} dict={dict} className="mt-4" />
-          <p className="mt-6 text-[0.8rem] leading-relaxed text-ink-faint">
-            {dict.product.shipping}
-          </p>
 
-          <div className="mt-12">
+          <div className="mt-7 grid grid-cols-3 border-y border-espresso/10" aria-label={dict.product.purchaseNotes}>
+            <div className="flex min-w-0 flex-col items-start gap-2 border-e border-espresso/10 px-2 py-4 sm:px-3">
+              <MapPin aria-hidden className="size-4 text-brass-deep" strokeWidth={1.35} />
+              <span className="text-[0.64rem] leading-[1.45] tracking-[0.08em] text-ink-muted uppercase sm:text-[0.7rem]">
+                {dict.product.madeIn}
+              </span>
+            </div>
+            <div className="flex min-w-0 flex-col items-start gap-2 border-e border-espresso/10 px-2 py-4 sm:px-3">
+              <Globe2 aria-hidden className="size-4 text-brass-deep" strokeWidth={1.35} />
+              <span className="text-[0.64rem] leading-[1.45] tracking-[0.08em] text-ink-muted uppercase sm:text-[0.7rem]">
+                {dict.product.worldwideDelivery}
+              </span>
+            </div>
+            <Link
+              href={href("/house#returns", locale)}
+              className="group flex min-w-0 flex-col items-start gap-2 px-2 py-4 sm:px-3"
+            >
+              <RotateCcw aria-hidden className="size-4 text-brass-deep" strokeWidth={1.35} />
+              <span className="text-[0.64rem] leading-[1.45] tracking-[0.08em] text-ink-muted uppercase underline-offset-4 group-hover:underline sm:text-[0.7rem]">
+                {dict.product.returns}
+              </span>
+            </Link>
+          </div>
+
+          <div className="mt-9">
             <Accordion
               defaultValue={["ritual"]}
               items={[

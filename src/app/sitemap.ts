@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
-import { products } from "@/lib/catalog";
+import { catalogProducts as products } from "@/lib/catalog";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
 import { collectionIds } from "@/lib/collections";
 import { articles, ingredients } from "@/lib/content";
 import { locales } from "@/lib/i18n/config";
@@ -19,10 +20,15 @@ const paths = [
   ...ingredients.map((ingredient) => `/ingredients/${ingredient.id}`),
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const live = await getStorefrontProducts();
+  const extra = live
+    .filter((product) => !products.some((item) => item.slug === product.slug))
+    .map((product) => `/products/${product.slug}`);
+  const allPaths = [...paths, ...extra];
   const lastModified = new Date();
   return locales.flatMap((locale) =>
-    paths.map((path) => ({
+    allPaths.map((path) => ({
       url: `${site.url}/${locale}${path}`,
       lastModified,
       alternates: {

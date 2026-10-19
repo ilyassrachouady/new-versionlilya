@@ -36,7 +36,7 @@ export function Curtain() {
       } catch {
         /* ignore */
       }
-    }, 1250);
+    }, 720);
 
     return () => {
       window.clearTimeout(show);
@@ -53,7 +53,7 @@ export function Curtain() {
           className="fixed inset-0 z-[999] flex items-center justify-center bg-burgundy"
           initial={{ y: 0 }}
           exit={{ y: "-101%" }}
-          transition={{ duration: 0.95, ease: [0.65, 0, 0.35, 1] }}
+          transition={{ duration: 0.62, ease: [0.65, 0, 0.35, 1] }}
           style={{
             backgroundImage: "url(/textures/plaster-espresso.jpg)",
             backgroundSize: "cover",
@@ -64,7 +64,7 @@ export function Curtain() {
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <Emblem tone="auto" className="h-16 w-16" />
           </motion.div>

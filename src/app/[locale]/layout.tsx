@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { ViewTransition } from "react";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Amiri, Bodoni_Moda, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 
@@ -8,14 +10,14 @@ import { ArchDefs } from "@/components/brand/ArchDefs";
 import { Footer } from "@/components/chrome/Footer";
 import { Header } from "@/components/chrome/Header";
 import { ChromeProvider } from "@/components/chrome/chrome-context";
-import { CartDrawer } from "@/components/commerce/CartDrawer";
 import { StoreProvider } from "@/components/commerce/store";
 import { Curtain } from "@/components/chrome/Curtain";
-import { SearchDialog } from "@/components/chrome/SearchDialog";
+import { RouteProgress } from "@/components/chrome/RouteProgress";
 import { Toast } from "@/components/chrome/Toast";
 import { isLocale, localeMeta, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
+import { forStoreClient, getStorefrontProducts } from "@/lib/storefront-catalog";
 
 const bodoni = Bodoni_Moda({
   subsets: ["latin"],
@@ -44,6 +46,13 @@ const plexArabic = IBM_Plex_Sans_Arabic({
   display: "swap",
   variable: "--font-plex-arabic",
 });
+
+const CartDrawer = dynamic(() =>
+  import("@/components/commerce/CartDrawer").then((mod) => mod.CartDrawer),
+);
+const SearchDialog = dynamic(() =>
+  import("@/components/chrome/SearchDialog").then((mod) => mod.SearchDialog),
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -111,6 +120,7 @@ export default async function LocaleLayout({
   const locale = raw as Locale;
   const dict = getDictionary(locale);
   const { dir } = localeMeta[locale];
+  const catalog = (await getStorefrontProducts()).map(forStoreClient);
 
   const fontVariables =
     locale === "ar"
@@ -118,21 +128,22 @@ export default async function LocaleLayout({
       : `${bodoni.variable} ${inter.variable}`;
 
   return (
-    <html lang={locale} dir={dir} data-scroll-behavior="smooth" className={fontVariables} suppressHydrationWarning>
-      <body className="min-h-dvh antialiased">
+    <div lang={locale} dir={dir} className={`${fontVariables} storefront-fonts min-h-dvh antialiased`}>
         <ArchDefs />
-        <StoreProvider>
+        <StoreProvider catalog={catalog}>
           <ChromeProvider>
             <Curtain />
+            <RouteProgress />
             <Header locale={locale} dict={dict} />
-            <main id="main">{children}</main>
+            <main id="main">
+              <ViewTransition>{children}</ViewTransition>
+            </main>
             <Footer locale={locale} dict={dict} />
             <CartDrawer locale={locale} dict={dict} />
-            <SearchDialog locale={locale} dict={dict} />
+            <SearchDialog locale={locale} dict={dict} catalog={catalog} />
             <Toast dict={dict} />
           </ChromeProvider>
         </StoreProvider>
-      </body>
-    </html>
+    </div>
   );
 }

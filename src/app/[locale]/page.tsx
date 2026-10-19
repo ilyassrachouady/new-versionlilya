@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { organisationSchema, websiteSchema } from "@/lib/schema";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
 
 export default async function HomePage({
   params,
@@ -16,12 +17,13 @@ export default async function HomePage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
+  const catalog = await getStorefrontProducts();
 
   return (
     <>
       <OverlayHeader />
       <JsonLd data={[organisationSchema(locale), websiteSchema(locale)]} />
-      <V2Home locale={locale} dict={dict} />
+      <V2Home locale={locale} dict={dict} products={catalog} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { getProduct, products, productsByRitual, type Product, type RitualId, type FragranceId } from "@/lib/catalog";
+import { catalogProducts, getProduct, products, type Product, type RitualId, type FragranceId } from "@/lib/catalog";
 import { edits, getRitual, rituals, type Edit, type Ritual } from "@/lib/content";
 import { getV2Copy } from "@/lib/v2-content";
 import type { Locale } from "@/lib/i18n/config";
@@ -57,6 +57,7 @@ export function resolveCollection(
   id: CollectionId,
   locale: Locale,
   dict: Dictionary,
+  catalog: Product[] = catalogProducts,
 ): ResolvedCollection {
   if (id === "fleur-doranger") {
     const copy = getV2Copy(locale);
@@ -64,14 +65,14 @@ export function resolveCollection(
       id, kind: "fragrance", eyebrow: copy.hero.eyebrow, title: copy.flower.title,
       line: copy.flower.note, body: copy.hero.body,
       texture: "/textures/plaster-terracotta.jpg", hero: "/products/body-oil.webp", heroAspect: "tall",
-      products: products.filter((product) => product.fragrance === id),
+      products: catalog.filter((product) => product.fragrance === id),
     };
   }
 
   if (id === "her" || id === "him") {
     const edit = edits.find((item) => item.id === id)!;
     const items = edit.slugs
-      .map((slug) => getProduct(slug))
+      .map((slug) => catalog.find((product) => product.slug === slug) ?? getProduct(slug))
       .filter((product): product is Product => product !== undefined);
     return {
       id,
@@ -98,12 +99,12 @@ export function resolveCollection(
     texture: ritual.texture,
     hero: ritual.hero,
     heroAspect: ritual.heroAspect,
-    products: productsByRitual(id),
+    products: catalog.filter((product) => product.ritual === id),
   };
 }
 
-export function allCollections(locale: Locale, dict: Dictionary): ResolvedCollection[] {
-  return collectionIds.map((id) => resolveCollection(id, locale, dict));
+export function allCollections(locale: Locale, dict: Dictionary, catalog: Product[] = catalogProducts): ResolvedCollection[] {
+  return collectionIds.map((id) => resolveCollection(id, locale, dict, catalog));
 }
 
 export { products, rituals, edits };

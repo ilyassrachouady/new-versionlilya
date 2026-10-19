@@ -10,13 +10,18 @@ import {
   type ReactNode,
 } from "react";
 
-import { getProduct, type Product } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 import { baseCurrency, enabledCurrencies, type Currency } from "@/lib/currency";
 
 type CartLine = { slug: string; quantity: number };
 type Toast = { id: number; message: string };
 
+function lookup(catalog: Product[], slug: string) {
+  return catalog.find((product) => product.slug === slug || product.sku === slug);
+}
+
 type StoreValue = {
+  catalog: Product[];
   lines: CartLine[];
   items: { product: Product; quantity: number }[];
   count: number;
@@ -36,6 +41,7 @@ type StoreValue = {
   toggleWish: (slug: string) => void;
   toast: Toast | null;
   dismissToast: () => void;
+  clear: () => void;
 };
 
 const StoreContext = createContext<StoreValue | null>(null);
@@ -44,7 +50,7 @@ const CART_KEY = "mlz.bag.v1";
 const CURRENCY_KEY = "mlz.currency.v1";
 const WISH_KEY = "mlz.wish.v1";
 
-export function StoreProvider({ children }: { children: ReactNode }) {
+export function StoreProvider({ children, catalog }: { children: ReactNode; catalog: Product[] }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [isOpen, setOpen] = useState(false);
   const [currency, setCurrencyState] = useState<Currency>(baseCurrency);
@@ -68,7 +74,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 typeof line === "object" &&
                 line !== null &&
                 typeof (line as CartLine).slug === "string" &&
-                Boolean(getProduct((line as CartLine).slug)),
+                Boolean(lookup(catalog, (line as CartLine).slug)),
             )
             .map((line) => ({
               slug: line.slug,
@@ -87,7 +93,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const parsed: unknown = JSON.parse(storedWish);
         if (Array.isArray(parsed)) {
           nextWish = parsed.filter(
-            (slug): slug is string => typeof slug === "string" && Boolean(getProduct(slug)),
+            (slug): slug is string => typeof slug === "string" && Boolean(lookup(catalog, slug)),
           );
         }
       }
@@ -101,7 +107,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     } catch {
       window.setTimeout(() => setHydrated(true), 0);
     }
-  }, []);
+  }, [catalog]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -131,7 +137,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const add = useCallback(
     (slug: string, quantity = 1) => {
-      if (!getProduct(slug)) return;
+      if (!lookup(catalog, slug)) return;
       setLines((current) => {
         const existing = current.find((line) => line.slug === slug);
         if (existing) {
@@ -143,7 +149,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       });
       setOpen(true);
     },
-    [],
+    [catalog],
   );
 
   const setQuantity = useCallback((slug: string, quantity: number) => {
@@ -158,6 +164,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setLines((current) => current.filter((line) => line.slug !== slug));
   }, []);
 
+  const clear = useCallback(() => setLines([]), []);
+
   const setCurrency = useCallback((next: Currency) => {
     setCurrencyState(next);
     try {
@@ -169,7 +177,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const toggleWish = useCallback(
     (slug: string) => {
-      if (!getProduct(slug)) return;
+      if (!lookup(catalog, slug)) return;
       setWishlist((current) => {
         const next = current.includes(slug)
           ? current.filter((item) => item !== slug)
@@ -180,7 +188,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         return next;
       });
     },
-    [showToast],
+    [catalog, showToast],
   );
 
   const isWished = useCallback((slug: string) => wishlist.includes(slug), [wishlist]);
@@ -188,16 +196,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const value = useMemo<StoreValue>(() => {
     const items = lines
       .map((line) => {
-        const product = getProduct(line.slug);
+        const product = lookup(catalog, line.slug);
         return product ? { product, quantity: line.quantity } : null;
       })
       .filter((item): item is { product: Product; quantity: number } => item !== null);
 
     const wished = wishlist
-      .map((slug) => getProduct(slug))
+      .map((slug) => lookup(catalog, slug))
       .filter((product): product is Product => product !== undefined);
 
     return {
+      catalog,
       lines,
       items,
       count: items.reduce((total, item) => total + item.quantity, 0),
@@ -220,8 +229,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       toggleWish,
       toast,
       dismissToast: () => setToast(null),
+      clear,
     };
   }, [
+    catalog,
     lines,
     add,
     setQuantity,
@@ -234,6 +245,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     isWished,
     toggleWish,
     toast,
+    clear,
   ]);
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

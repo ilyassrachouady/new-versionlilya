@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { defaultLocale, locales } from "@/lib/i18n/config";
+import { copyCookies, updateSupabaseSession } from "@/lib/supabase/middleware";
 
 const PUBLIC_FILE = /\.[^/]+$/;
 
@@ -24,7 +25,7 @@ function detectLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (
@@ -33,6 +34,24 @@ export function middleware(request: NextRequest) {
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
+  }
+
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
+  const isAuth = pathname.startsWith("/auth/");
+  const isAdminLogin = pathname === "/admin/login";
+
+  if (isAdmin || isAuth) {
+    const { response, user } = await updateSupabaseSession(request);
+
+    if (isAdmin && !isAdminLogin && !user) {
+      const login = request.nextUrl.clone();
+      login.pathname = "/admin/login";
+      login.search = "";
+      if (pathname !== "/admin") login.searchParams.set("next", pathname);
+      return copyCookies(response, NextResponse.redirect(login));
+    }
+
+    return response;
   }
 
   const hasLocale = locales.some(

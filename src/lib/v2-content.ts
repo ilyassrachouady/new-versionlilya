@@ -111,17 +111,17 @@ const copy: Record<Locale, V2Copy> = {
   },
   fr: {
     hero: {
-      eyebrow: "La collection Fleur d'Oranger",
+      eyebrow: "",
       title: ["Le rituel", "commence ici."],
-      body: "Sept objets pour les cheveux et le corps, composés au Maroc avec l'huile d'argan et la note inimitable de la fleur d'oranger.",
+      body: "Quand la haute cosmétique marocaine rencontre la pureté absolue. Offrez à votre peau des rituels 100% bio, naturels et infusés d'argan.",
       cta: "Voir la collection",
       secondary: "Composer votre rituel",
       note: "Fabriqué au Maroc · Livraison internationale",
     },
     collection: {
       eyebrow: "Le cabinet · 01—07",
-      title: "Sept objets. Une signature.",
-      body: "Verre ambré, détails laiton et un seul parfum, du premier lavage au dernier voile parfumé.",
+      title: "Notre rituel à la Fleur d'Oranger",
+      body: "Une gamme 100 % bio et naturelle, née du mariage parfait entre l'huile d'argan et la fleur d'oranger. Laissez-vous envoûter par une routine sensorielle unique aux notes douces et enveloppantes.",
       shop: "Découvrir l'objet",
       drag: "Balayez pour explorer",
     },

@@ -99,7 +99,7 @@
     }
   }
 
-  body {
+body {
     background-color: var(--color-ivory);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -107,6 +107,57 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
+  }
+
+  .admin-root {
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    --admin-forest: #173d2c;
+    --admin-forest-deep: #0f2c20;
+    --admin-cream: #f4e6d5;
+    --admin-ivory: #f8f3eb;
+    --admin-brass: #a98558;
+    --admin-ink: #173326;
+  }
+
+  .admin-root h1,
+  .admin-root h2,
+  .admin-root h3 {
+    font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  }
+
+  .admin-root input,
+  .admin-root select,
+  .admin-root textarea {
+    accent-color: var(--admin-forest);
+  }
+
+  .admin-root input:focus,
+  .admin-root select:focus,
+  .admin-root textarea:focus {
+    border-color: var(--admin-brass) !important;
+  }
+
+  .admin-serif {
+    font-family: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  }
+
+  .admin-label {
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  /* Font variables live on the localized layout wrapper, so redefine the
+     semantic families in the same scope instead of resolving them at :root. */
+  .storefront-fonts {
+    --font-display: var(--font-bodoni), "Bodoni Moda", "Didot", Georgia, serif;
+    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-arabic-display: var(--font-amiri), "Amiri", serif;
+    --font-arabic-sans: var(--font-plex-arabic), var(--font-inter), sans-serif;
+    font-family: var(--font-sans);
   }
 
   /* Arabic swaps the whole type system, not just the direction. */
@@ -438,8 +489,13 @@
 
 @media (max-width: 47.99rem) {
   .v2-hero .v2-display-hero {
-    font-size: clamp(3.1rem, 15vw, 5.5rem);
-    line-height: 0.84;
+    font-size: clamp(2.9rem, 13.5vw, 4.45rem);
+    line-height: 0.9;
+  }
+
+  [lang="ar"] .v2-hero .v2-display-hero {
+    font-size: clamp(3rem, 13vw, 4.25rem);
+    line-height: 1.05;
   }
 }
 
@@ -469,4 +525,45 @@
   to {
     transform: translate3d(-50%, 0, 0);
   }
+}
+
+@keyframes route-progress {
+  0% {
+    transform: scaleX(0.08);
+  }
+  55% {
+    transform: scaleX(0.72);
+  }
+  100% {
+    transform: scaleX(0.92);
+  }
+}
+
+.animate-route-progress {
+  animation: route-progress 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(site-header),
+::view-transition-group(admin-header),
+::view-transition-group(admin-sidebar) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(admin-header),
+::view-transition-old(admin-sidebar) {
+  display: none;
+}
+
+::view-transition-new(site-header),
+::view-transition-new(admin-header),
+::view-transition-new(admin-sidebar) {
+  animation: none;
 }

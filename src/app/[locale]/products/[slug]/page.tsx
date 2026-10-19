@@ -9,7 +9,8 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductFold } from "@/components/product/ProductFold";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { QuietLink } from "@/components/ui/Button";
-import { getProduct, catalogProducts as products, productsByRitual, relatedProducts, type Product } from "@/lib/catalog";
+import { catalogProducts as products, type Product } from "@/lib/catalog";
+import { getStorefrontProduct, getStorefrontProducts } from "@/lib/storefront-catalog";
 import { getIngredient } from "@/lib/content";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -20,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 function withApprovedPhotography(product: Product): Product {
   const image = shopProductImages[product.slug];
-  return image ? { ...product, image, gallery: [image] } : product;
+  return image ? { ...product, image, gallery: [...new Set([image, ...(product.gallery ?? []), product.image])] } : product;
 }
 
 export function generateStaticParams() {
@@ -35,7 +36,7 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const catalogProduct = getProduct(slug);
+  const catalogProduct = await getStorefrontProduct(slug);
   const product = catalogProduct && withApprovedPhotography(catalogProduct);
   if (!product) return {};
   return {
@@ -69,12 +70,20 @@ export default async function ProductPage({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const catalogProduct = getProduct(slug);
+  const catalogProduct = await getStorefrontProduct(slug);
   const product = catalogProduct && withApprovedPhotography(catalogProduct);
   if (!product) notFound();
   const dict = getDictionary(locale);
-  const sameRitual = productsByRitual(product.ritual).filter((item) => item.slug !== product.slug).map(withApprovedPhotography);
-  const also = relatedProducts(product, 4).filter((item) => item.ritual !== product.ritual).map(withApprovedPhotography);
+  const live = await getStorefrontProducts();
+  const sameRitual = live
+    .filter((item) => item.slug !== product.slug && item.ritual === product.ritual)
+    .sort((a, b) => Number(b.fragrance === product.fragrance) - Number(a.fragrance === product.fragrance))
+    .slice(0, 4)
+    .map(withApprovedPhotography);
+  const also = live
+    .filter((item) => item.slug !== product.slug && item.ritual !== product.ritual && !sameRitual.some((ritualItem) => ritualItem.slug === item.slug))
+    .slice(0, 4)
+    .map(withApprovedPhotography);
   const ingredient = product.ingredients.length ? getIngredient(product.ingredients[0]) : undefined;
 
   return (
@@ -175,6 +184,9 @@ export default async function ProductPage({
             {sameRitual.length > 0 && (
               <>
                 <h2 className="display-lg text-espresso">{dict.product.completeRitual}</h2>
+                <p className="mt-4 max-w-lg text-[0.9rem] leading-relaxed text-ink-muted">
+                  {dict.product.completeRitualIntro}
+                </p>
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {sameRitual.map((item) => (
                     <li key={item.slug}>
@@ -187,6 +199,9 @@ export default async function ProductPage({
             {also.length > 0 && (
               <div className={sameRitual.length > 0 ? "mt-20" : ""}>
                 <h2 className="display-lg text-espresso">{dict.product.alsoLike}</h2>
+                <p className="mt-4 max-w-lg text-[0.9rem] leading-relaxed text-ink-muted">
+                  {dict.product.alsoLikeIntro}
+                </p>
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {also.map((item) => (
                     <li key={item.slug}>

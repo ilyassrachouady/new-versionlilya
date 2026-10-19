@@ -28,7 +28,7 @@ export function Accordion({
           <AccordionPrimitive.Header>
             <AccordionPrimitive.Trigger
               className={cn(
-                "group flex w-full items-center justify-between gap-6 py-5 text-start",
+                "group flex min-h-16 w-full items-center justify-between gap-6 py-5 text-start",
                 tone === "dark" ? "text-espresso" : "text-ivory",
               )}
             >
@@ -48,7 +48,7 @@ export function Accordion({
           <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-none">
             <div
               className={cn(
-                "pb-6 text-[0.95rem] leading-relaxed text-pretty",
+                "max-w-xl pb-7 pe-8 text-[0.95rem] leading-[1.75] text-pretty",
                 tone === "dark" ? "text-ink-muted" : "text-ivory/70",
               )}
             >

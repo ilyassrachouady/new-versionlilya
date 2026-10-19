@@ -33,7 +33,7 @@ export function Reveal({
         initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0.4 }}
         whileInView={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
         viewport={{ once: true, margin: "-8%" }}
-        transition={{ duration: 1.05, delay, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </Component>
@@ -43,10 +43,10 @@ export function Reveal({
   return (
     <Component
       className={className}
-      initial={{ opacity: 0, y: variant === "rise" ? 18 : 0 }}
+      initial={{ opacity: 0, y: variant === "rise" ? 10 : 0 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-12%" }}
+      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </Component>

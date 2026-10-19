@@ -8,6 +8,7 @@ import { CollectionGrid } from "@/components/commerce/CollectionGrid";
 import { CampaignHero } from "@/components/layout/CampaignHero";
 import { PageFrame } from "@/components/layout/PageFrame";
 import { isCollectionId, resolveCollection, collectionIds } from "@/lib/collections";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { shopProductImages } from "@/lib/shop-product-images";
@@ -26,7 +27,8 @@ export async function generateMetadata({
   if (!isLocale(raw) || !isCollectionId(id)) return {};
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const collection = resolveCollection(id, locale, dict);
+  const catalog = await getStorefrontProducts();
+  const collection = resolveCollection(id, locale, dict, catalog);
   return {
     title: collection.title,
     description: collection.body,
@@ -48,7 +50,8 @@ export default async function CollectionPage({
   if (!isLocale(raw) || !isCollectionId(id)) notFound();
   const locale = raw as Locale;
   const dict = getDictionary(locale);
-  const collection = resolveCollection(id, locale, dict);
+  const catalog = await getStorefrontProducts();
+  const collection = resolveCollection(id, locale, dict, catalog);
   const lead = collection.products[0];
 
   return (

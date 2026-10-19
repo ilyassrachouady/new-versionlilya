@@ -11,7 +11,9 @@ export type RitualId = "hair" | "body" | "hammam" | "scent";
 
 export type Product = {
   slug: string;
+  id?: string;
   sku?: string;
+  stockQuantity?: number;
   productType: ProductType;
   gallery?: string[];
   imagePresentation?: "cutout" | "photograph";

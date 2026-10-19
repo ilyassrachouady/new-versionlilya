@@ -1,7 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
-
 import { CabinetProductCard } from "@/components/commerce/CabinetProductCard";
 import type { Product } from "@/lib/catalog";
 import type { Locale } from "@/lib/i18n/config";
@@ -19,8 +15,6 @@ export function V2ProductRail({
   dict: Dictionary;
   copy: V2Copy["collection"];
 }) {
-  const reduced = useReducedMotion();
-
   return (
     <section id="cabinet" className="overflow-hidden bg-[#efe4d7] py-20 text-[#25100e] sm:py-28 lg:py-36">
       <div className="v2-shell">
@@ -41,16 +35,12 @@ export function V2ProductRail({
 
       <ol className="v2-product-rail mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-5 sm:mt-16 sm:gap-5 sm:px-6 lg:grid lg:grid-cols-4 lg:gap-px lg:overflow-visible lg:px-0 lg:pb-0">
         {products.map((product, index) => (
-          <motion.li
+          <li
             key={product.slug}
             className="group w-[82vw] max-w-[23rem] shrink-0 snap-start lg:w-auto lg:max-w-none"
-            initial={reduced ? undefined : { opacity: 0, y: 34 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.18 }}
-            transition={{ duration: 0.85, delay: (index % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
           >
-<CabinetProductCard cleanPhotography product={product} index={index} locale={locale} dict={dict} discoverLabel={copy.shop} />
-          </motion.li>
+            <CabinetProductCard cleanPhotography product={product} index={index} locale={locale} dict={dict} discoverLabel={copy.shop} />
+          </li>
         ))}
       </ol>
     </section>

@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { Newsletter } from "@/components/home/Newsletter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, QuietLink } from "@/components/ui/Button";
-import { products, signatureSlugs } from "@/lib/catalog";
+import { products as staticProducts, signatureSlugs, type Product } from "@/lib/catalog";
 import { shopProductImages } from "@/lib/shop-product-images";
 import type { Locale } from "@/lib/i18n/config";
 import { href } from "@/lib/i18n/config";
@@ -16,12 +16,12 @@ import { V2SignatureShowcase } from "@/components/home-v2/V2SignatureShowcase";
 import { V2Hero } from "@/components/home-v2/V2Hero";
 import { V2ProductRail } from "@/components/home-v2/V2ProductRail";
 
-export function V2Home({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function V2Home({ locale, dict, products = staticProducts }: { locale: Locale; dict: Dictionary; products?: Product[] }) {
   const copy = getV2Copy(locale);
   const homepageProducts = products.map(product => ({ ...product, image: shopProductImages[product.slug] ?? product.image }));
   const signatures = signatureSlugs
     .map((slug) => homepageProducts.find((product) => product.slug === slug))
-    .filter((product): product is (typeof products)[number] => Boolean(product));
+    .filter((product): product is Product => Boolean(product));
 
   return (
     <div className="v2-home">

@@ -22,11 +22,11 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
           <Dialog.Portal forceMount>
             <Dialog.Overlay asChild>
               <motion.div
-                className="fixed inset-0 z-[80] bg-espresso/45 backdrop-blur-[2px]"
+                className="fixed inset-0 z-[80] bg-espresso/45"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.22 }}
               />
             </Dialog.Overlay>
             <Dialog.Content asChild>
@@ -35,7 +35,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                 initial={{ x: locale === "ar" ? "-100%" : "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: locale === "ar" ? "-100%" : "100%" }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
               >
                 <header className="relative z-10 flex items-center justify-between border-b border-espresso/10 px-6 py-5">
                   <div className="flex items-baseline gap-3">
@@ -155,9 +155,11 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                       <p className="mt-2 text-[0.75rem] leading-relaxed text-ink-faint">
                         {dict.cart.shippingNote}
                       </p>
-                      <Button className="mt-5 w-full" size="lg">
-                        {dict.cart.checkout}
-                      </Button>
+                      <Dialog.Close asChild>
+                        <ButtonLink href={href("/checkout", locale)} className="mt-5 w-full" size="lg">
+                          {dict.cart.checkout}
+                        </ButtonLink>
+                      </Dialog.Close>
                       <Dialog.Close asChild>
                         <Button variant="ghost" size="sm" className="mt-3 w-full">
                           {dict.cart.continue}

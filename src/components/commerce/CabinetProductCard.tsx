@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
 
 import { Price } from "@/components/commerce/Price";
 import { useStore } from "@/components/commerce/store";
@@ -22,7 +21,6 @@ const frame: Record<Product["aspect"], string> = {
 
 export function CabinetProductCard({ product, index, locale, dict, discoverLabel, cleanPhotography = false }: { product: Product; index: number; locale: Locale; dict: Dictionary; discoverLabel: string; cleanPhotography?: boolean }) {
   const { add } = useStore();
-  const reduced = useReducedMotion();
   return (
             <article className="relative flex h-full flex-col bg-[#e7d8c7]">
               <Link
@@ -37,20 +35,23 @@ export function CabinetProductCard({ product, index, locale, dict, discoverLabel
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 {!cleanPhotography && <span aria-hidden className="absolute inset-x-[16%] bottom-[8%] h-8 rounded-[50%] bg-black/25 blur-md" />}
-                <motion.span
-                  className={cn("absolute", cleanPhotography ? "inset-0" : frame[product.aspect])}
-                  whileHover={reduced ? undefined : { y: -12, scale: 1.015 }}
-                  transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                <span
+                  className={cn(
+                    "absolute transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-2",
+                    cleanPhotography ? "inset-0" : frame[product.aspect],
+                  )}
                 >
                   <Image
                     src={product.image}
                     alt=""
                     fill
                     sizes="(max-width: 1024px) 82vw, 25vw"
+                    quality={75}
+                    priority={index < 4}
                     className={cleanPhotography ? "object-cover object-center" : "object-contain drop-shadow-[0_24px_34px_rgba(25,7,6,.38)]"}
                   />
-                </motion.span>
-                <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[#e8c69f] transition-transform duration-700 group-hover:scale-x-100" />
+                </span>
+                <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[#e8c69f] transition-transform duration-500 group-hover:scale-x-100" />
               </Link>
 
               <div className="flex flex-1 flex-col p-5 sm:p-6">

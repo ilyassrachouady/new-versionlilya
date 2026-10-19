@@ -93,6 +93,7 @@ export function MobileMenu({
                     >
                       <Link
                         href={href(link.path, locale)}
+                        prefetch
                         onClick={() => onOpenChange(false)}
                         className="block py-2.5 font-display text-[1.65rem] leading-none tracking-[-0.02em] text-cream transition-colors duration-500 hover:text-ivory sm:py-2 sm:text-[1.875rem]"
                       >
