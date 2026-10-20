@@ -1,22 +1,103 @@
 import Image from "next/image";
 
+import { Reveal } from "@/components/ui/Reveal";
 import type { Locale } from "@/lib/i18n/config";
 
-const copy: Record<Locale, { label: string; iso: string; ammps: string }> = {
+type CertificationCard = {
+  index: string;
+  title: string;
+  body: string;
+  note: string;
+  logo: string;
+  logoAlt: string;
+  logoClassName: string;
+};
+
+type TrustCopy = {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  certifications: CertificationCard[];
+};
+
+const copy: Record<Locale, TrustCopy> = {
   en: {
-    label: "Certified",
-    iso: "ISO 22716 laboratory",
-    ammps: "AMMPS",
+    eyebrow: "Quality & compliance",
+    heading: "Care developed with rigor, from formulation to manufacturing.",
+    intro:
+      "A demanding approach to quality, supported by controlled manufacturing standards and regulatory oversight.",
+    certifications: [
+      {
+        index: "01",
+        title: "Manufacturing",
+        body: "Made by an ISO 22716-certified laboratory.",
+        note: "Cosmetics — Good manufacturing practices",
+        logo: "/trust/iso-22716.png",
+        logoAlt: "ISO 22716",
+        logoClassName: "h-[4.4rem] w-auto max-w-[15rem] sm:h-[4.9rem]",
+      },
+      {
+        index: "02",
+        title: "Regulatory compliance",
+        body: "Agence Marocaine du Médicament et des Produits de Santé.",
+        note: "AMMPS",
+        logo: "/trust/ammps.png",
+        logoAlt: "AMMPS — Agence Marocaine du Médicament et des Produits de Santé",
+        logoClassName: "h-[3.7rem] w-auto max-w-[11rem] sm:h-[4.15rem]",
+      },
+    ],
   },
   fr: {
-    label: "Certifié",
-    iso: "Laboratoire ISO 22716",
-    ammps: "AMMPS",
+    eyebrow: "Qualité & conformité",
+    heading: "Des soins développés avec exigence, de la formulation à la fabrication.",
+    intro:
+      "Une approche exigeante de la qualité, soutenue par des standards de fabrication encadrés et une conformité réglementaire rigoureuse.",
+    certifications: [
+      {
+        index: "01",
+        title: "Fabrication",
+        body: "Fabriqué par un laboratoire certifié ISO 22716.",
+        note: "Cosmétiques — Bonnes pratiques de fabrication",
+        logo: "/trust/iso-22716.png",
+        logoAlt: "ISO 22716",
+        logoClassName: "h-[4.4rem] w-auto max-w-[15rem] sm:h-[4.9rem]",
+      },
+      {
+        index: "02",
+        title: "Conformité réglementaire",
+        body: "Agence Marocaine du Médicament et des Produits de Santé.",
+        note: "AMMPS",
+        logo: "/trust/ammps.png",
+        logoAlt: "AMMPS — Agence Marocaine du Médicament et des Produits de Santé",
+        logoClassName: "h-[3.7rem] w-auto max-w-[11rem] sm:h-[4.15rem]",
+      },
+    ],
   },
   ar: {
-    label: "معتمد",
-    iso: "مختبر ISO 22716",
-    ammps: "AMMPS",
+    eyebrow: "الجودة والامتثال",
+    heading: "عناية تُطوَّر بدقة، من الصياغة إلى التصنيع.",
+    intro:
+      "نهج صارم للجودة، تدعمه معايير تصنيع مؤطرة ورقابة تنظيمية دقيقة.",
+    certifications: [
+      {
+        index: "01",
+        title: "التصنيع",
+        body: "مصنّع من طرف مختبر معتمد وفق معيار ISO 22716.",
+        note: "مستحضرات التجميل — ممارسات التصنيع الجيدة",
+        logo: "/trust/iso-22716.png",
+        logoAlt: "ISO 22716",
+        logoClassName: "h-[4.4rem] w-auto max-w-[15rem] sm:h-[4.9rem]",
+      },
+      {
+        index: "02",
+        title: "الامتثال التنظيمي",
+        body: "Agence Marocaine du Médicament et des Produits de Santé.",
+        note: "AMMPS",
+        logo: "/trust/ammps.png",
+        logoAlt: "AMMPS — Agence Marocaine du Médicament et des Produits de Santé",
+        logoClassName: "h-[3.7rem] w-auto max-w-[11rem] sm:h-[4.15rem]",
+      },
+    ],
   },
 };
 
@@ -24,30 +105,69 @@ export function TrustMarks({ locale }: { locale: Locale }) {
   const text = copy[locale];
 
   return (
-    <section aria-label={text.label} className="border-y border-[#173326]/10 bg-[#f7f1e8] text-[#173326]">
-      <div className="shell flex flex-col items-center gap-4 py-3.5 sm:flex-row sm:justify-between sm:gap-8 sm:py-4">
-        <p className="label-xs shrink-0 text-[#9a7a50]">{text.label}</p>
-        <ul className="flex w-full items-center justify-center gap-6 sm:w-auto sm:justify-end sm:gap-10">
-          <li className="flex items-center gap-3">
-            <Image
-              src="/trust/iso-22716.png"
-              alt={text.iso}
-              width={902}
-              height={282}
-              className="h-11 w-auto max-w-[16rem] object-contain sm:h-12"
-            />
-          </li>
-          <li aria-hidden className="h-6 w-px bg-[#173326]/15" />
-          <li className="flex items-center gap-3">
-            <Image
-              src="/trust/ammps.png"
-              alt={text.ammps}
-              width={640}
-              height={390}
-              className="h-11 w-auto max-w-[9rem] object-contain sm:h-12"
-            />
-          </li>
-        </ul>
+    <section
+      aria-labelledby="quality-compliance-heading"
+      className="border-y border-[#173326]/10 bg-[#f7f1e8] text-[#173326]"
+    >
+      <div className="v2-shell py-12 sm:py-14 lg:py-16">
+        <div className="grid gap-9 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-14 xl:gap-20">
+          <div className="max-w-[35rem]">
+            <Reveal>
+              <p className="v2-kicker text-[#9a7a50]">{text.eyebrow}</p>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <h2
+                id="quality-compliance-heading"
+                className="font-display mt-5 max-w-[15ch] text-[2.15rem] leading-[1.02] tracking-[-0.025em] sm:text-[2.65rem] lg:text-[3rem]"
+              >
+                {text.heading}
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <p className="mt-5 max-w-[31rem] text-[0.88rem] leading-[1.8] text-[#173326]/62 sm:text-[0.93rem]">
+                {text.intro}
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+            {text.certifications.map((item, index) => (
+              <Reveal
+                as="article"
+                key={item.index}
+                delay={0.08 + index * 0.07}
+                className="group flex min-h-[13.75rem] flex-col rounded-[16px] border border-[#173326]/12 bg-[#fbf6ee]/72 p-5 transition-[border-color,background-color,transform] duration-500 ease-out hover:-translate-y-[1px] hover:border-[#173326]/20 hover:bg-[#fcf8f2] sm:min-h-[14.5rem] sm:p-6"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <span className="v2-index text-[#9a7a50]">{item.index}</span>
+                  <span className="v2-kicker text-right text-[#173326]/46">{item.title}</span>
+                </div>
+
+                <div className="mt-5 flex min-h-[6.25rem] items-center rounded-[12px] border border-[#173326]/8 bg-[#fffaf3]/74 px-4 py-3 sm:min-h-[6.75rem] sm:px-5">
+                  <Image
+                    src={item.logo}
+                    alt={item.logoAlt}
+                    width={902}
+                    height={390}
+                    sizes="(max-width: 639px) 68vw, 260px"
+                    className={`${item.logoClassName} object-contain object-left mix-blend-multiply transition-transform duration-500 ease-out group-hover:-translate-y-[1px]`}
+                  />
+                </div>
+
+                <div className="mt-5 border-t border-[#173326]/10 pt-4">
+                  <p className="max-w-[29rem] text-[0.94rem] leading-[1.55] text-[#173326] sm:text-[0.98rem]">
+                    {item.body}
+                  </p>
+                  <p className="mt-2 text-[0.7rem] leading-relaxed tracking-[0.04em] text-[#173326]/48">
+                    {item.note}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
