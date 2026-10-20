@@ -73,7 +73,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
             <div>
               <h2 className="label-xs text-cream/55">{dict.footer.language}</h2>
-              <LocaleSwitcher locale={locale} tone="light" className="mt-4 gap-4 sm:mt-5" />
+              <LocaleSwitcher locale={locale} tone="light" ariaLabel={dict.footer.language} className="mt-4 gap-4 sm:mt-5" />
               <h2 className="label-xs mt-7 text-cream/55 sm:mt-8">{dict.footer.currency}</h2>
               <CurrencySwitcher tone="light" className="mt-4" />
               <a

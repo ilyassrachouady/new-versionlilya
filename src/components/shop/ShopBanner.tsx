@@ -8,7 +8,12 @@ import styles from "./ShopBanner.module.css";
 const campaign = "/signature-collections/landing-supplied.webp";
 
 export function ShopBanner({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const titleLines = locale === "en" ? ["The Maison", "Cabinet."] : locale === "fr" ? ["Le cabinet", "de la Maison."] : [dict.shopPage.title];
+  const titleLines =
+    locale === "en"
+      ? ["The Maison", "Cabinet."]
+      : locale === "fr"
+        ? ["Les Rituels Bien-être", "de la Maison"]
+        : [dict.shopPage.title];
   return (
     <section className={styles.hero}>
       <div aria-hidden className={styles.environment}>

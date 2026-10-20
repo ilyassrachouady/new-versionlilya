@@ -481,9 +481,9 @@ const fr: Dictionary = {
     soldOut: "Épuisé",
   },
   shopPage: {
-  "title": "Le cabinet de la Maison",
-  "body": "Tous les objets de la Maison, réunis en un seul lieu.",
-  "catalog": "Tous les objets de la Maison.",
+  "title": "Les Rituels Bien-être de la Maison",
+  "body": "Vos rituels de soin incontournables, réunis en un seul lieu",
+  "catalog": "Toute notre collection",
   "discover": "Découvrez les collections",
   "previous": "Précédent",
   "next": "Suivant",
@@ -580,7 +580,7 @@ const fr: Dictionary = {
   collectionsPage: {
     eyebrow: "Collections",
     title: "Les rituels.",
-    body: "Cheveux, corps, hammam, parfum — quatre mondes, gardés dans l'ordre de leur usage.",
+    body: "Vos essentiels pour les cheveux, le corps et le hammam",
     enter: "Entrer",
   },
   journalPage: {

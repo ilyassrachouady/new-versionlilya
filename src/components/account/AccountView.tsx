@@ -30,7 +30,7 @@ export function AccountView({ locale, dict }: { locale: Locale; dict: Dictionary
           <div className="mt-12 flex flex-wrap items-center gap-8 border-t border-brass/25 pt-8">
             <div>
               <p className="label-xs text-ink-faint">{dict.footer.language}</p>
-              <LocaleSwitcher locale={locale} className="mt-3" />
+              <LocaleSwitcher locale={locale} ariaLabel={dict.footer.language} className="mt-3" />
             </div>
             <div>
               <p className="label-xs text-ink-faint">{dict.footer.currency}</p>

@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Search as SearchIcon } from "lucide-react";
 
 import { Emblem } from "@/components/brand/Emblem";
+import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
 import { PrefetchRoutes } from "@/components/chrome/PrefetchRoutes";
 import { MobileMenu } from "@/components/chrome/MobileMenu";
 import { useChrome } from "@/components/chrome/chrome-context";
@@ -130,7 +131,13 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             </Link>
 
             {/* Trailing actions */}
-            <div className="flex min-w-[3.25rem] flex-1 items-center justify-end gap-2 sm:gap-5 min-[68rem]:min-w-0 min-[68rem]:gap-6 xl:gap-7">
+            <div className="flex min-w-[3.25rem] flex-1 items-center justify-end gap-2 sm:gap-4 min-[68rem]:min-w-0 min-[68rem]:gap-5 xl:gap-6">
+              <LocaleSwitcher
+                locale={locale}
+                tone={light ? "light" : "dark"}
+                ariaLabel={dict.footer.language}
+                className="gap-2 sm:gap-3"
+              />
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}

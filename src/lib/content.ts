@@ -27,7 +27,7 @@ export const rituals: Ritual[] = [
     },
     body: {
       en: "Four objects in sequence, argan oil through all of them, orange blossom over the top.",
-      fr: "Quatre objets dans l'ordre, l'huile d'argan dans chacun, la fleur d'oranger par-dessus.",
+      fr: "Des soins capillaires de qualité à l'huile d'argan, sublimés par des notes parfumées uniques",
       ar: "أربعة أشياء بترتيبها، زيت الأركان في كلٍّ منها، وزهر البرتقال فوقها جميعاً.",
     },
     texture: "/textures/plaster-espresso.jpg",
@@ -45,7 +45,7 @@ export const rituals: Ritual[] = [
     },
     body: {
       en: "Two weights of the same idea, so the ritual fits the hour rather than the other way round.",
-      fr: "Deux densités d'une même idée, pour que le rituel s'adapte à l'heure — et non l'inverse.",
+      fr: "Une collection de soins hydratants et sensoriels pour nourrir et sublimer votre corps",
       ar: "قوامان لفكرة واحدة، كي يوافق الطقسُ ساعتَه لا العكس.",
     },
     texture: "/textures/plaster-terracotta.jpg",
@@ -63,7 +63,7 @@ export const rituals: Ritual[] = [
     },
     body: {
       en: "The oldest sequence in Moroccan care, kept in the order it has always been done.",
-      fr: "La plus ancienne séquence du soin marocain, gardée dans l'ordre où on l'a toujours pratiquée.",
+      fr: "Des soins exfoliants et purifiants d'exception inspirés des plus grands rituels marocains",
       ar: "أقدم تسلسل في العناية المغربية، محفوظاً بالترتيب الذي جرى عليه دائماً.",
     },
     texture: "/editorial/editorial-hammam.jpg",
@@ -81,7 +81,7 @@ export const rituals: Ritual[] = [
     },
     body: {
       en: "One note across the whole house, so every object smells of the same spring.",
-      fr: "Une seule note dans toute la maison, pour que chaque objet sente le même printemps.",
+      fr: "10 Senteurs en une collection de parfums exclusifs signée Maison Lilya Zahra. Une invitation au voyage, de la vibrante Medina aux notes exotiques de l'Oud Tropical.",
       ar: "نغمة واحدة تسري في الدار كلّها، فتفوح من كل شيء رائحة ربيعٍ واحد.",
     },
     texture: "/textures/plaster-burgundy.jpg",

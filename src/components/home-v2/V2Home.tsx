@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ProductCard } from "@/components/commerce/ProductCard";
+import { TrustMarks } from "@/components/chrome/TrustMarks";
 import { Newsletter } from "@/components/home/Newsletter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, QuietLink } from "@/components/ui/Button";
@@ -26,6 +27,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
   return (
     <div className="v2-home">
       <V2Hero locale={locale} copy={copy.hero} />
+      <TrustMarks locale={locale} />
 
       <V2ProductRail products={homepageProducts} locale={locale} dict={dict} copy={copy.collection} />
 

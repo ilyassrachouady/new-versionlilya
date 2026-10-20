@@ -127,7 +127,7 @@ export function MobileMenu({
                   >
                     {dict.nav.search}
                   </button>
-                  <LocaleSwitcher locale={locale} tone="light" />
+                  <LocaleSwitcher locale={locale} tone="light" ariaLabel={dict.footer.language} />
                   <CurrencySwitcher tone="light" />
                 </div>
                 <p className="relative z-10 px-5 pb-5 text-[0.5625rem] tracking-[0.2em] text-cream/45 uppercase sm:px-6 sm:pb-6">
