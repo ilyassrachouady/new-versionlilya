@@ -34,8 +34,8 @@ const copy = {
     rituals: { hair: "Hair", body: "Body", hammam: "Hammam", scent: "Scent" },
   },
   fr: {
-    nav: "Signatures", label: "Collections signatures", title: "Les signatures\nde la Maison.",
-    body: "Diverses collections. Une Maison.", explore: "Explorer les signatures", discover: "Découvrir la signature",
+    nav: "Signatures", label: "Nos collections exclusives", title: "Les Rituels\nde la Maison",
+    body: "Divers collections, Une seule Maison", explore: "Explorer les rituels", discover: "Découvrir la collection",
     products: "Découvrir les objets", intro: "Les objets de cette signature, réunis par rituel.",
     another: "Découvrir une autre signature", all: "Toutes les signatures", chapter: "La signature",
     rituals: { hair: "Cheveux", body: "Corps", hammam: "Hammam", scent: "Parfum" },
