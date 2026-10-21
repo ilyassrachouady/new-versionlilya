@@ -54,9 +54,6 @@ export function TheJournal({ locale, dict }: { locale: Locale; dict: Dictionary 
                 <p className="mt-4 max-w-xl text-[1rem] leading-relaxed text-pretty text-ink-muted">
                   {lead.standfirst[locale]}
                 </p>
-                <p className="label-xs mt-5 text-ink-faint">
-                  {lead.readingTime} {dict.journal.minutes}
-                </p>
               </Link>
             </article>
           </Reveal>
@@ -82,9 +79,6 @@ export function TheJournal({ locale, dict }: { locale: Locale; dict: Dictionary 
                     <h3 className="display-md mt-2.5 text-balance text-espresso transition-colors duration-500 group-hover:text-burgundy">
                       {article.title[locale]}
                     </h3>
-                    <p className="label-xs mt-3 text-ink-faint">
-                      {article.readingTime} {dict.journal.minutes}
-                    </p>
                   </div>
                 </Link>
               </Reveal>

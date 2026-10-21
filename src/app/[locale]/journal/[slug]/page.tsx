@@ -85,9 +85,6 @@ export default async function ArticlePage({
             <p className="mt-6 max-w-xl text-[1.1rem] leading-relaxed text-ivory/75">
               {article.standfirst[locale]}
             </p>
-            <p className="label-xs mt-8 text-ivory/45">
-              {article.readingTime} {dict.journal.minutes}
-            </p>
           </div>
         </header>
 

@@ -116,9 +116,6 @@ export default async function JournalPage({
                   <h2 className="display-md mt-3 text-balance text-espresso transition-colors duration-500 group-hover:text-burgundy">
                     {article.title[locale]}
                   </h2>
-                  <p className="label-xs mt-3 text-ink-faint">
-                    {article.readingTime} {dict.journal.minutes}
-                  </p>
                 </Link>
               </li>
             ))}

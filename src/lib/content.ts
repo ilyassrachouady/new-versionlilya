@@ -356,41 +356,16 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "ma-zhar",
-    kicker: { en: "The Ingredient", fr: "L'Ingrédient", ar: "المكوّن" },
-    title: { en: "Ma Zhar", fr: "Ma Zhar", ar: "ماء الزهر" },
-    standfirst: {
-      en: "Orange blossom water is not a fragrance note in Morocco. It is a household object.",
-      fr: "Au Maroc, l'eau de fleur d'oranger n'est pas une note de parfum. C'est un objet de la maison.",
-      ar: "ماء الزهر في المغرب ليس نغمةً عطرية. إنّه من أثاث البيت.",
-    },
-    readingTime: 3,
-    texture: "/editorial/ingredient-orange-blossom.jpg",
-    product: "hair-perfume-fleur-doranger",
-    paragraphs: [
-      {
-        en: "It arrives in glass bottles, sits by the stove, goes into pastry and mint tea, and gets sprinkled over the hands of guests before a meal. Children know the smell before they know the word.",
-        fr: "Elle arrive en bouteilles de verre, se tient près du fourneau, entre dans les pâtisseries et le thé à la menthe, et se verse sur les mains des invités avant le repas. Les enfants en connaissent l'odeur avant d'en connaître le mot.",
-        ar: "يأتي في قوارير زجاجية، ويقف قرب الموقد، ويدخل في الحلوى وفي أتاي بالنعناع، ويُرشّ على أيدي الضيوف قبل الطعام. يعرف الأطفال رائحته قبل أن يعرفوا اسمه.",
-      },
-      {
-        en: "Building an entire collection on one note is a risk. Building it on this one is closer to an admission of where the house is from.",
-        fr: "Bâtir toute une collection sur une seule note est un risque. La bâtir sur celle-ci relève plutôt de l'aveu d'origine.",
-        ar: "أن تبني مجموعةً كاملة على نغمة واحدة مخاطرة. أمّا أن تبنيها على هذه النغمة، فهو أقرب إلى اعترافٍ بالأصل.",
-      },
-    ],
-  },
-  {
     slug: "why-the-tassel",
     kicker: { en: "The House", fr: "La Maison", ar: "الدار" },
-    title: { en: "Why the Tassel", fr: "Pourquoi le Pompon", ar: "لماذا الشرّابة" },
+    title: { en: "The Choucha", fr: "La choucha", ar: "الشوشة" },
     standfirst: {
       en: "On the shampoo bottle there is a silk tassel that serves no function whatsoever.",
-      fr: "Sur le flacon de shampooing, un pompon de soie qui ne sert absolument à rien.",
+      fr: "La choucha de soie, nouée à la main, signe chaque flacon de la Maison.",
       ar: "على قارورة الشامبو شرّابةُ حرير لا وظيفة لها البتّة.",
     },
     readingTime: 3,
-    texture: "/textures/plaster-espresso.jpg",
+    texture: "/products/fleur-doranger/shampoo/shop/02-clean-product.png",
     product: "shampoo-argan-fleur-doranger",
     paragraphs: [
       {
