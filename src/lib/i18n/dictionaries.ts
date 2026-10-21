@@ -386,8 +386,8 @@ const fr: Dictionary = {
   },
   ingredientsSection: {
     eyebrow: "Les Ingrédients",
-    title: "Deux ingrédients nommés. Rien d'emprunté.",
-    body: "Tout ce que déclarent les étiquettes, et d'où cela vient.",
+    title: "Notre ingrédient maître : l’huile d’argan",
+    body: "Un trésor unique qui guide tout notre savoir-faire",
     origin: "Origine",
     latin: "Botanique",
     inThis: "Présent dans",
