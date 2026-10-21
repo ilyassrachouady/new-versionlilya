@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { products } from "@/lib/catalog";
-import { ingredients } from "@/lib/content";
-import { href, isLocale, type Locale } from "@/lib/i18n/config";
+import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
-
-const plates: Record<string, string> = {
-  argan: "/editorial/ingredient-argan-oil.jpg",
-  "orange-blossom": "/editorial/ingredient-orange-blossom.jpg",
-};
 
 export async function generateMetadata({
   params,
@@ -70,46 +61,18 @@ export default async function IngredientsPage({
             />
           </div>
 
-          <ul className="mt-16 grid gap-16 lg:grid-cols-2">
-            {ingredients.map((ingredient, index) => {
-              const found = products.filter((product) =>
-                product.ingredients.includes(ingredient.id),
-              );
-              return (
-                <li key={ingredient.id}>
-                  <Link
-                    href={href(`/ingredients/${ingredient.id}`, locale)}
-                    className="group block"
-                  >
-                    <div className="arch-keyhole relative aspect-[16/10] overflow-hidden">
-                      <Image
-                        src={plates[ingredient.id]}
-                        alt=""
-                        fill
-                        sizes="(max-width: 1024px) 90vw, 44vw"
-                        className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                      />
-                    </div>
-                    <p className="label-xs mt-6 text-brass-deep">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h2 className="display-lg mt-3 text-espresso transition-colors duration-500 group-hover:text-burgundy">
-                      {ingredient.name[locale]}
-                    </h2>
-                    <p className="font-display mt-1 text-[0.95rem] text-ink-faint italic">
-                      {ingredient.latin}
-                    </p>
-                    <p className="mt-5 text-[0.95rem] leading-relaxed text-ink-muted">
-                      {ingredient.origin[locale]}
-                    </p>
-                    <p className="label-xs mt-5 text-ink-faint">
-                      {found.length} {dict.search.results}
-                    </p>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <section className="mt-16 border-t border-espresso/15 pt-12 sm:mt-20 sm:pt-16">
+            <p className="label-xs text-brass-deep">01</p>
+            <h2 className="display-xl mt-4 text-espresso">Son histoire</h2>
+            <div className="mt-8 grid max-w-5xl gap-6 text-[1.05rem] leading-relaxed text-ink-muted md:grid-cols-2 md:gap-12">
+              <p>
+                C’est dans le Sud-Ouest du Maroc, entre Essaouira et Agadir, que tout commence pour nous. Là pousse l’arganier, un arbre unique dont nous récoltons précieusement les fruits et les feuilles pour donner vie à nos soins.
+              </p>
+              <p>
+                Pour nous, la beauté n’a pas besoin d’artifices. C’est pourquoi nos produits sont 100 % naturels et formulés autour de notre huile d’argan pure. Pas de superflu, aucun compromis&nbsp;: juste la nature à l’état brut pour prendre soin de votre peau.
+              </p>
+            </div>
+          </section>
         </div>
       </section>
     </PageFrame>
