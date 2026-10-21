@@ -35,7 +35,7 @@ const copy = {
   },
   fr: {
     nav: "Signatures", label: "Collections signatures", title: "Les signatures\nde la Maison.",
-    body: "Quatre univers. Une Maison.", explore: "Explorer les signatures", discover: "Découvrir la signature",
+    body: "Diverses collections. Une Maison.", explore: "Explorer les signatures", discover: "Découvrir la signature",
     products: "Découvrir les objets", intro: "Les objets de cette signature, réunis par rituel.",
     another: "Découvrir une autre signature", all: "Toutes les signatures", chapter: "La signature",
     rituals: { hair: "Cheveux", body: "Corps", hammam: "Hammam", scent: "Parfum" },

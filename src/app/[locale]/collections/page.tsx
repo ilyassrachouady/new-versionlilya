@@ -7,7 +7,7 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { edits, rituals } from "@/lib/content";
+import { rituals } from "@/lib/content";
 import { href, isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
@@ -121,38 +121,6 @@ export default async function CollectionsPage({
         })}
       </div>
 
-      <section className="grid lg:grid-cols-2">
-        {edits.map((edit) => {
-          const dark = edit.id === "him";
-          return (
-            <div
-              key={edit.id}
-              className={cn(
-                "surface-grain relative isolate overflow-hidden px-6 py-16 sm:px-10 lg:px-14 lg:py-24",
-                dark ? "bg-espresso text-ivory" : "bg-burgundy text-ivory",
-              )}
-            >
-              <Image
-                src={edit.texture}
-                alt=""
-                fill
-                sizes="50vw"
-                className="-z-10 object-cover opacity-90"
-              />
-              <p className="eyebrow relative text-brass-light">{edit.line[locale]}</p>
-              <h2 className="display-xl relative mt-5">{edit.title[locale]}</h2>
-              <p className="relative mt-5 max-w-sm text-[0.95rem] leading-relaxed text-ivory/70">
-                {edit.body[locale]}
-              </p>
-              <div className="relative mt-10">
-                <QuietLink href={href(`/collections/${edit.id}`, locale)} tone="light">
-                  {dict.edits.cta}
-                </QuietLink>
-              </div>
-            </div>
-          );
-        })}
-      </section>
     </PageFrame>
   );
 }
