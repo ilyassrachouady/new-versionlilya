@@ -365,7 +365,7 @@ export const articles: Article[] = [
       ar: "على قارورة الشامبو شرّابةُ حرير لا وظيفة لها البتّة.",
     },
     readingTime: 3,
-    texture: "/products/fleur-doranger/shampoo/shop/02-clean-product.png",
+    texture: "/editorial/choucha-marocaine.png",
     product: "shampoo-argan-fleur-doranger",
     paragraphs: [
       {
