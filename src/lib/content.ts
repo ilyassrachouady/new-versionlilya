@@ -301,7 +301,7 @@ export const articles: Article[] = [
     kicker: { en: "The Ritual", fr: "Le Rituel", ar: "الطقس" },
     title: {
       en: "The Order of the Hammam",
-      fr: "L'Ordre du Hammam",
+      fr: "Au cœur du hammam",
       ar: "ترتيب الحمّام",
     },
     standfirst: {

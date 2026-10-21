@@ -408,7 +408,7 @@ const fr: Dictionary = {
   journal: {
     eyebrow: "Le Journal",
     title: "Le Journal",
-    body: "Le hammam, la forêt, la fleur et la maison.",
+    body: "Inspirations de nature et rituels de maison.",
     cta: "Lire tous les récits",
     read: "Lire",
     minutes: "min de lecture",
