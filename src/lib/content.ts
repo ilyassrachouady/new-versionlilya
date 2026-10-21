@@ -361,7 +361,7 @@ export const articles: Article[] = [
     title: { en: "The Choucha", fr: "La choucha", ar: "الشوشة" },
     standfirst: {
       en: "On the shampoo bottle there is a silk tassel that serves no function whatsoever.",
-      fr: "La choucha de soie, nouée à la main, signe chaque flacon de la Maison.",
+      fr: "Une touche d’artisanat en soie réutilisable.",
       ar: "على قارورة الشامبو شرّابةُ حرير لا وظيفة لها البتّة.",
     },
     readingTime: 3,
@@ -369,14 +369,9 @@ export const articles: Article[] = [
     product: "shampoo-argan-fleur-doranger",
     paragraphs: [
       {
-        en: "It is tied by hand. It costs money. It makes the bottle harder to pack and harder to ship, and it does nothing at all for the shampoo inside.",
-        fr: "Il est noué à la main. Il coûte de l'argent. Il complique l'emballage et l'expédition, et il n'apporte rien au shampooing qu'il accompagne.",
-        ar: "تُعقَد باليد. وتكلّف مالاً. وتزيد التعبئة والشحن صعوبة، ولا تضيف إلى الشامبو داخلها شيئاً.",
-      },
-      {
-        en: "It is there because Moroccan objects have always been finished — the corner of a rug, the edge of a caftan, the handle of a teapot. The house kept the habit.",
-        fr: "Il est là parce que les objets marocains ont toujours été finis — le coin d'un tapis, le bord d'un caftan, l'anse d'une théière. La maison a gardé l'habitude.",
-        ar: "هي هناك لأنّ الأشياء المغربية كانت دائماً تُختَم بحاشية — ركن زربية، وحافّة قفطان، ومقبض بَرّاد. احتفظت الدار بالعادة.",
+        en: "It is tied by hand. It costs money. It makes the bottle harder to pack and harder to ship, and it does nothing at all for the shampoo inside. It is there because Moroccan objects have always been finished — the corner of a rug, the edge of a caftan, the handle of a teapot. The house kept the habit.",
+        fr: "Nos flacons sont ornés d’une authentique choucha en soie marocaine faite à la main. Un joli détail culturel à détacher et à réutiliser pour décorer vos clés, vos sacs ou vos poignées de porte !",
+        ar: "تُعقَد باليد. وتكلّف مالاً. وتزيد التعبئة والشحن صعوبة، ولا تضيف إلى الشامبو داخلها شيئاً. هي هناك لأنّ الأشياء المغربية كانت دائماً تُختَم بحاشية — ركن زربية، وحافّة قفطان، ومقبض بَرّاد. احتفظت الدار بالعادة.",
       },
     ],
   },
