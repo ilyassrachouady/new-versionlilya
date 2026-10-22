@@ -73,10 +73,11 @@ function findStatic(row: StorefrontRow): Product | undefined {
   );
 }
 
-function withPhoto(product: Product): Product {
+function withPhoto(product: Product, managedImage?: string | null): Product {
   const approved = shopProductImages[product.slug];
-  const custom = /^https?:\/\//i.test(product.image);
-  const image = custom ? product.image : (approved ?? product.image);
+  // A dashboard-managed Supabase image remains canonical. Approved local
+  // photography is the fallback for the bundled editorial catalog.
+  const image = managedImage || approved || product.image;
   const gallery = [...new Set([image, ...(product.gallery ?? []), product.image])];
   return { ...product, image, gallery };
 }
@@ -100,7 +101,7 @@ function fromRow(row: StorefrontRow): Product {
       stockQuantity: row.stock_quantity,
       image,
       description: local.description,
-    });
+    }, row.image_url);
   }
 
   return withPhoto({
@@ -130,7 +131,7 @@ function fromRow(row: StorefrontRow): Product {
     vessel: localized(""),
     featured: false,
     aspect: "column",
-  });
+  }, row.image_url);
 }
 
 async function loadRows(): Promise<StorefrontRow[]> {
@@ -153,7 +154,7 @@ async function loadRows(): Promise<StorefrontRow[]> {
 
 async function buildCatalog() {
   const rows = await loadRows();
-  if (rows.length === 0) return catalogProducts.map(withPhoto);
+  if (rows.length === 0) return catalogProducts.map((product) => withPhoto(product));
   return rows.filter((row) => row.status === "active").map(fromRow);
 }
 

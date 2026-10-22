@@ -114,6 +114,7 @@ export function ProductCard({
               alt={`${product.name[locale]} — ${product.scent}`}
               fill
               priority={priority}
+              loading={priority ? undefined : cleanPhotography ? "eager" : undefined}
               sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 24vw"
               className={cleanPhotography ? "object-cover object-center" : "object-contain drop-shadow-[0_18px_32px_rgba(20,10,8,0.38)]"}
             />

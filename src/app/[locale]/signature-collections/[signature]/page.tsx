@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { SignatureDetail } from "@/components/signatures/SignatureExperience";
 import { isLocale, locales } from "@/lib/i18n/config";
 import { isSignatureId, signatureIds, signatureWorlds } from "@/lib/signature-collections";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
 
 export function generateStaticParams() { return signatureIds.map((signature) => ({ signature })); }
 
@@ -18,5 +19,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function SignaturePage({ params }: { params: Promise<{ locale: string; signature: string }> }) {
   const { locale, signature } = await params;
   if (!isLocale(locale) || !isSignatureId(signature)) notFound();
-  return <SignatureDetail locale={locale} signature={signature} />;
+  const catalog = await getStorefrontProducts();
+  return <SignatureDetail locale={locale} signature={signature} catalog={catalog} />;
 }

@@ -6,7 +6,8 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { QuietLink } from "@/components/ui/Button";
 import { href, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { ritualOrder, signatureCopy, signatureIds, signatureProducts, signatureWorlds, type SignatureId } from "@/lib/signature-collections";
+import type { Product } from "@/lib/catalog";
+import { ritualOrder, signatureCopy, signatureIds, signatureWorlds, type SignatureId } from "@/lib/signature-collections";
 import styles from "./SignatureExperience.module.css";
 
 function SignatureHero({ locale, signature }: { locale: Locale; signature?: SignatureId }) {
@@ -67,10 +68,10 @@ export function SignatureLanding({ locale }: { locale: Locale }) {
   );
 }
 
-export function SignatureDetail({ locale, signature }: { locale: Locale; signature: SignatureId }) {
+export function SignatureDetail({ locale, signature, catalog }: { locale: Locale; signature: SignatureId; catalog: Product[] }) {
   const copy = signatureCopy(locale);
   const dict = getDictionary(locale);
-  const products = signatureProducts(signature);
+  const products = catalog.filter((product) => product.fragrance === signature);
   const groups = ritualOrder.map((ritual) => ({ ritual, products: products.filter((product) => product.ritual === ritual) })).filter((group) => group.products.length);
   return (
     <PageFrame>
