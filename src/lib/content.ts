@@ -301,12 +301,12 @@ export const articles: Article[] = [
     kicker: { en: "The Ritual", fr: "Le Rituel", ar: "الطقس" },
     title: {
       en: "The Order of the Hammam",
-      fr: "Au cœur du hammam",
+      fr: "L'art du Hammam",
       ar: "ترتيب الحمّام",
     },
     standfirst: {
       en: "Heat, black soap, gommage, rinse, oil. The sequence is the whole point, and it has not changed.",
-      fr: "La chaleur, le savon noir, le gommage, le rinçage, l'huile. La séquence est tout, et elle n'a pas changé.",
+      fr: "Chaleur enveloppante, savon noir à l'Aker Fassi et Nila, gommage hydratant, rinçage frais et huile de douceur. Un secret de beauté éternel.",
       ar: "حرارة، صابون بلدي، تقشير، شطف، زيت. الترتيب هو كل شيء، ولم يتغيّر.",
     },
     readingTime: 4,
