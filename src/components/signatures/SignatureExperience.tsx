@@ -103,7 +103,6 @@ export function SignatureDetail({ locale, signature }: { locale: Locale; signatu
           <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
             {signatureIds.filter((id) => id !== signature).map((id) => <QuietLink key={id} href={href(`/signature-collections/${id}`, locale)} className="min-h-11"><bdi>{signatureWorlds[id].name}</bdi><span aria-hidden className="rtl:rotate-180">→</span></QuietLink>)}
           </div>
-          <QuietLink href={href("/signature-collections", locale)} className="mt-7 min-h-11">{copy.all}</QuietLink>
         </div>
       </section>
     </PageFrame>
