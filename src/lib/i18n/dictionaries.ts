@@ -494,7 +494,7 @@ const fr: Dictionary = {
   "next": "Suivant",
   "page": "Page",
   "of": "sur",
-  "product": "Découvrir l’objet"
+  "product": "Découvrir l’article"
 },
   shop: {
     eyebrow: "Boutique",

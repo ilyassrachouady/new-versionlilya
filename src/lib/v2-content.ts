@@ -122,7 +122,7 @@ const copy: Record<Locale, V2Copy> = {
       eyebrow: "Le cabinet · 01—07",
       title: "Notre rituel à la Fleur d'Oranger",
       body: "Une gamme 100 % bio et naturelle, née du mariage parfait entre l'huile d'argan et la fleur d'oranger. Laissez-vous envoûter par une routine sensorielle unique aux notes douces et enveloppantes.",
-      shop: "Découvrir l'objet",
+      shop: "Découvrir l'article",
       drag: "Balayez pour explorer",
     },
     ritual: {
