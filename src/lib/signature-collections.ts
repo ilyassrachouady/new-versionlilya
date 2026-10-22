@@ -36,7 +36,7 @@ const copy = {
   fr: {
     nav: "Signatures", label: "Nos collections exclusives", title: "Les Rituels\nde la Maison",
     body: "Divers collections, Une seule Maison", explore: "Explorer les rituels", discover: "Découvrir la collection",
-    products: "Découvrir nos produits", intro: "Les objets de cette signature, réunis par rituel.",
+    products: "Découvrir nos produits", intro: "Les essentiels de notre collection, réunis pour vos rituels.",
     another: "Découvrir une autre signature", all: "Toutes les signatures", chapter: "La signature",
     rituals: { hair: "Cheveux", body: "Corps", hammam: "Hammam", scent: "Parfum" },
   },
