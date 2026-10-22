@@ -555,9 +555,9 @@ const fr: Dictionary = {
     shippingTitle: "Livraison",
     shippingBody:
       "Les objets partent du Maroc. La livraison est proposée dans le monde entier ; le coût se calcule au paiement.",
-    returnsTitle: "Si quelque chose n'est pas juste",
+    returnsTitle: "Un problème avec votre commande ?",
     returnsBody:
-      "Si un objet arrive autrement qu'il ne le devrait, écrivez-nous avec votre commande. Nous le remettrons en ordre.",
+      "Écrivez-nous en précisant votre numéro de commande. Nous ferons le nécessaire pour régler la situation.",
     faq: [
       {
         q: "Où la collection est-elle faite ?",
