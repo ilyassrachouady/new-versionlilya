@@ -33,7 +33,6 @@ export function MobileMenu({
     { label: dict.nav.house, path: "/house" },
     { label: dict.nav.ingredients, path: "/ingredients" },
     { label: dict.nav.journal, path: "/journal" },
-    { label: dict.nav.account, path: "/account" },
   ];
 
   return (

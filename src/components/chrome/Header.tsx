@@ -48,7 +48,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       href("/collections", locale),
       href("/signature-collections", locale),
       href("/house", locale),
-      href("/account", locale),
     ],
     [locale],
   );
@@ -147,13 +146,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               >
                 {dict.nav.search}
               </button>
-              <Link
-                href={href("/account", locale)}
-                prefetch
-                className="label-xs hidden min-h-11 items-center py-2 transition-opacity duration-500 hover:opacity-65 xl:flex"
-              >
-                {dict.nav.account}
-              </Link>
               <button
                 type="button"
                 onClick={openCart}
