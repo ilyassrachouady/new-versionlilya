@@ -8,10 +8,9 @@ export const site = {
   tagline: "For her & him",
   /** Set to your production origin before deploying. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maisonlilyazahra.com",
-  email: "localook3@gmail.com",
+  email: "Localook3@gmail.com",
   contactEmails: [
-    { address: "localook3@gmail.com", label: "Localook3@gmail.com" },
-    { address: "asmayajjou@gmail.com", label: "asmayajjou@gmail.com" },
+    { address: "Localook3@gmail.com", label: "Localook3@gmail.com" },
   ],
   instagram: "https://www.instagram.com/maisonlilyazahra.rituel/",
   instagramHandle: "@maisonlilyazahra.rituel",
