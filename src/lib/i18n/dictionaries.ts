@@ -549,8 +549,8 @@ const fr: Dictionary = {
     paragraphs: [
       "Maison Lilya Zahra est une maison de beauté 100 % marocaine inspirée par les rituels, le savoir-faire artisanal et l'authenticité de son patrimoine. À travers une approche contemporaine du luxe, nous créons des soins 100 % naturels à base d'huile d'argan : shampoings, après-shampoings, masques, parfums pour cheveux, savons, gommages, huiles, bains botaniques et laits pour le corps. Déclinée autour de nos signatures Fleur d’Oranger, Thé Vert, Ambre Musc, Safran et la Fleur de Tiaré, Lilya Zahra fait voyager sa vision de la beauté marocaine, de notre Maison jusqu'à vos rituels de soin.",
     ],
-    contactTitle: "Écrire à la maison",
-    contactBody: "Nous lisons chaque lettre.",
+    contactTitle: "Contactez la Maison",
+    contactBody: "Nous répondons à chaque message.",
     faqTitle: "Questions",
     shippingTitle: "Livraison",
     shippingBody:
