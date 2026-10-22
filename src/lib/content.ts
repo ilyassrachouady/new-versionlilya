@@ -336,7 +336,7 @@ export const articles: Article[] = [
     title: { en: "The Arganeraie", fr: "L'Arganeraie", ar: "غابة الأركان" },
     standfirst: {
       en: "A forest that exists in one corner of one country, and the oil that comes out of it.",
-      fr: "Une forêt qui n'existe que dans un coin d'un seul pays, et l'huile qui en sort.",
+      fr: "Née d'une forêt unique au monde, notre huile d'argan incarne l'excellence d'un terroir d'exception.",
       ar: "غابة لا توجد إلا في ركنٍ من بلدٍ واحد، والزيت الذي يخرج منها.",
     },
     readingTime: 5,
@@ -345,12 +345,12 @@ export const articles: Article[] = [
     paragraphs: [
       {
         en: "Between Essaouira and Agadir there is a forest of low, thorned trees that grow almost nowhere else. UNESCO made it a biosphere reserve in 1998. Locally it is simply the arganeraie.",
-        fr: "Entre Essaouira et Agadir s'étend une forêt d'arbres bas et épineux qui ne poussent presque nulle part ailleurs. L'UNESCO en a fait une réserve de biosphère en 1998. Sur place, on dit simplement l'arganeraie.",
+        fr: "Entre Essaouira et Agadir s'étend l’arganeraie, un trésor de la nature d'où jaillit le plus précieux des rituels de beauté.",
         ar: "بين الصويرة وأݣادير تمتدّ غابةٌ من أشجار واطئة شائكة لا تكاد تنبت في غير هذا المكان. جعلتها اليونسكو محميةَ محيطٍ حيوي سنة 1998. وأهلُها يسمّونها ببساطة: غابة الأركان.",
       },
       {
         en: "The fruit is dried, the shell cracked, the kernel pressed. It is slow work, done mostly by hand and mostly by women organised into cooperatives, and it is the reason the oil has never been cheap.",
-        fr: "On sèche le fruit, on casse la coque, on presse l'amandon. C'est un travail lent, fait surtout à la main et surtout par des femmes réunies en coopératives — et c'est pourquoi cette huile n'a jamais été bon marché.",
+        fr: "Chaque amandon est récolté, séché et pressé avec patience selon un savoir-faire artisanal préservé. Ce travail d'orfèvre donne vie à une huile d'une pureté exceptionnelle, véritable élixir de jeunesse qui nourrit et illumine votre peau.",
         ar: "تُجفَّف الثمرة، وتُكسَر القشرة، وتُعصَر اللبّة. عملٌ بطيء يجري باليد غالباً، وعلى أيدي نساءٍ منظّماتٍ في تعاونيات — ولهذا لم يكن هذا الزيت رخيصاً قطّ.",
       },
     ],
@@ -365,7 +365,7 @@ export const articles: Article[] = [
       ar: "على قارورة الشامبو شرّابةُ حرير لا وظيفة لها البتّة.",
     },
     readingTime: 3,
-    texture: "/editorial/choucha-marocaine.png",
+    texture: "/editorial/choucha-soie-marocaine.png",
     product: "shampoo-argan-fleur-doranger",
     paragraphs: [
       {
