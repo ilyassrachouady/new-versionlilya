@@ -318,11 +318,6 @@ export const articles: Article[] = [
         fr: "Héritage précieux de l'art de vivre oriental, le hammam est le rituel ultime de purification du corps et de l'esprit. La chaleur enveloppante prépare la peau à l'exfoliation sacrée avec notre savon noir à l'Aker Fassi ou au Nila pour libérer les impuretés. Ce moment d'exception se prolonge avec notre Tabrima Royale, un enveloppement traditionnel qui sublime le teint et révèle l'éclat absolu de votre peau.",
         ar: "الحمّام ليس دُشّاً طَموحاً. هو غرفة بُنيت لتحفظ الحرارة، وتسلسلٌ بُني ليستعملها. تجلس أولاً ولا تفعل شيئاً، وهذا الجزء هو الذي يُهمله أكثر الناس. لا يصير للتقشير معنى إلا بعد أن تلين البشرة. يُدلَّك بحركات دائرية من الكاحلين صعوداً فيأخذ الأسبوع معه. ثم يأتي الزيت — لا منشفة ثم لا شيء بعدها.",
       },
-      {
-        en: "Everything the house makes for the body is designed to sit somewhere in that order. Nothing in it is new. That is rather the point.",
-        fr: "Tout ce que la maison fabrique pour le corps est conçu pour prendre place dans cet ordre. Rien n'y est nouveau. C'est précisément l'idée.",
-        ar: "كل ما تصنعه الدار للجسد مصمَّمٌ ليقع في موضعٍ من ذلك الترتيب. لا شيء فيه جديد. وهذا بالضبط هو المقصود.",
-      },
     ],
   },
   {
