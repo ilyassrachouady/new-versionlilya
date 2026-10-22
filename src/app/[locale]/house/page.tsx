@@ -10,6 +10,8 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { BrandInstagramLink } from "@/components/chrome/BrandInstagramLink";
+import { ContactEmails } from "@/components/chrome/ContactEmails";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({
@@ -140,12 +142,16 @@ export default async function HousePage({
           <Wordmark size="lg" className="text-ivory" />
           <h2 className="display-xl mt-10">{dict.housePage.contactTitle}</h2>
           <p className="mt-4 text-[1rem] text-ivory/70">{dict.housePage.contactBody}</p>
-          <a
-            href={`mailto:${site.email}`}
-            className="mt-8 font-display text-[1.4rem] text-brass-light underline-offset-8 transition-colors hover:text-ivory hover:underline"
-          >
-            {site.email}
-          </a>
+          <ContactEmails
+            dict={dict}
+            className="mt-8 font-display text-[clamp(1.05rem,4.5vw,1.4rem)] leading-relaxed text-brass-light"
+            linkClassName="underline-offset-8 transition-colors hover:text-ivory hover:underline"
+          />
+          <BrandInstagramLink
+            dict={dict}
+            iconClassName="size-5"
+            className="mt-6 inline-flex items-center gap-2.5 text-[0.9375rem] tracking-[0.06em] text-ivory/80 uppercase transition-colors hover:text-ivory"
+          />
         </div>
       </section>
     </PageFrame>

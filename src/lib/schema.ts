@@ -13,6 +13,7 @@ export function organisationSchema(locale: Locale) {
     name: site.name,
     url: absolute(href("/", locale)),
     email: site.email,
+    sameAs: [site.instagram],
     address: { "@type": "PostalAddress", addressCountry: "MA" },
     brand: { "@type": "Brand", name: site.name },
   };

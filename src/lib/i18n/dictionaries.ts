@@ -127,6 +127,8 @@ const en = {
     },
     language: "Language",
     currency: "Currency",
+    instagram: "Instagram",
+    instagramAria: "Maison Lilya Zahra on Instagram",
     rights: "All rights reserved.",
     madeIn: "Morocco",
   },
@@ -313,6 +315,7 @@ const en = {
     notFoundTitle: "Nothing at this address.",
     notFoundBody: "The page you are looking for has moved, or never existed.",
     notFoundCta: "Return to the house",
+    contactOr: "or",
   },
 };
 
@@ -446,6 +449,8 @@ const fr: Dictionary = {
     },
     language: "Langue",
     currency: "Devise",
+    instagram: "Instagram",
+    instagramAria: "Maison Lilya Zahra sur Instagram",
     rights: "Tous droits réservés.",
     madeIn: "Maroc",
   },
@@ -631,6 +636,7 @@ const fr: Dictionary = {
     notFoundTitle: "Rien à cette adresse.",
     notFoundBody: "La page que vous cherchez a été déplacée, ou n'a jamais existé.",
     notFoundCta: "Retourner à la maison",
+    contactOr: "ou bien",
   },
 };
 
@@ -761,6 +767,8 @@ const ar: Dictionary = {
     },
     language: "اللغة",
     currency: "العملة",
+    instagram: "إنستغرام",
+    instagramAria: "Maison Lilya Zahra على إنستغرام",
     rights: "جميع الحقوق محفوظة.",
     madeIn: "المغرب",
   },
@@ -947,6 +955,7 @@ const ar: Dictionary = {
     notFoundTitle: "لا شيء في هذا العنوان.",
     notFoundBody: "الصفحة التي تبحث عنها انتقلت، أو لم توجد أصلاً.",
     notFoundCta: "العودة إلى الدار",
+    contactOr: "أو",
   },
 };
 

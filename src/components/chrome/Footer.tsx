@@ -6,6 +6,8 @@ import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { BrandInstagramLink } from "@/components/chrome/BrandInstagramLink";
+import { ContactEmails } from "@/components/chrome/ContactEmails";
 import { site } from "@/lib/site";
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
@@ -50,6 +52,10 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <Wordmark size="xl" className="hidden text-cream sm:flex" />
             <p className="eyebrow text-cream/65">{dict.footer.tagline}</p>
             <p className="label-xs text-cream/45">{site.tagline}</p>
+            <BrandInstagramLink
+              dict={dict}
+              className="label-xs inline-flex items-center gap-2 text-cream/70 transition-colors duration-500 hover:text-cream"
+            />
           </div>
 
           <div className="mt-12 grid gap-8 border-t border-cream/15 pt-10 sm:mt-16 sm:grid-cols-2 sm:gap-10 sm:pt-12 lg:grid-cols-4 lg:gap-8">
@@ -76,12 +82,11 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               <LocaleSwitcher locale={locale} tone="light" ariaLabel={dict.footer.language} className="mt-4 gap-4 sm:mt-5" />
               <h2 className="label-xs mt-7 text-cream/55 sm:mt-8">{dict.footer.currency}</h2>
               <CurrencySwitcher tone="light" className="mt-4" />
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-7 block text-[0.875rem] text-cream/70 transition-colors duration-500 hover:text-cream sm:mt-8"
-              >
-                {site.email}
-              </a>
+              <ContactEmails
+                dict={dict}
+                className="mt-7 text-[0.875rem] leading-relaxed text-cream/70 sm:mt-8"
+                linkClassName="transition-colors duration-500 hover:text-cream"
+              />
             </div>
           </div>
 

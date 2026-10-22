@@ -99,7 +99,7 @@ export function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }
                   <div className="absolute inset-x-0 bottom-0 px-2.5 pb-4 text-center sm:px-5 sm:pb-6">
                     <h3 className="display-md text-cream">{ritual.title[locale]}</h3>
                     <p className="mt-1.5 text-[0.7rem] leading-snug text-cream/60 sm:mt-2 sm:text-[0.8rem]">
-                      {ritual.line[locale]}
+                      {ritual.line[locale] || ritual.body[locale]}
                     </p>
                     <span
                       aria-hidden

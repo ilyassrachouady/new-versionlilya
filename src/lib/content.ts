@@ -40,7 +40,7 @@ export const rituals: Ritual[] = [
     title: { en: "Body", fr: "Corps", ar: "الجسد" },
     line: {
       en: "Oil at night, milk in the morning.",
-      fr: "L'huile le soir, le lait le matin.",
+      fr: "",
       ar: "زيتٌ في الليل، وحليبٌ في الصباح.",
     },
     body: {
@@ -76,7 +76,7 @@ export const rituals: Ritual[] = [
     title: { en: "Scent", fr: "Parfum", ar: "العطر" },
     line: {
       en: "Fleur d'oranger, and nothing else.",
-      fr: "La fleur d'oranger, et rien d'autre.",
+      fr: "L'essence de la fleur d'oranger pour vos cheveux",
       ar: "زهر البرتقال، ولا شيء سواه.",
     },
     body: {
@@ -314,14 +314,9 @@ export const articles: Article[] = [
     product: "body-scrub-argan-fleur-doranger",
     paragraphs: [
       {
-        en: "A hammam is not a shower with ambition. It is a room built to hold heat, and a sequence built to use it. You sit first, and you do nothing, which is the part most people skip.",
-        fr: "Un hammam n'est pas une douche ambitieuse. C'est une pièce construite pour retenir la chaleur, et une séquence construite pour s'en servir. On s'assoit d'abord, et on ne fait rien — c'est la partie que l'on saute le plus souvent.",
-        ar: "الحمّام ليس دُشّاً طَموحاً. هو غرفة بُنيت لتحفظ الحرارة، وتسلسلٌ بُني ليستعملها. تجلس أولاً ولا تفعل شيئاً، وهذا الجزء هو الذي يُهمله أكثر الناس.",
-      },
-      {
-        en: "Only once the skin has softened does the gommage make sense. Worked in circles, ankles upward, it takes off the week. What follows is oil — never a towel and then nothing.",
-        fr: "Ce n'est qu'une fois la peau assouplie que le gommage prend son sens. Travaillé en cercles, des chevilles vers le haut, il emporte la semaine. Ensuite vient l'huile — jamais la serviette puis plus rien.",
-        ar: "لا يصير للتقشير معنى إلا بعد أن تلين البشرة. يُدلَّك بحركات دائرية من الكاحلين صعوداً فيأخذ الأسبوع معه. ثم يأتي الزيت — لا منشفة ثم لا شيء بعدها.",
+        en: "A hammam is not a shower with ambition. It is a room built to hold heat, and a sequence built to use it. You sit first, and you do nothing, which is the part most people skip. Only once the skin has softened does the gommage make sense. Worked in circles, ankles upward, it takes off the week. What follows is oil — never a towel and then nothing.",
+        fr: "Héritage précieux de l'art de vivre oriental, le hammam est le rituel ultime de purification du corps et de l'esprit. La chaleur enveloppante prépare la peau à l'exfoliation sacrée avec notre savon noir à l'Aker Fassi ou au Nila pour libérer les impuretés. Ce moment d'exception se prolonge avec notre Tabrima Royale, un enveloppement traditionnel qui sublime le teint et révèle l'éclat absolu de votre peau.",
+        ar: "الحمّام ليس دُشّاً طَموحاً. هو غرفة بُنيت لتحفظ الحرارة، وتسلسلٌ بُني ليستعملها. تجلس أولاً ولا تفعل شيئاً، وهذا الجزء هو الذي يُهمله أكثر الناس. لا يصير للتقشير معنى إلا بعد أن تلين البشرة. يُدلَّك بحركات دائرية من الكاحلين صعوداً فيأخذ الأسبوع معه. ثم يأتي الزيت — لا منشفة ثم لا شيء بعدها.",
       },
       {
         en: "Everything the house makes for the body is designed to sit somewhere in that order. Nothing in it is new. That is rather the point.",

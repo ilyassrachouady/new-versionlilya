@@ -81,8 +81,10 @@ export default async function CollectionPage({
       ) : (
       <section className="surface-grain bg-ivory py-16 sm:py-20 lg:py-24">
         <div className="shell">
-          <p className="max-w-xl text-[1rem] leading-relaxed text-ink-muted">{collection.line}</p>
-          <div className="mt-12">
+          {collection.line.trim() ? (
+            <p className="max-w-xl text-[1rem] leading-relaxed text-ink-muted">{collection.line}</p>
+          ) : null}
+          <div className={collection.line.trim() ? "mt-12" : undefined}>
             <CollectionGrid
               locale={locale}
               dict={dict}
