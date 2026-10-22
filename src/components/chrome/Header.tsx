@@ -8,6 +8,7 @@ import { ShoppingBag } from "lucide-react";
 
 import { Emblem } from "@/components/brand/Emblem";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
+import { MobileLocaleSwitcher } from "@/components/chrome/MobileLocaleSwitcher";
 import { PrefetchRoutes } from "@/components/chrome/PrefetchRoutes";
 import { MobileMenu } from "@/components/chrome/MobileMenu";
 import { useChrome } from "@/components/chrome/chrome-context";
@@ -113,7 +114,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <Link
               href={href("/", locale)}
               prefetch
-              className="group/mark absolute left-1/2 flex min-h-11 -translate-x-1/2 items-center gap-2 sm:gap-2.5"
+              className="group/mark absolute left-1/2 flex min-h-11 -translate-x-1/2 items-center gap-2 max-[380px]:gap-1 sm:gap-2.5"
               aria-label={site.name}
             >
               <Emblem
@@ -124,14 +125,15 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 <span className="font-display text-[0.45rem] tracking-[0.32em] uppercase opacity-70 sm:text-[0.55rem] sm:tracking-[0.42em]">
                   {site.nameParts.prefix}
                 </span>
-                <span className="font-display mt-0.5 text-[0.625rem] tracking-[0.12em] uppercase sm:mt-1 sm:text-[0.78rem] sm:tracking-[0.18em]">
+                <span className="font-display mt-0.5 text-[0.625rem] tracking-[0.12em] uppercase max-[380px]:text-[0.55rem] max-[380px]:tracking-[0.05em] sm:mt-1 sm:text-[0.78rem] sm:tracking-[0.18em]">
                   {site.nameParts.family}
                 </span>
               </span>
             </Link>
 
             {/* Trailing actions */}
-            <div className="flex min-w-[3.25rem] flex-1 items-center justify-end gap-2 sm:gap-4 min-[68rem]:min-w-0 min-[68rem]:gap-5 xl:gap-6">
+            <div className="flex min-w-[3.25rem] flex-1 items-center justify-end gap-0 sm:gap-4 min-[68rem]:min-w-0 min-[68rem]:gap-5 xl:gap-6">
+              <MobileLocaleSwitcher locale={locale} />
               <LocaleSwitcher
                 locale={locale}
                 tone={light ? "light" : "dark"}
@@ -155,13 +157,13 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               <button
                 type="button"
                 onClick={openCart}
-                className="label-xs flex min-h-11 min-w-11 items-center justify-center gap-1 py-2 transition-opacity duration-500 hover:opacity-65"
+                className="label-xs relative flex min-h-11 min-w-11 items-center justify-center gap-1 py-2 transition-opacity duration-500 hover:opacity-65"
                 aria-label={`${dict.nav.bag} (${hydrated ? count : 0})`}
               >
                 <ShoppingBag aria-hidden className="size-5 min-[68rem]:hidden" strokeWidth={1.4} />
                 <span className="hidden min-[68rem]:inline">{dict.nav.bag}</span>
                 <span
-                  className="tabular inline-flex min-w-[1rem] justify-center"
+                  className="tabular absolute end-0 top-0.5 inline-flex min-w-[1rem] justify-center text-[0.5625rem] min-[68rem]:static min-[68rem]:text-inherit"
                   suppressHydrationWarning
                 >
                   ({hydrated ? count : 0})
