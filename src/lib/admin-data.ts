@@ -9,7 +9,7 @@ export const adminOrders = [
   { id: "MLZ-1043", customer: "Sofia Rossi", email: "sofia.r@example.com", items: 3, country: "Italie", total: 610, payment: "Payée", status: "Livrée" as OrderStatus, date: "10 oct. · 11:04" },
 ];
 
-const fragranceCodes = { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF" } as const;
+const fragranceCodes = { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR" } as const;
 const productCodes = { shampoo: "SH", conditioner: "CO", "hair-mask": "HM", "body-scrub": "BS", "body-oil": "BO", "body-milk": "BM", "hair-perfume": "HP", "shower-gel": "SG", "face-scrub": "FS", "rose-water": "RW" } as const;
 
 export const adminObjects = catalogProducts.map((product, index) => ({

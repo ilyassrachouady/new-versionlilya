@@ -16,7 +16,7 @@ export const productTypeOptions: { id: ProductType; label: string; code: string;
 export const fragranceOptions = (Object.entries(fragrances) as [FragranceId, string][]).map(([id, label]) => ({
   id,
   label,
-  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF" }[id],
+  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR" }[id],
 }));
 
 export function slugify(value: string) {

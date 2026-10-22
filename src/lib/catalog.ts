@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/i18n/config";
 
 export type Localized = Record<Locale, string>;
 
-export const fragrances = { "fleur-doranger": "Fleur d'Oranger", "the-vert": "Thé Vert", "ambre-musc": "Ambre Musc", safran: "Safran" } as const;
+export const fragrances = { "fleur-doranger": "Fleur d'Oranger", "the-vert": "Thé Vert", "ambre-musc": "Ambre Musc", safran: "Safran", "fleur-orientale": "Fleur orientale" } as const;
 export type FragranceId = keyof typeof fragrances;
 export type ProductType = "shampoo" | "conditioner" | "hair-mask" | "body-scrub" | "body-oil" | "body-milk" | "hair-perfume" | "shower-gel" | "face-scrub" | "rose-water";
 

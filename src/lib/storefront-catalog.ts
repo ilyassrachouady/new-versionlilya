@@ -37,6 +37,7 @@ function metaString(metadata: unknown, key: string) {
 
 function inferFragrance(value: string): FragranceId {
   const text = value.toLowerCase();
+  if (text.includes("orientale")) return "fleur-orientale";
   if (text.includes("the-vert") || text.includes("thé vert") || text.includes("the vert")) return "the-vert";
   if (text.includes("ambre")) return "ambre-musc";
   if (text.includes("safran")) return "safran";
@@ -90,6 +91,9 @@ function fromRow(row: StorefrontRow): Product {
   const productType = (metaString(row.metadata, "productType") as ProductType) || inferType(`${row.slug} ${row.name}`);
   const scent = metaString(row.metadata, "scent") || local?.scent || fragrances[fragrance];
   const localized = (value: string) => ({ en: value, fr: value, ar: value });
+  const nameCopy = row.metadata && typeof row.metadata === "object"
+    ? (row.metadata as { localized?: { name?: Partial<Product["name"]> } }).localized?.name
+    : undefined;
   const image = row.image_url || local?.image || "/products/body-oil.webp";
 
   if (local) {
@@ -113,7 +117,7 @@ function fromRow(row: StorefrontRow): Product {
     image,
     imageWidth: 800,
     imageHeight: 1000,
-    name: localized(row.name),
+    name: { en: nameCopy?.en || row.name, fr: nameCopy?.fr || row.name, ar: nameCopy?.ar || row.name },
     labelFr: row.name,
     scent,
     fragrance,
