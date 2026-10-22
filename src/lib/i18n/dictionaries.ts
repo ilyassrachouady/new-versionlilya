@@ -565,20 +565,20 @@ const fr: Dictionary = {
       "Écrivez-nous en précisant votre numéro de commande. Nous ferons le nécessaire pour régler la situation.",
     faq: [
       {
-        q: "Où la collection est-elle faite ?",
-        a: "Au Maroc. La ligne repose sur deux ingrédients nommés : l'huile d'argan de l'arganeraie, et la fleur d'oranger distillée au printemps.",
+        q: "Où la collection est-elle fabriquée ?",
+        a: "Toute notre collection est fabriquée au Maroc. Chaque produit met à l'honneur notre ingrédient signature : l'huile d'Argan précieuse, reconnue pour ses vertus cosmétiques exceptionnelles.",
       },
       {
-        q: "De quoi la maison sent-elle ?",
-        a: "La fleur d'oranger. Elle est imprimée sur chaque étiquette.",
+        q: "Quelle est la signature olfactive de nos produits ?",
+        a: "Nos créations se déclinent en cinq signatures olfactives : la Fleur d'oranger, l'Ambre Musc, le safran, le Thé vert et la fleur de Tiaré.",
       },
       {
-        q: "Est-ce pour elle, ou pour lui ?",
-        a: "Pour les deux. Deux séquences, une seule maison.",
+        q: "Nos produits sont-ils unisexes ?",
+        a: "Toute notre gamme est unisexe. Nos soins et leurs senteurs ont été imaginés pour convenir aussi bien à elle qu'à lui.",
       },
       {
-        q: "Que contiennent les objets ?",
-        a: "Ce que nomment les étiquettes. L'huile d'argan, là où elle est déclarée. La fleur d'oranger, partout. La liste complète est imprimée sur chaque pot et chaque flacon.",
+        q: "Quelle est la composition de nos soins ?",
+        a: "L’huile d’Argan est au cœur de tous nos soins. Nous choisissons une transparence totale : la liste complète des ingrédients est imprimée sur chaque flacon et toutes nos formules respectent les normes ISO (Organisation internationale de normalisation) et DMP (Direction du Médicament et de la Pharmacie).",
       },
     ],
   },
