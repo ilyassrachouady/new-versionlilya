@@ -47,7 +47,6 @@ export function CabinetProductCard({ product, index, locale, dict, discoverLabel
                     fill
                     sizes="(max-width: 1024px) 82vw, 25vw"
                     quality={75}
-                    priority={index < 4}
                     className={cleanPhotography ? "object-cover object-center" : "object-contain drop-shadow-[0_24px_34px_rgba(25,7,6,.38)]"}
                   />
                 </span>

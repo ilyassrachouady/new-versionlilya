@@ -101,3 +101,19 @@
   .hero:not(.landingHero) .heroCopy > a { margin-top:1rem; min-height:44px; font-size:.55rem; }
   :global([dir="rtl"]) .hero:not(.landingHero) .shade { background:linear-gradient(270deg,rgba(17,12,8,.65),rgba(17,12,8,.22) 45%,transparent 75%); }
 }
+
+@media(max-width:767px) {
+  .hero.landingHero { aspect-ratio:auto; min-height:570px; }
+  .hero:not(.landingHero) { aspect-ratio:auto; min-height:540px; }
+  .hero .heroImage,.landingHero .heroImage,.hero:not(.landingHero) .heroImage { object-position:65% center; }
+  .hero .shade,.landingHero .shade,.hero:not(.landingHero) .shade { background:linear-gradient(180deg,rgba(17,12,8,.72),rgba(17,12,8,.3) 48%,transparent 70%); }
+  .hero .heroCopy,.landingHero .heroCopy,.hero:not(.landingHero) .heroCopy { justify-content:flex-start; padding:2rem clamp(1rem,4.65vw,1.5rem); }
+  .hero .heroCopy > p:first-child,.landingHero .heroCopy > p:first-child,.hero:not(.landingHero) .heroCopy > p { font-size:.6875rem; letter-spacing:.14em; }
+  .hero .title,.landingHero h1,.hero:not(.landingHero) .signatureTitle { font-size:clamp(2.625rem,11.5vw,4rem); max-width:11ch; line-height:1.02; margin-top:1rem; }
+  .landingHero p + h1 + p { font-size:.9375rem; line-height:1.75; max-width:28ch; margin-top:1rem; }
+  .hero .heroCopy > a,.landingHero .heroCopy > a,.hero:not(.landingHero) .heroCopy > a { font-size:.6875rem; min-height:44px; margin-top:1rem; }
+  .gateway { aspect-ratio:4/5; }
+  .gatewayCopy { inset-inline:1.25rem; bottom:1.5rem; }
+  .gatewayTitle { font-size:clamp(2.25rem,10vw,3.25rem); }
+  .editorial { height:220px; }
+}

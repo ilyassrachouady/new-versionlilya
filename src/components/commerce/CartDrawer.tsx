@@ -31,7 +31,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
             </Dialog.Overlay>
             <Dialog.Content asChild>
               <motion.aside
-                className="surface-grain fixed inset-y-0 end-0 z-[90] flex w-full max-w-[27rem] flex-col bg-ivory"
+                className="cart-sheet surface-grain fixed inset-y-0 end-0 z-[90] flex w-full max-w-[27rem] flex-col bg-ivory"
                 initial={{ x: locale === "ar" ? "-100%" : "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: locale === "ar" ? "-100%" : "100%" }}
@@ -49,7 +49,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                       {count} {count === 1 ? dict.cart.itemCount : dict.cart.itemCountPlural}
                     </span>
                   </div>
-                  <Dialog.Close className="label-xs py-2 text-ink-muted transition-colors hover:text-espresso">
+                  <Dialog.Close className="label-xs flex min-h-11 min-w-11 items-center justify-center py-2 text-ink-muted transition-colors hover:text-espresso">
                     {dict.common.close}
                   </Dialog.Close>
                 </header>
@@ -71,7 +71,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                   </div>
                 ) : (
                   <>
-                    <ul className="relative z-10 flex-1 divide-y divide-espresso/10 overflow-y-auto px-6">
+                    <ul className="relative z-10 min-h-0 flex-1 divide-y divide-espresso/10 overflow-y-auto overscroll-contain px-6">
                       {items.map(({ product, quantity }) => (
                         <li key={product.slug} className="flex gap-4 py-5">
                           <Dialog.Close asChild>
@@ -114,7 +114,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                                   type="button"
                                   onClick={() => setQuantity(product.slug, quantity - 1)}
                                   aria-label={dict.cart.decrease}
-                                  className="flex size-8 items-center justify-center text-ink-muted transition-colors hover:text-espresso"
+                                  className="flex size-11 items-center justify-center text-ink-muted transition-colors hover:text-espresso"
                                 >
                                   −
                                 </button>
@@ -125,7 +125,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                                   type="button"
                                   onClick={() => setQuantity(product.slug, quantity + 1)}
                                   aria-label={dict.cart.increase}
-                                  className="flex size-8 items-center justify-center text-ink-muted transition-colors hover:text-espresso"
+                                  className="flex size-11 items-center justify-center text-ink-muted transition-colors hover:text-espresso"
                                 >
                                   +
                                 </button>
@@ -133,7 +133,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                               <button
                                 type="button"
                                 onClick={() => remove(product.slug)}
-                                className="label-xs text-ink-faint transition-colors hover:text-burgundy"
+                                className="label-xs min-h-11 text-ink-muted transition-colors hover:text-burgundy"
                               >
                                 {dict.cart.remove}
                               </button>
@@ -143,7 +143,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                       ))}
                     </ul>
 
-                    <footer className="relative z-10 border-t border-espresso/10 px-6 py-6">
+                    <footer className="relative z-10 shrink-0 border-t border-espresso/10 px-6 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
                       <div className="flex items-baseline justify-between">
                         <span className="label-xs text-ink-muted">{dict.cart.subtotal}</span>
                         <Price

@@ -29,7 +29,7 @@ export function ProductFold({
 
   return (
     <>
-      <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
+      <div className="product-fold grid items-start gap-8 md:gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
         <ProductGallery product={product} />
 
         <div>
@@ -71,7 +71,7 @@ export function ProductFold({
           </div>
           <WishlistButton slug={product.slug} dict={dict} className="mt-4" />
 
-          <div className="mt-7 grid grid-cols-3 border-y border-espresso/10" aria-label={dict.product.purchaseNotes}>
+          <div className="purchase-notes mt-7 grid grid-cols-3 border-y border-espresso/10" aria-label={dict.product.purchaseNotes}>
             <div className="flex min-w-0 flex-col items-start gap-2 border-e border-espresso/10 px-2 py-4 sm:px-3">
               <MapPin aria-hidden className="size-4 text-brass-deep" strokeWidth={1.35} />
               <span className="text-[0.64rem] leading-[1.45] tracking-[0.08em] text-ink-muted uppercase sm:text-[0.7rem]">

@@ -48,7 +48,7 @@ export function ProductCard({
 
   return (
     <article
-      className={cn("group relative flex flex-col", className)}
+      className={cn("product-card group relative flex min-w-0 flex-col", className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -113,9 +113,8 @@ export function ProductCard({
               src={product.image}
               alt={`${product.name[locale]} — ${product.scent}`}
               fill
-              priority={priority}
-              loading={priority ? undefined : cleanPhotography ? "eager" : undefined}
-              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 24vw"
+              preload={priority}
+              sizes="(max-width: 767px) 46vw, (max-width: 1024px) 40vw, 24vw"
               className={cleanPhotography ? "object-cover object-center" : "object-contain drop-shadow-[0_18px_32px_rgba(20,10,8,0.38)]"}
             />
           </motion.div>
@@ -125,7 +124,7 @@ export function ProductCard({
       </Link>
 
       <div className="flex flex-1 flex-col pt-5">
-        <div className="flex items-baseline justify-between gap-4">
+        <div className="product-card-title flex items-baseline justify-between gap-4">
           <h3 className="display-md text-espresso">
             <Link
               href={href(`/products/${product.slug}`, locale)}

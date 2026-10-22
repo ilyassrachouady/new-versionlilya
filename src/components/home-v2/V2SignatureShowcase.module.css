@@ -36,3 +36,17 @@
   .cta { font-size:.6rem; margin-top:1rem; }
 }
 @media(prefers-reduced-motion:reduce) { .image,.cta span { transition:none; transform:none !important; } .drift { transform:none !important; } .photograph,.content,.content>* { opacity:1 !important; clip-path:none !important; transform:none !important; } }
+
+@media(max-width:767px) {
+  .section { padding-block:3.5rem; }
+  .chapters { gap:1.5rem; }
+  .photograph,.reverse .photograph { aspect-ratio:4/3; }
+  .image { object-fit:cover; object-position:72% center; }
+  .the-vert .image { object-position:65% center; }
+  .safran .image { object-position:70% center; }
+  .ambre-musc .image { object-position:68% center; }
+  .content,.reverse .content { padding:1.75rem clamp(1rem,4.65vw,1.5rem) 2rem; }
+  .name { font-size:clamp(2.25rem,9.6vw,3.5rem); }
+  .description { font-size:.9375rem; line-height:1.75; }
+  .cta { display:inline-flex; align-items:center; min-height:44px; font-size:.6875rem; letter-spacing:.1em; }
+}

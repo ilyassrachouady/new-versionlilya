@@ -21,7 +21,7 @@ export function V2ProductRail({
         <div className="grid gap-8 border-t border-[#351411]/20 pt-6 md:grid-cols-[1fr_1.25fr] md:gap-16 md:pt-8">
           <div>
             <p className="v2-kicker text-[#7a251f]">{copy.eyebrow}</p>
-            <h2 className="v2-display-section mt-5 max-w-[11ch]">{copy.title}</h2>
+            <h2 className="cabinet-heading v2-display-section mt-5 max-w-[11ch]">{copy.title}</h2>
           </div>
           <div className="md:pt-8">
             <p className="max-w-lg text-[0.95rem] leading-[1.8] text-[#5f4942]">{copy.body}</p>

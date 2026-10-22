@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { Emblem } from "@/components/brand/Emblem";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
@@ -25,6 +25,7 @@ export function MobileMenu({
   dict: Dictionary;
 }) {
   const { setSearchOpen } = useChrome();
+  const reduced = useReducedMotion();
   const links = [
     { label: dict.nav.shop, path: "/shop" },
     { label: dict.nav.collections, path: "/collections" },
@@ -51,8 +52,8 @@ export function MobileMenu({
             </Dialog.Overlay>
             <Dialog.Content asChild>
               <motion.div
-                className="surface-grain fixed inset-y-0 start-0 z-[70] flex w-full max-w-[26rem] flex-col bg-forest text-cream"
-                initial={{ x: locale === "ar" ? "100%" : "-100%" }}
+                className="mobile-menu surface-grain fixed inset-y-0 start-0 z-[70] flex w-full flex-col overflow-y-auto overscroll-contain bg-forest text-cream sm:max-w-[26rem]"
+                initial={reduced ? false : { x: locale === "ar" ? "100%" : "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: locale === "ar" ? "100%" : "-100%" }}
                 transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
@@ -74,16 +75,16 @@ export function MobileMenu({
                       </span>
                     </span>
                   </div>
-                  <Dialog.Close className="label-xs py-2 text-cream/80 transition-opacity hover:opacity-100">
+                  <Dialog.Close className="label-xs flex min-h-11 min-w-11 items-center justify-center py-2 text-cream/80 transition-opacity hover:opacity-100">
                     {dict.nav.close}
                   </Dialog.Close>
                 </div>
 
-                <nav className="relative z-10 flex flex-1 flex-col justify-center gap-0.5 px-5 sm:gap-1 sm:px-6">
+                <nav className="relative z-10 flex flex-1 flex-col justify-center gap-0.5 px-5 py-4 sm:gap-1 sm:px-6">
                   {links.map((link, index) => (
                     <motion.div
                       key={link.path}
-                      initial={{ opacity: 0, y: 12 }}
+                      initial={reduced ? false : { opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
                         delay: 0.14 + index * 0.055,
@@ -95,7 +96,7 @@ export function MobileMenu({
                         href={href(link.path, locale)}
                         prefetch
                         onClick={() => onOpenChange(false)}
-                        className="block py-2.5 font-display text-[1.65rem] leading-none tracking-[-0.02em] text-cream transition-colors duration-500 hover:text-ivory sm:py-2 sm:text-[1.875rem]"
+                        className="flex min-h-11 items-center py-2.5 font-display text-[clamp(1.65rem,6.5vw,2.15rem)] leading-[1.12] tracking-[-0.02em] text-cream transition-colors duration-500 hover:text-ivory sm:py-2 sm:text-[1.875rem]"
                       >
                         {link.label}
                       </Link>
@@ -108,7 +109,7 @@ export function MobileMenu({
                         key={ritual.id}
                         href={href(`/collections/${ritual.id}`, locale)}
                         onClick={() => onOpenChange(false)}
-                        className="label-xs text-cream/65 transition-colors hover:text-cream"
+                        className="label-xs inline-flex min-h-11 items-center text-cream/80 transition-colors hover:text-cream"
                       >
                         {ritual.title[locale]}
                       </Link>
@@ -123,7 +124,7 @@ export function MobileMenu({
                       onOpenChange(false);
                       setSearchOpen(true);
                     }}
-                    className="label-xs text-cream/80"
+                    className="label-xs min-h-11 text-cream/80"
                   >
                     {dict.nav.search}
                   </button>

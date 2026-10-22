@@ -56,3 +56,17 @@
   .title { font-size:clamp(1.35rem,5.8vw,2rem); margin:.5rem 0; }
   .body { font-size:.65rem; line-height:1.6; }
 }
+
+@media(max-width:767px) {
+  .hero { aspect-ratio:auto; min-height:570px; }
+  .photograph { inset:0; height:100%; }
+  .image { object-position:65% center; }
+  .shade { background:linear-gradient(180deg,rgba(17,12,8,.8),rgba(17,12,8,.3) 48%,transparent 70%); }
+  .breadcrumbs { top:1.25rem; inset-inline:clamp(1rem,4.65vw,1.5rem); }
+  .breadcrumbs :global(li),.breadcrumbs :global(a) { font-size:.625rem; letter-spacing:.1em; }
+  .content { width:100%; height:auto; max-width:34rem; justify-content:flex-start; padding:4.5rem clamp(1rem,4.65vw,1.5rem) 2rem; }
+  .content > p:first-child { font-size:.6875rem; }
+  .title { font-size:clamp(2.4rem,10.5vw,3.5rem); margin:1rem 0; max-width:14ch; }
+  .title span { white-space:normal; }
+  .body { font-size:.9375rem; line-height:1.75; max-width:29ch; }
+}

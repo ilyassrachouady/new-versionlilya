@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 export function ShopProductCard({ product, index, locale, dict, discoverLabel }: { product: Product; index: number; locale: Locale; dict: Dictionary; discoverLabel: string }) {
   return (
-            <article className="group relative flex h-full flex-col overflow-hidden border border-espresso/10 bg-[#e7d8c7] [content-visibility:auto] [contain-intrinsic-size:auto_32rem]">
+            <article className="shop-product-card group relative flex h-full min-w-0 flex-col overflow-hidden border border-espresso/10 bg-[#e7d8c7] [content-visibility:auto] [contain-intrinsic-size:auto_32rem]">
               <div className="relative">
                 <Link
                   href={href(`/products/${product.slug}`, locale)}
@@ -33,13 +33,12 @@ export function ShopProductCard({ product, index, locale, dict, discoverLabel }:
                     fill
                     sizes="(max-width: 359px) 90vw, (max-width: 767px) 45vw, (max-width: 1023px) 30vw, 23vw"
                     quality={70}
-                    priority={index < 4}
                     className="object-contain"
                   />
                 </span>
                 <span className="absolute inset-x-0 bottom-0 h-px origin-[var(--rule-origin)] scale-x-0 bg-[#e8c69f] transition-transform duration-500 group-hover:scale-x-100" />
                 </Link>
-                <div className="absolute inset-x-3 bottom-3 z-10 shadow-[0_10px_28px_rgba(29,18,15,0.2)]">
+                <div className="shop-quick-add absolute inset-x-3 bottom-3 z-10">
                   <ProductQuickAdd slug={product.slug} label={dict.product.quickAdd} soldOutLabel={dict.product.soldOut} />
                 </div>
               </div>

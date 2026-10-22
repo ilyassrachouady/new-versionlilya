@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Search as SearchIcon } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 import { Emblem } from "@/components/brand/Emblem";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
@@ -113,7 +113,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <Link
               href={href("/", locale)}
               prefetch
-              className="group/mark absolute left-1/2 flex -translate-x-1/2 items-center gap-2 rtl:translate-x-1/2 sm:gap-2.5"
+              className="group/mark absolute left-1/2 flex min-h-11 -translate-x-1/2 items-center gap-2 sm:gap-2.5"
               aria-label={site.name}
             >
               <Emblem
@@ -136,22 +136,14 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                 locale={locale}
                 tone={light ? "light" : "dark"}
                 ariaLabel={dict.footer.language}
-                className="gap-2 sm:gap-3"
+                className="!hidden gap-2 min-[68rem]:!flex sm:gap-3"
               />
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="label-xs hidden min-h-11 items-center py-2 transition-opacity duration-500 hover:opacity-65 sm:flex"
+                className="label-xs hidden min-h-11 items-center py-2 transition-opacity duration-500 hover:opacity-65 min-[68rem]:flex"
               >
                 {dict.nav.search}
-              </button>
-              <button
-                type="button"
-                onClick={() => setSearchOpen(true)}
-                className="flex size-11 items-center justify-center transition-opacity duration-500 hover:opacity-65 sm:hidden"
-                aria-label={dict.nav.search}
-              >
-                <SearchIcon aria-hidden className="size-[1.05rem]" strokeWidth={1.35} />
               </button>
               <Link
                 href={href("/account", locale)}
@@ -163,10 +155,11 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               <button
                 type="button"
                 onClick={openCart}
-                className="label-xs flex min-h-11 items-center gap-1 py-2 transition-opacity duration-500 hover:opacity-65"
+                className="label-xs flex min-h-11 min-w-11 items-center justify-center gap-1 py-2 transition-opacity duration-500 hover:opacity-65"
                 aria-label={`${dict.nav.bag} (${hydrated ? count : 0})`}
               >
-                <span className="max-w-[4.5rem] truncate sm:max-w-none">{dict.nav.bag}</span>
+                <ShoppingBag aria-hidden className="size-5 min-[68rem]:hidden" strokeWidth={1.4} />
+                <span className="hidden min-[68rem]:inline">{dict.nav.bag}</span>
                 <span
                   className="tabular inline-flex min-w-[1rem] justify-center"
                   suppressHydrationWarning

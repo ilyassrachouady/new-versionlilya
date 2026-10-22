@@ -31,7 +31,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
 
       <V2ProductRail products={homepageProducts} locale={locale} dict={dict} copy={copy.collection} />
 
-      <section id="ritual" className="relative overflow-hidden bg-[#1b3024] py-20 text-[#f0dfce] sm:py-28 lg:py-36">
+      <section id="ritual" className="home-ritual relative overflow-hidden bg-[#1b3024] py-20 text-[#f0dfce] sm:py-28 lg:py-36">
         <div aria-hidden className="v2-noise absolute inset-0 opacity-20" />
         <div className="v2-shell relative">
           <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-24">
@@ -76,7 +76,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
 
       <V2SignatureShowcase locale={locale} />
 
-      <section className="relative isolate min-h-[88svh] overflow-hidden bg-[#3b110e] text-[#f5e6d6]">
+      <section className="home-hammam relative isolate min-h-[88svh] overflow-hidden bg-[#3b110e] text-[#f5e6d6]">
         <Image
           src="/campaign-v2/hammam-ritual.jpg"
           alt="Body scrub and hair mask in a luminous Moroccan hammam."
@@ -118,7 +118,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
             </p>
           </div>
 
-          <ul className="mt-12 grid grid-cols-2 gap-x-3 gap-y-12 sm:mt-16 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8">
+          <ul className="home-featured mt-12 grid grid-cols-2 gap-x-3 gap-y-12 sm:mt-16 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8">
             {signatures.map((product, index) => (
               <Reveal as="li" key={product.slug} delay={index * 0.06} className={index === 2 ? "col-span-2 mx-auto w-[62%] lg:col-span-1 lg:w-auto" : ""}>
                 <ProductCard
@@ -134,7 +134,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#6c1d18] py-20 text-[#f3e3d2] sm:py-28 lg:py-36">
+      <section className="home-origin relative overflow-hidden bg-[#6c1d18] py-20 text-[#f3e3d2] sm:py-28 lg:py-36">
         <div aria-hidden className="v2-noise absolute inset-0 opacity-20" />
         <div className="v2-shell relative">
           <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:gap-24">
