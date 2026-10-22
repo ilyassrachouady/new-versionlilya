@@ -245,19 +245,19 @@ const en = {
     faq: [
       {
         q: "Where is the collection made?",
-        a: "In Morocco. The line is built on two named ingredients: argan oil from the arganeraie, and fleur d'oranger distilled in spring.",
+        a: "Our entire collection is made in Morocco. Every product celebrates our signature ingredient: precious argan oil, renowned for its exceptional cosmetic properties.",
       },
       {
-        q: "What does the house smell of?",
-        a: "Fleur d'oranger. It is printed on every label.",
+        q: "What are our products’ signature scents?",
+        a: "Our creations come in five signature scents: Orange Blossom, Amber Musk, Saffron, Green Tea and Tiaré Flower.",
       },
       {
-        q: "Is it for her, or for him?",
-        a: "Both. Two sequences, one house.",
+        q: "Are our products unisex?",
+        a: "Our entire range is unisex. Our care products and their scents have been designed to suit both her and him.",
       },
       {
-        q: "What is in the objects?",
-        a: "What the labels name. Argan oil, where it is declared. Fleur d'oranger, throughout. The complete list is printed on every jar and bottle.",
+        q: "What are our care products made of?",
+        a: "Argan oil is at the heart of all our care products. We choose complete transparency: the full ingredient list is printed on every bottle, and all our formulas comply with ISO (International Organization for Standardization) and DMP (Morocco’s Directorate of Medicines and Pharmacy) standards.",
       },
     ],
   },
@@ -885,19 +885,19 @@ const ar: Dictionary = {
     faq: [
       {
         q: "أين تُصنع المجموعة؟",
-        a: "في المغرب. تقوم السلسلة على مكوّنين مُسمّيين: زيت الأركان من الغابة، وزهر البرتقال الذي يُقطَّر في الربيع.",
+        a: "تُصنع مجموعتنا بالكامل في المغرب. ويحتفي كل منتج بمكوّننا المميّز: زيت الأركان الثمين، المعروف بخصائصه التجميلية الاستثنائية.",
       },
       {
-        q: "بماذا تفوح الدار؟",
-        a: "بزهر البرتقال. وهو مطبوع على كل ملصق.",
+        q: "ما التوقيعات العطرية لمنتجاتنا؟",
+        a: "تأتي إبداعاتنا بخمسة توقيعات عطرية: زهر البرتقال، والعنبر والمسك، والزعفران، والشاي الأخضر، وزهرة التياري.",
       },
       {
-        q: "لها، أم له؟",
-        a: "لكليهما. تسلسلان، ودار واحدة.",
+        q: "هل منتجاتنا مناسبة للنساء والرجال؟",
+        a: "مجموعتنا بالكامل مناسبة للنساء والرجال. فقد صُمّمت مستحضرات العناية وروائحها لتناسبها وتناسبه على حدّ سواء.",
       },
       {
-        q: "ماذا في هذه الأشياء؟",
-        a: "ما تسمّيه الملصقات. زيت الأركان حيث يُعلَن. وزهر البرتقال في كلها. والقائمة الكاملة مطبوعة على كل مرطبان وكل قارورة.",
+        q: "ما مكوّنات مستحضرات العناية لدينا؟",
+        a: "يقع زيت الأركان في قلب جميع مستحضرات العناية لدينا. ونختار الشفافية التامة: تُطبع القائمة الكاملة للمكوّنات على كل قارورة، وتلتزم جميع تركيباتنا بمعايير المنظمة الدولية للتقييس (ISO) ومديرية الأدوية والصيدلة (DMP).",
       },
     ],
   },
