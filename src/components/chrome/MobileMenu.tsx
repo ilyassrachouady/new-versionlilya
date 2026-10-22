@@ -29,6 +29,7 @@ export function MobileMenu({
   const links = [
     { label: dict.nav.shop, path: "/shop" },
     { label: dict.nav.collections, path: "/collections" },
+    { label: locale === "fr" ? "Produits Maison" : locale === "ar" ? "منتجات المنزل" : "Home Collection", path: "/collections/home" },
     { label: locale === "ar" ? "مجموعات التوقيعات" : locale === "fr" ? "Collections signatures" : "Signature Collections", path: "/signature-collections" },
     { label: dict.nav.house, path: "/house" },
     { label: dict.nav.ingredients, path: "/ingredients" },

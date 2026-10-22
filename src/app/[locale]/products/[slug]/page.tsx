@@ -124,13 +124,13 @@ export default async function ProductPage({
                   "radial-gradient(80% 55% at 50% 0%, rgba(167,122,69,0.28), transparent 62%)",
               }}
             />
-            <div className={cn("absolute", shopProductImages[product.slug] ? "inset-0" : frame[product.aspect])}>
+            <div className={cn("absolute", product.imagePresentation === "photograph" || shopProductImages[product.slug] ? "inset-0" : frame[product.aspect])}>
               <Image
                 src={product.image}
                 alt=""
                 fill
                 sizes="(max-width: 1024px) 90vw, 42vw"
-                className={shopProductImages[product.slug] ? "object-cover object-center" : "object-contain drop-shadow-[0_24px_36px_rgba(8,4,4,0.55)]"}
+                className={product.imagePresentation === "photograph" || shopProductImages[product.slug] ? "object-cover object-center" : "object-contain drop-shadow-[0_24px_36px_rgba(8,4,4,0.55)]"}
               />
             </div>
           </div>
@@ -190,7 +190,7 @@ export default async function ProductPage({
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {sameRitual.map((item) => (
                     <li key={item.slug}>
-                      <ProductCard cleanPhotography={Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} />
+                      <ProductCard cleanPhotography={item.imagePresentation === "photograph" || Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} />
                     </li>
                   ))}
                 </ul>
@@ -205,7 +205,7 @@ export default async function ProductPage({
                 <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 lg:grid-cols-4 lg:gap-x-8">
                   {also.map((item) => (
                     <li key={item.slug}>
-                      <ProductCard cleanPhotography={Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} field="sand" />
+                      <ProductCard cleanPhotography={item.imagePresentation === "photograph" || Boolean(shopProductImages[item.slug])} product={item} locale={locale} dict={dict} field="sand" />
                     </li>
                   ))}
                 </ul>

@@ -4,7 +4,7 @@ import { getV2Copy } from "@/lib/v2-content";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export const ritualIds = ["hair", "body", "hammam", "scent"] as const;
+export const ritualIds = ["hair", "body", "hammam", "scent", "home"] as const;
 export const editIds = ["her", "him"] as const;
 export const fragranceIds = ["fleur-doranger"] as const satisfies readonly FragranceId[];
 export const collectionIds = [...ritualIds, ...editIds, ...fragranceIds] as const;

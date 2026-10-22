@@ -11,6 +11,7 @@ export const site = {
   email: "Localook3@gmail.com",
   contactEmails: [
     { address: "Localook3@gmail.com", label: "Localook3@gmail.com" },
+    { address: "asmayajjou@gmail.com", label: "asmayajjou@gmail.com" },
   ],
   instagram: "https://www.instagram.com/maisonlilyazahra.rituel/",
   instagramHandle: "@maisonlilyazahra.rituel",

@@ -88,6 +88,16 @@ export const rituals: Ritual[] = [
     hero: "/products/hair-perfume.webp",
     heroAspect: "tall",
   },
+  {
+    id: "home",
+    index: "V",
+    title: { en: "Home Collection", fr: "Produits Maison", ar: "منتجات المنزل" },
+    line: { en: "Fragrances and objects for your home rituals.", fr: "Senteurs et objets pour vos rituels de maison.", ar: "عطور وقطع لطقوس منزلكم." },
+    body: { en: "Discover our home fragrances, reed diffuser, Serghina burner oil, ceramic burner and rose water.", fr: "Découvrez nos eaux de maison, notre diffuseur, l’huile à brûler Serghina, le brûle-parfum en céramique et l’eau de rose.", ar: "اكتشفوا عطور المنزل والناشر العطري وزيت السرغينة للتبخير والمبخرة الخزفية وماء الورد." },
+    texture: "/collections/campaigns/home.png",
+    hero: "/products/maison/diffuseur-fleur-orientale.png",
+    heroAspect: "column",
+  },
 ];
 
 export function getRitual(id: RitualId): Ritual {

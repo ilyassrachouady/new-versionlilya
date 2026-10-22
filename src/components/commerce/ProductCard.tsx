@@ -30,7 +30,7 @@ export function ProductCard({
   priority = false,
   field = "ivory",
   className,
-  cleanPhotography = false,
+  cleanPhotography = product.imagePresentation === "photograph",
 }: {
   product: Product;
   locale: Locale;
@@ -60,7 +60,7 @@ export function ProductCard({
         <div
           className={cn(
             "surface-grain relative w-full overflow-hidden transition-colors duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-            jar ? "aspect-[4/5]" : "aspect-[2/3]",
+            jar || product.ritual === "home" ? "aspect-[4/5]" : "aspect-[2/3]",
             field === "ivory" && "bg-[#e4d7c4] group-hover:bg-[#dccdb8]",
             field === "sand" && "bg-[#d9c7ad] group-hover:bg-[#d0bb9e]",
             dark && "bg-espresso group-hover:bg-espresso-deep",
@@ -119,9 +119,10 @@ export function ProductCard({
             />
           </motion.div>
 
-          <ProductQuickAdd slug={product.slug} label={dict.product.quickAdd} />
+          {product.ritual !== "home" && <ProductQuickAdd slug={product.slug} label={dict.product.quickAdd} soldOutLabel={dict.product.soldOut} />}
         </div>
       </Link>
+      {product.ritual === "home" && <ProductQuickAdd slug={product.slug} label={dict.product.quickAdd} soldOutLabel={dict.product.soldOut} />}
 
       <div className="flex flex-1 flex-col pt-5">
         <div className="product-card-title flex items-baseline justify-between gap-4">

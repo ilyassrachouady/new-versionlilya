@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { FragranceCollection } from "@/components/commerce/FragranceCollection";
@@ -56,7 +57,16 @@ export default async function CollectionPage({
 
   return (
     <PageFrame>
-      <CampaignHero
+      {id === "home" ? (
+        <section className="bg-ivory">
+          <div className="shell py-10 sm:py-14">
+            <p className="eyebrow text-brass-deep">{collection.eyebrow}</p>
+            <h1 className="display-xl mt-4">{collection.title}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-muted">{collection.body}</p>
+          </div>
+          <Image src="/collections/campaigns/home.png" alt={collection.title} width={1962} height={802} sizes="100vw" preload className="h-auto w-full" />
+        </section>
+      ) : <CampaignHero
         locale={locale}
         eyebrow={collection.eyebrow}
         title={collection.title}
@@ -72,7 +82,7 @@ export default async function CollectionPage({
           { name: collection.title, path: `/collections/${id}` },
         ]}
         tone={collection.kind === "edit" && collection.id === "her" ? "burgundy" : "dark"}
-      />
+      />}
       {collection.kind === "fragrance" ? (
         <>
           <div className="shell py-6"><QuietLink href="#fragrance-cabinet">{getV2Copy(locale).hero.cta}</QuietLink></div>

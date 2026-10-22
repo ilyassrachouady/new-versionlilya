@@ -20,6 +20,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         { label: dict.footer.links.body, path: "/collections/body" },
         { label: dict.footer.links.hammam, path: "/collections/hammam" },
         { label: dict.footer.links.scent, path: "/collections/scent" },
+        { label: locale === "fr" ? "Produits Maison" : locale === "ar" ? "منتجات المنزل" : "Home Collection", path: "/collections/home" },
       ],
     },
     {

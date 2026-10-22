@@ -4,7 +4,7 @@ import { shopProductImages } from "@/lib/shop-product-images";
 
 export const signatureIds = ["fleur-doranger", "the-vert", "ambre-musc", "safran"] as const;
 export type SignatureId = (typeof signatureIds)[number];
-export const ritualOrder: RitualId[] = ["hair", "body", "hammam", "scent"];
+export const ritualOrder = ["hair", "body", "hammam", "scent"] as const satisfies readonly RitualId[];
 
 export const signatureWorlds: Record<SignatureId, { name: string; image: string; background: string }> = {
   "fleur-doranger": { name: "Fleur d’Oranger", image: "/signature-collections/fleur-doranger.webp", background: "#9a603c" },

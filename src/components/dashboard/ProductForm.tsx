@@ -17,6 +17,8 @@ import {
 } from "@/lib/admin-product-form";
 import type { AdminProduct } from "@/lib/admin-products";
 import { cn } from "@/lib/utils";
+import { rituals } from "@/lib/content";
+import type { RitualId } from "@/lib/catalog";
 
 const field =
   "mt-2 h-11 w-full rounded-lg border border-[#d5cabc] bg-white px-3 text-sm text-[#332a25] outline-none focus:border-[#6e5d4c]";
@@ -61,13 +63,14 @@ export function ProductForm({
     metadataValue(product?.metadata, "fragrance") || metadataValue(product?.metadata, "scent") || product?.name || "",
   );
   const initialVolume =
-    Number(metadataValue(product?.metadata, "volumeMl")) ||
-    productTypeOptions.find((option) => option.id === initialType)?.volume ||
+    (metadataValue(product?.metadata, "volumeMl") !== "" ? Number(metadataValue(product?.metadata, "volumeMl")) : undefined) ??
+    productTypeOptions.find((option) => option.id === initialType)?.volume ??
     200;
 
   const [state, formAction] = useActionState(action, null);
   const [name, setName] = useState(product?.name ?? "");
   const [type, setType] = useState(initialType);
+  const [ritual, setRitual] = useState(metadataValue(product?.metadata, "ritual"));
   const [fragrance, setFragrance] = useState(initialFragrance);
   const [volume, setVolume] = useState(initialVolume);
   const [price, setPrice] = useState(String(product?.price_eur ?? ""));
@@ -174,13 +177,21 @@ export function ProductForm({
               <input type="hidden" name="fragrance" value={fragrance} />
             </div>
 
+            <label className="block text-xs text-[#81756b]">
+              Rubrique
+              <select name="ritual" value={ritual} onChange={(event) => setRitual(event.target.value as RitualId)} className={field}>
+                <option value="">Automatique selon le type</option>
+                {rituals.map((item) => <option key={item.id} value={item.id}>{item.title.fr}</option>)}
+              </select>
+            </label>
+
             <div className="grid gap-5 sm:grid-cols-3">
               <label className="text-xs text-[#81756b]">
                 Contenance (ml)
                 <input
                   name="volume_ml"
                   type="number"
-                  min={1}
+                  min={0}
                   value={volume}
                   onChange={(event) => setVolume(Number(event.target.value) || 0)}
                   className={field}

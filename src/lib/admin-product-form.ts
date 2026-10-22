@@ -11,12 +11,16 @@ export const productTypeOptions: { id: ProductType; label: string; code: string;
   { id: "hair-perfume", label: "Parfum cheveux", code: "HP", volume: 100 },
   { id: "face-scrub", label: "Gommage visage", code: "FS", volume: 150 },
   { id: "rose-water", label: "Eau de rose", code: "RW", volume: 200 },
+  { id: "reed-diffuser", label: "Diffuseur", code: "RD", volume: 100 },
+  { id: "home-fragrance", label: "Eau de Maison", code: "HF", volume: 100 },
+  { id: "burner-oil", label: "Huile à brûler", code: "BU", volume: 50 },
+  { id: "oil-burner", label: "Brûle-parfum en céramique", code: "OB", volume: 0 },
 ];
 
 export const fragranceOptions = (Object.entries(fragrances) as [FragranceId, string][]).map(([id, label]) => ({
   id,
   label,
-  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR" }[id],
+  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR", "fleur-de-lin": "FL", "fleur-de-rose": "FR", serghina: "SE", "sans-parfum": "SP" }[id],
 }));
 
 export function slugify(value: string) {

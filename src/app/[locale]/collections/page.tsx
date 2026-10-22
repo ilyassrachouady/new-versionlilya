@@ -39,6 +39,7 @@ export async function generateMetadata({
 }
 
 const campaignImages: Record<string, string> = {
+  home: "/collections/campaigns/home-category-hq.png",
   hair: "/collections/campaigns/hair.png",
   body: "/collections/campaigns/body.png",
   hammam: "/collections/campaigns/hammam.png",

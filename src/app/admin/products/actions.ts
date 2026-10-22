@@ -68,8 +68,13 @@ function catalogFields(formData: FormData) {
       productType: type,
       fragrance,
       scent,
-      size: volume ? `${volume} ML` : "",
+      size: volume ? `${volume} ML` : type === "oil-burner" ? "1 pièce" : "",
       volumeMl: volume,
+      ritual: ["hair", "body", "hammam", "scent", "home"].includes(text(formData, "ritual")) ? text(formData, "ritual")
+        : ["reed-diffuser", "home-fragrance", "burner-oil", "oil-burner"].includes(type) ? "home"
+        : ["shampoo", "conditioner", "hair-mask"].includes(type) ? "hair"
+        : type === "hair-perfume" ? "scent"
+        : ["body-scrub", "face-scrub", "rose-water"].includes(type) ? "hammam" : "body",
     },
   };
 }

@@ -9,13 +9,13 @@ export function ContactEmails({
   className?: string;
   linkClassName?: string;
 }) {
-  const [primary] = site.contactEmails;
-
   return (
     <p className={className}>
-      <a href={`mailto:${primary.address}`} className={linkClassName}>
-        {primary.label}
-      </a>
+      {site.contactEmails.map((contact) => (
+        <a key={contact.address} href={`mailto:${contact.address}`} className={`block ${linkClassName ?? ""}`}>
+          {contact.label}
+        </a>
+      ))}
     </p>
   );
 }

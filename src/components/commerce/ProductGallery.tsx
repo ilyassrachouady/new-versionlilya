@@ -23,7 +23,7 @@ export function ProductGallery({ product }: { product: Product }) {
   const [active, setActive] = useState(0);
   const field = fields[active] ?? fields[0];
   const images = product.gallery;
-  const imageFit = shopProductImages[product.slug] === product.image ? "object-cover object-center" : "object-contain";
+  const imageFit = product.imagePresentation === "photograph" || shopProductImages[product.slug] === product.image ? "object-cover object-center" : "object-contain";
   const jar = product.aspect === "jar";
 
 

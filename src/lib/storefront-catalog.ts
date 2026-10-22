@@ -22,6 +22,7 @@ type StorefrontRow = {
   sku: string;
   slug: string;
   name: string;
+  description: string | null;
   price_eur: number;
   stock_quantity: number;
   status: string;
@@ -32,7 +33,7 @@ type StorefrontRow = {
 function metaString(metadata: unknown, key: string) {
   if (!metadata || typeof metadata !== "object" || !(key in metadata)) return "";
   const value = (metadata as Record<string, unknown>)[key];
-  return typeof value === "string" ? value : "";
+  return typeof value === "string" || typeof value === "number" || typeof value === "boolean" ? String(value) : "";
 }
 
 function inferFragrance(value: string): FragranceId {
@@ -60,6 +61,7 @@ function inferType(value: string): ProductType {
 }
 
 function inferRitual(type: ProductType): RitualId {
+  if (["reed-diffuser", "home-fragrance", "burner-oil", "oil-burner"].includes(type)) return "home";
   if (type === "hair-perfume") return "scent";
   if (type === "body-scrub" || type === "face-scrub" || type === "rose-water") return "hammam";
   if (type === "shampoo" || type === "conditioner" || type === "hair-mask") return "hair";
@@ -91,9 +93,15 @@ function fromRow(row: StorefrontRow): Product {
   const productType = (metaString(row.metadata, "productType") as ProductType) || inferType(`${row.slug} ${row.name}`);
   const scent = metaString(row.metadata, "scent") || local?.scent || fragrances[fragrance];
   const localized = (value: string) => ({ en: value, fr: value, ar: value });
-  const nameCopy = row.metadata && typeof row.metadata === "object"
-    ? (row.metadata as { localized?: { name?: Partial<Product["name"]> } }).localized?.name
+  const copy = row.metadata && typeof row.metadata === "object"
+    ? (row.metadata as { localized?: Partial<Record<"name" | "tagline" | "description" | "howToUse" | "vessel", Partial<Product["name"]>>> }).localized
     : undefined;
+  const nameCopy = copy?.name;
+  const fieldCopy = (key: "tagline" | "description" | "howToUse" | "vessel") => ({
+    ...localized(""), ...copy?.[key],
+    ...(key === "description" && row.description !== null ? { fr: row.description } : {}),
+  });
+  const managedRitual = metaString(row.metadata, "ritual");
   const image = row.image_url || local?.image || "/products/body-oil.webp";
 
   if (local) {
@@ -117,30 +125,31 @@ function fromRow(row: StorefrontRow): Product {
     image,
     imageWidth: 800,
     imageHeight: 1000,
-    name: { en: nameCopy?.en || row.name, fr: nameCopy?.fr || row.name, ar: nameCopy?.ar || row.name },
+    imagePresentation: metaString(row.metadata, "imagePresentation") === "photograph" ? "photograph" : undefined,
+    name: { en: nameCopy?.en || row.name, fr: row.name, ar: nameCopy?.ar || row.name },
     labelFr: row.name,
     scent,
     fragrance,
     size: metaString(row.metadata, "size") || "",
-    volumeMl: Number(metaString(row.metadata, "volumeMl")) || 200,
+    volumeMl: metaString(row.metadata, "volumeMl") !== "" ? Number(metaString(row.metadata, "volumeMl")) : 200,
     withArgan: metaString(row.metadata, "withArgan") === "true",
     priceEUR: Number(row.price_eur),
-    ritual: inferRitual(productType),
+    ritual: ["hair", "body", "hammam", "scent", "home"].includes(managedRitual) ? managedRitual as RitualId : inferRitual(productType),
     needs: [],
-    tagline: localized(""),
-    description: localized(""),
+    tagline: fieldCopy("tagline"),
+    description: fieldCopy("description"),
     ritualNote: localized(""),
-    howToUse: localized(""),
+    howToUse: fieldCopy("howToUse"),
     ingredients: [],
-    vessel: localized(""),
+    vessel: fieldCopy("vessel"),
     featured: false,
-    aspect: "column",
+    aspect: productType === "oil-burner" ? "jar" : "column",
   }, row.image_url);
 }
 
 async function loadRows(): Promise<StorefrontRow[]> {
   if (!supabaseConfigState.publicReady) return [];
-  const select = "id,sku,slug,name,price_eur,stock_quantity,status,image_url,metadata";
+  const select = "id,sku,slug,name,description,price_eur,stock_quantity,status,image_url,metadata";
   try {
     const { url, publishableKey } = getPublicSupabaseConfig();
     const supabase = createClient<Database>(url, publishableKey, {
