@@ -47,7 +47,7 @@ export default async function OrdersPage() {
                     </td>
                     <td className="px-4 py-4">{order.items}</td>
                     <td className="px-4 py-4 text-[#746960]">{order.country}</td>
-                    <td className="whitespace-nowrap px-4 py-4 font-semibold">{order.total.toLocaleString("fr-FR")} MAD</td>
+                    <td className="whitespace-nowrap px-4 py-4 font-semibold">{order.total.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {order.currency}</td>
                     <td className="px-4 py-4">
                       <StatusBadge>{order.payment}</StatusBadge>
                     </td>

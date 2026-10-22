@@ -57,7 +57,7 @@ export function CabinetProductCard({ product, index, locale, dict, discoverLabel
                 <p className="v2-kicker text-[#8d3e33]">{product.scent} · {product.size}</p>
                 <div className="mt-3 flex items-start justify-between gap-4">
                   <h3 className="font-display text-[1.65rem] leading-[1.05]">{product.name[locale]}</h3>
-                  <Price amountMAD={product.priceMAD} locale={locale} className="shrink-0 text-[0.78rem]" />
+                  <Price amountEUR={product.priceEUR} locale={locale} className="shrink-0 text-[0.78rem]" />
                 </div>
                 <p className="mt-4 text-[0.78rem] leading-relaxed text-[#725c53]">{product.tagline[locale]}</p>
                 <div className="mt-auto flex items-center justify-between gap-4 pt-6">

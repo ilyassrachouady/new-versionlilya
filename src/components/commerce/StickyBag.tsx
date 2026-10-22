@@ -59,7 +59,7 @@ export function StickyBag({
                 {product.scent} · {product.size}
               </p>
               <Price
-                amountMAD={product.priceMAD}
+                amountEUR={product.priceEUR}
                 locale={locale}
                 className="text-[0.8125rem] text-ink-muted"
               />

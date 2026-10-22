@@ -22,7 +22,7 @@ type StorefrontRow = {
   sku: string;
   slug: string;
   name: string;
-  price_mad: number;
+  price_eur: number;
   stock_quantity: number;
   status: string;
   image_url: string | null;
@@ -101,7 +101,7 @@ function fromRow(row: StorefrontRow): Product {
       ...local,
       id: row.id,
       sku: row.sku,
-      priceMAD: Number(row.price_mad),
+      priceEUR: Number(row.price_eur),
       stockQuantity: row.stock_quantity,
       image,
       description: local.description,
@@ -124,7 +124,7 @@ function fromRow(row: StorefrontRow): Product {
     size: metaString(row.metadata, "size") || "",
     volumeMl: Number(metaString(row.metadata, "volumeMl")) || 200,
     withArgan: metaString(row.metadata, "withArgan") === "true",
-    priceMAD: Number(row.price_mad),
+    priceEUR: Number(row.price_eur),
     ritual: inferRitual(productType),
     needs: [],
     tagline: localized(""),
@@ -140,7 +140,7 @@ function fromRow(row: StorefrontRow): Product {
 
 async function loadRows(): Promise<StorefrontRow[]> {
   if (!supabaseConfigState.publicReady) return [];
-  const select = "id,sku,slug,name,price_mad,stock_quantity,status,image_url,metadata";
+  const select = "id,sku,slug,name,price_eur,stock_quantity,status,image_url,metadata";
   try {
     const { url, publishableKey } = getPublicSupabaseConfig();
     const supabase = createClient<Database>(url, publishableKey, {
@@ -162,7 +162,7 @@ async function buildCatalog() {
   return rows.filter((row) => row.status === "active").map(fromRow);
 }
 
-const loadCatalog = unstable_cache(buildCatalog, ["storefront-catalog"], {
+const loadCatalog = unstable_cache(buildCatalog, ["storefront-catalog-eur-v1"], {
   tags: ["storefront-catalog"],
   revalidate: 120,
 });

@@ -43,7 +43,7 @@ export function ProductFold({
               <p className="label-xs mt-3 text-burgundy">{product.scent}</p>
             </div>
             <Price
-              amountMAD={product.priceMAD}
+              amountEUR={product.priceEUR}
               locale={locale}
               className="shrink-0 font-display text-[1.85rem] leading-none text-burgundy"
             />

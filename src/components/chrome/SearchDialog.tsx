@@ -131,7 +131,7 @@ export function SearchDialog({ locale, dict, catalog }: { locale: Locale; dict: 
                                 </span>
                               </span>
                               <Price
-                                amountMAD={product.priceMAD}
+                                amountEUR={product.priceEUR}
                                 locale={locale}
                                 className="text-[0.8125rem] text-espresso"
                               />

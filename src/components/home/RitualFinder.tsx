@@ -124,7 +124,7 @@ export function RitualFinder({ locale, dict }: { locale: Locale; dict: Dictionar
                           {product.name[locale]}
                         </p>
                         <Price
-                          amountMAD={product.priceMAD}
+                          amountEUR={product.priceEUR}
                           locale={locale}
                           className="text-[0.8125rem] text-ink-muted"
                         />

@@ -13,7 +13,7 @@ import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const { isOpen, closeCart, items, count, subtotalMAD, setQuantity, remove } = useStore();
+  const { isOpen, closeCart, items, count, subtotalEUR, setQuantity, remove } = useStore();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && closeCart()}>
@@ -102,7 +102,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                                 </p>
                               </div>
                               <Price
-                                amountMAD={product.priceMAD * quantity}
+                                amountEUR={product.priceEUR * quantity}
                                 locale={locale}
                                 className="shrink-0 text-[0.8125rem] text-espresso"
                               />
@@ -147,7 +147,7 @@ export function CartDrawer({ locale, dict }: { locale: Locale; dict: Dictionary 
                       <div className="flex items-baseline justify-between">
                         <span className="label-xs text-ink-muted">{dict.cart.subtotal}</span>
                         <Price
-                          amountMAD={subtotalMAD}
+                          amountEUR={subtotalEUR}
                           locale={locale}
                           className="font-display text-[1.4rem] text-espresso"
                         />

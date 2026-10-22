@@ -86,7 +86,7 @@ export function AccountView({ locale, dict }: { locale: Locale; dict: Dictionary
                     </p>
                   </div>
                   <Price
-                    amountMAD={product.priceMAD}
+                    amountEUR={product.priceEUR}
                     locale={locale}
                     className="text-[0.875rem] text-espresso"
                   />

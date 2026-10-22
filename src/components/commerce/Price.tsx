@@ -6,16 +6,14 @@ import type { Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
 /**
- * Renders the dirham price in the reader's chosen currency. Server-rendered
- * as MAD so the first paint is never blank, then swapped once the stored
- * preference is read.
+ * Renders canonical EUR catalogue prices, including cents.
  */
 export function Price({
-  amountMAD,
+  amountEUR,
   locale,
   className,
 }: {
-  amountMAD: number;
+  amountEUR: number;
   locale: Locale;
   className?: string;
 }) {
@@ -23,7 +21,7 @@ export function Price({
   const active = hydrated ? currency : baseCurrency;
   return (
     <span className={cn("tabular", className)} suppressHydrationWarning>
-      {formatPrice(amountMAD, active, locale)}
+      {formatPrice(amountEUR, active, locale)}
     </span>
   );
 }

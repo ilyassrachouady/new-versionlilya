@@ -11,7 +11,7 @@ export type AdminProduct = {
   slug: string;
   name: string;
   description: string | null;
-  price_mad: number;
+  price_eur: number;
   stock_quantity: number;
   low_stock_threshold: number;
   status: string;
@@ -30,7 +30,7 @@ function localProducts(): AdminProduct[] {
     slug: product.sku.toLowerCase(),
     name: product.name,
     description: null,
-    price_mad: product.price,
+    price_eur: product.price,
     stock_quantity: product.inventory,
     low_stock_threshold: 10,
     status: "active",
@@ -42,7 +42,7 @@ function localProducts(): AdminProduct[] {
 export async function getAdminProducts(query = "") {
   const client = await reader();
   if (!client) return filterLocalProducts(query);
-  let request = client.from("products").select("id,sku,slug,name,description,price_mad,stock_quantity,low_stock_threshold,status,image_url,metadata").order("name");
+  let request = client.from("products").select("id,sku,slug,name,description,price_eur,stock_quantity,low_stock_threshold,status,image_url,metadata").order("name");
   const clean = query.trim();
   if (clean) request = request.or(`name.ilike.%${clean.replaceAll(",", "")}%,sku.ilike.%${clean.replaceAll(",", "")}%,slug.ilike.%${clean.replaceAll(",", "")}%`);
   try {
@@ -65,7 +65,7 @@ export async function getAdminProduct(sku: string) {
   const client = await reader();
   if (!client) return localProducts().find((product) => product.sku === sku) ?? null;
   try {
-    const { data, error } = await client.from("products").select("id,sku,slug,name,description,price_mad,stock_quantity,low_stock_threshold,status,image_url,metadata").eq("sku", sku).maybeSingle();
+    const { data, error } = await client.from("products").select("id,sku,slug,name,description,price_eur,stock_quantity,low_stock_threshold,status,image_url,metadata").eq("sku", sku).maybeSingle();
     if (error) throw error;
     return data as AdminProduct | null;
   } catch {

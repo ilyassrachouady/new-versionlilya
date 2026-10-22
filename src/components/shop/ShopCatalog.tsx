@@ -33,7 +33,7 @@ export function ShopCatalog({ products, locale, dict }: { products: Product[]; l
       const haystack = `${product.name[locale]} ${product.labelFr} ${product.scent} ${product.productType}`.toLocaleLowerCase(locale);
       return matchesRitual && matchesFragrance && (!needle || haystack.includes(needle));
     });
-    return sort === "recommended" ? matches : matches.toSorted((a, b) => sort === "ascending" ? a.priceMAD - b.priceMAD : b.priceMAD - a.priceMAD);
+    return sort === "recommended" ? matches : matches.toSorted((a, b) => sort === "ascending" ? a.priceEUR - b.priceEUR : b.priceEUR - a.priceEUR);
   }, [fragrance, locale, products, query, ritual, sort]);
 
   const filtered = ritual !== "all" || fragrance !== "all" || query.trim().length > 0;

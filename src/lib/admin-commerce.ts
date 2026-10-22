@@ -2,6 +2,7 @@ import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Json } from "@/lib/supabase/database.types";
+import { legacyMadToEur } from "@/lib/currency";
 
 const paymentLabels: Record<string, string> = {
   pending: "En attente",
@@ -41,7 +42,7 @@ export async function getAdminOrders() {
   if (!client) return [];
   const { data, error } = await client
     .from("orders")
-    .select("id,order_number,email,status,payment_status,total,shipping_address,created_at,customer_id")
+    .select("id,order_number,email,status,payment_status,total,currency,shipping_address,created_at,customer_id")
     .order("created_at", { ascending: false });
   if (error) {
     console.error("Admin orders", error);
@@ -89,6 +90,7 @@ export async function getAdminOrders() {
       items: counts.get(order.id) ?? 0,
       country: customer?.country || addressField(address, "country") || "—",
       total: Number(order.total),
+      currency: order.currency,
       payment: paymentLabels[order.payment_status] ?? order.payment_status,
       status: statusLabels[order.status] ?? order.status,
       date: formatDate(order.created_at),
@@ -124,6 +126,7 @@ export async function getAdminOrder(orderNumber: string) {
     subtotal: Number(order.subtotal),
     shipping: Number(order.shipping_total),
     total: Number(order.total),
+    currency: order.currency,
     date: formatDate(order.created_at),
     items: (items ?? []).map((item) => ({
       name: item.name,
@@ -139,7 +142,7 @@ export async function getAdminCustomers() {
   if (!client) return [];
   const [{ data: customers, error }, { data: orders }] = await Promise.all([
     client.from("customers").select("id,email,full_name,country,created_at").order("created_at", { ascending: false }),
-    client.from("orders").select("customer_id,email,total,created_at"),
+    client.from("orders").select("customer_id,email,total,currency,created_at"),
   ]);
   if (error) {
     console.error("Admin customers", error);
@@ -149,7 +152,7 @@ export async function getAdminCustomers() {
     const related = (orders ?? []).filter(
       (order) => order.customer_id === customer.id || order.email === customer.email,
     );
-    const value = related.reduce((sum, order) => sum + Number(order.total), 0);
+    const value = related.reduce((sum, order) => sum + (order.currency === "MAD" ? legacyMadToEur(Number(order.total)) : Number(order.total)), 0);
     const last = related.sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
     return {
       name: customer.full_name,

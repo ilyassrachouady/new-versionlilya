@@ -9,8 +9,8 @@ export type Database = {
   public: {
     Tables: {
       products: {
-        Row: Timestamped & { id: string; sku: string; slug: string; name: string; description: string | null; price_mad: number; stock_quantity: number; low_stock_threshold: number; status: string; image_url: string | null; metadata: Json };
-        Insert: { id?: string; sku: string; slug: string; name: string; description?: string | null; price_mad: number; stock_quantity?: number; low_stock_threshold?: number; status?: string; image_url?: string | null; metadata?: Json; created_at?: string; updated_at?: string };
+        Row: Timestamped & { id: string; sku: string; slug: string; name: string; description: string | null; price_eur: number; currency: string; stock_quantity: number; low_stock_threshold: number; status: string; image_url: string | null; metadata: Json };
+        Insert: { id?: string; sku: string; slug: string; name: string; description?: string | null; price_eur: number; currency?: string; stock_quantity?: number; low_stock_threshold?: number; status?: string; image_url?: string | null; metadata?: Json; created_at?: string; updated_at?: string };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;
         Relationships: [];
       };

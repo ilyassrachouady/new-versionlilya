@@ -2,6 +2,7 @@ import { UserRound } from "lucide-react";
 
 import { MetricCard, PageHeader, StatusBadge } from "@/components/dashboard/AdminUI";
 import { getAdminCustomers } from "@/lib/admin-commerce";
+import { formatMoney } from "@/lib/currency";
 
 export default async function CustomersPage() {
   const customers = await getAdminCustomers();
@@ -14,7 +15,7 @@ export default async function CustomersPage() {
       <section className="grid grid-cols-2 gap-x-5 lg:grid-cols-4 lg:gap-x-8">
         <MetricCard label="Total des clients" value={String(customers.length)} />
         <MetricCard label="Avec commande" value={String(withOrders)} />
-        <MetricCard label="Valeur cumulée" value={`${totalValue.toLocaleString("fr-FR")} MAD`} />
+        <MetricCard label="Valeur cumulée" value={formatMoney(totalValue)} />
         <MetricCard label="Dernier ajout" value={customers[0]?.last ?? "—"} />
       </section>
       <div className="overflow-x-auto border-t border-[#cfc4b4]">
@@ -51,7 +52,7 @@ export default async function CustomersPage() {
                   </td>
                   <td className="py-4 pe-5 text-[#746960]">{customer.country}</td>
                   <td className="py-4 pe-5">{customer.orders}</td>
-                  <td className="py-4 pe-5 admin-serif text-lg">{customer.value.toLocaleString("fr-FR")} MAD</td>
+                  <td className="py-4 pe-5 admin-serif text-lg">{formatMoney(customer.value)}</td>
                   <td className="py-4 pe-5 text-[#746960]">{customer.last}</td>
                   <td className="py-4">
                     <StatusBadge>{customer.segment}</StatusBadge>

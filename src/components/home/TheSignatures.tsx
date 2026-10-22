@@ -92,7 +92,7 @@ export function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictiona
                       {dict.common.discover}
                     </QuietLink>
                     <Price
-                      amountMAD={product.priceMAD}
+                      amountEUR={product.priceEUR}
                       locale={locale}
                       className="font-display text-[1.25rem] text-burgundy"
                     />

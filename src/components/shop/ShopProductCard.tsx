@@ -47,7 +47,7 @@ export function ShopProductCard({ product, index, locale, dict, discoverLabel }:
                 <p className="text-[0.6rem] font-medium uppercase tracking-[0.1em] leading-relaxed text-[#8d3e33] [overflow-wrap:anywhere]">{product.scent} · {product.size}</p>
                 <div className="mt-3 flex flex-col items-start gap-2 xl:flex-row xl:justify-between xl:gap-3">
                   <h3 className="font-display text-[1.25rem] leading-[1.15] [overflow-wrap:anywhere] sm:text-[1.65rem]">{product.name[locale]}</h3>
-                  <Price amountMAD={product.priceMAD} locale={locale} className="shrink-0 text-[0.78rem]" />
+                  <Price amountEUR={product.priceEUR} locale={locale} className="shrink-0 text-[0.78rem]" />
                 </div>
                 <p className="mt-4 text-[0.78rem] leading-relaxed text-[#725c53]">{product.tagline[locale]}</p>
                 <div className="mt-auto flex items-center border-t border-espresso/15 pt-5">

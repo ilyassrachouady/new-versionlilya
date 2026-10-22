@@ -14,7 +14,7 @@ export function RevenueChart() {
   const x = (active / (revenuePoints.length - 1)) * width;
   const y = height - ((revenuePoints[active] - 25) / 165) * height;
   return <div className="relative mt-8 overflow-hidden">
-    <div className="absolute end-0 top-0 z-10 border border-[#d3c8b9] bg-[#faf7f1] px-3 py-2 text-xs shadow-sm"><span className="text-[#8d8075]">11 oct.</span><strong className="admin-serif ms-3 text-base font-normal">2,180 MAD</strong></div>
+    <div className="absolute end-0 top-0 z-10 border border-[#d3c8b9] bg-[#faf7f1] px-3 py-2 text-xs shadow-sm"><span className="text-[#8d8075]">11 oct.</span><strong className="admin-serif ms-3 text-base font-normal">198.27 EUR</strong></div>
     <svg viewBox={`0 0 ${width} ${height + 30}`} className="h-[18rem] w-full overflow-visible" role="img" aria-label="Le chiffre d’affaires progresse sur la période sélectionnée">
       {[0,1,2,3].map((line) => <line key={line} x1="0" x2={width} y1={line * 70 + 12} y2={line * 70 + 12} stroke="#d8cfc1" strokeWidth="1" />)}
       <path d={pathFor(previousRevenuePoints, width, height)} fill="none" stroke="#b9ad9f" strokeWidth="1.5" strokeDasharray="5 7" />

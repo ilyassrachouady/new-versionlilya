@@ -10,7 +10,7 @@ import type { Json } from "@/lib/supabase/database.types";
 export type PlaceOrderError = "unavailable" | "empty" | "required" | "stock" | "limit";
 
 export type PlaceOrderResult =
-  | { ok: true; orderNumber: string; totalMAD: number; paymentUrl: string }
+  | { ok: true; orderNumber: string; totalEUR: number; paymentUrl: string }
   | { ok: false; error: PlaceOrderError };
 
 type IncomingLine = { slug: string; quantity: number };
@@ -47,7 +47,7 @@ function emailLooksValid(value: string) {
 
 export async function placeOrder(formData: FormData): Promise<PlaceOrderResult> {
   const client = createAdminClient();
-  if (!client) return { ok: false, error: "unavailable" };
+  if (!client || !inyadPayment.url) return { ok: false, error: "unavailable" };
 
   const fullName = text(formData, "fullName");
   const email = text(formData, "email").toLowerCase();
@@ -64,7 +64,7 @@ export async function placeOrder(formData: FormData): Promise<PlaceOrderResult> 
 
   const { data: rows, error: catalogError } = await client
     .from("products")
-    .select("id,sku,slug,name,price_mad,stock_quantity,status")
+    .select("id,sku,slug,name,price_eur,stock_quantity,status")
     .eq("status", "active");
   if (catalogError || !rows) return { ok: false, error: "unavailable" };
 
@@ -81,13 +81,13 @@ export async function placeOrder(formData: FormData): Promise<PlaceOrderResult> 
       productId: row.id,
       sku: row.sku,
       name: row.name,
-      unitPrice: Number(row.price_mad),
+      unitPrice: Number(row.price_eur),
       stock: row.stock_quantity,
     });
   }
 
-  const subtotal = prepared.reduce((sum, line) => sum + line.unitPrice * line.quantity, 0);
-  if (subtotal > inyadPayment.maxMAD) return { ok: false, error: "limit" };
+  const subtotal = prepared.reduce((sum, line) => sum + Math.round(line.unitPrice * 100) * line.quantity, 0) / 100;
+  if (subtotal > inyadPayment.maxEUR) return { ok: false, error: "limit" };
 
   const { data: existingCustomer } = await client.from("customers").select("id").eq("email", email).maybeSingle();
   let customerId = existingCustomer?.id ?? null;
@@ -117,7 +117,7 @@ export async function placeOrder(formData: FormData): Promise<PlaceOrderResult> 
       email,
       status: "pending",
       payment_status: "pending",
-      currency: "MAD",
+      currency: "EUR",
       subtotal,
       shipping_total: 0,
       total: subtotal,
@@ -136,7 +136,7 @@ export async function placeOrder(formData: FormData): Promise<PlaceOrderResult> 
         email,
         status: "pending",
         payment_status: "pending",
-        currency: "MAD",
+        currency: "EUR",
         subtotal,
         shipping_total: 0,
         total: subtotal,
@@ -156,7 +156,7 @@ async function finalizeOrder(
   client: NonNullable<ReturnType<typeof createAdminClient>>,
   orderId: string,
   orderNumberValue: string,
-  totalMAD: number,
+  totalEUR: number,
   prepared: { productId: string; sku: string; name: string; unitPrice: number; quantity: number; stock: number }[],
 ): Promise<PlaceOrderResult> {
   const { error: itemsError } = await client.from("order_items").insert(
@@ -195,5 +195,5 @@ async function finalizeOrder(
   revalidatePath("/admin/customers");
   revalidatePath("/admin/inventory");
   revalidatePath("/admin");
-  return { ok: true, orderNumber: orderNumberValue, totalMAD, paymentUrl: inyadPayment.url };
+  return { ok: true, orderNumber: orderNumberValue, totalEUR, paymentUrl: inyadPayment.url };
 }

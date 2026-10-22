@@ -25,7 +25,7 @@ type StoreValue = {
   lines: CartLine[];
   items: { product: Product; quantity: number }[];
   count: number;
-  subtotalMAD: number;
+  subtotalEUR: number;
   add: (slug: string, quantity?: number) => void;
   setQuantity: (slug: string, quantity: number) => void;
   remove: (slug: string) => void;
@@ -47,7 +47,7 @@ type StoreValue = {
 const StoreContext = createContext<StoreValue | null>(null);
 
 const CART_KEY = "mlz.bag.v1";
-const CURRENCY_KEY = "mlz.currency.v1";
+const CURRENCY_KEY = "mlz.currency.eur.v2";
 const WISH_KEY = "mlz.wish.v1";
 
 export function StoreProvider({ children, catalog }: { children: ReactNode; catalog: Product[] }) {
@@ -210,10 +210,10 @@ export function StoreProvider({ children, catalog }: { children: ReactNode; cata
       lines,
       items,
       count: items.reduce((total, item) => total + item.quantity, 0),
-      subtotalMAD: items.reduce(
-        (total, item) => total + item.product.priceMAD * item.quantity,
+      subtotalEUR: items.reduce(
+        (total, item) => total + Math.round(item.product.priceEUR * 100) * item.quantity,
         0,
-      ),
+      ) / 100,
       add,
       setQuantity,
       remove,

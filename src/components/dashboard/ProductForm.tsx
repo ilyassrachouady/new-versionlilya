@@ -70,7 +70,7 @@ export function ProductForm({
   const [type, setType] = useState(initialType);
   const [fragrance, setFragrance] = useState(initialFragrance);
   const [volume, setVolume] = useState(initialVolume);
-  const [price, setPrice] = useState(String(product?.price_mad ?? ""));
+  const [price, setPrice] = useState(String(product?.price_eur ?? ""));
   const [stock, setStock] = useState(String(product?.stock_quantity ?? 10));
   const [status, setStatus] = useState(product?.status ?? "draft");
   const [description, setDescription] = useState(product?.description ?? "");
@@ -91,14 +91,6 @@ export function ProductForm({
 
   const generatedSku = useMemo(() => suggestSku(type, fragrance, volume), [type, fragrance, volume]);
   const generatedSlug = useMemo(() => suggestSlug(name, type, fragrance), [name, type, fragrance]);
-
-  useEffect(() => {
-    if (!skuLocked) setSku(generatedSku);
-  }, [generatedSku, skuLocked]);
-
-  useEffect(() => {
-    if (!slugLocked) setSlug(generatedSlug);
-  }, [generatedSlug, slugLocked]);
 
   useEffect(() => {
     return () => {
@@ -195,16 +187,16 @@ export function ProductForm({
                 />
               </label>
               <label className="text-xs text-[#81756b]">
-                Prix (MAD)
+                Prix (EUR)
                 <input
-                  name="price_mad"
+                  name="price_eur"
                   type="number"
                   min={0}
-                  step="1"
+                  step="0.01"
                   required
                   value={price}
                   onChange={(event) => setPrice(event.target.value)}
-                  placeholder="150"
+                  placeholder="13.64"
                   className={field}
                 />
               </label>
@@ -342,7 +334,7 @@ export function ProductForm({
               SKU
               <input
                 name="sku"
-                value={sku}
+                value={skuLocked ? sku : generatedSku}
                 onChange={(event) => {
                   setSkuLocked(true);
                   setSku(event.target.value);
@@ -354,7 +346,7 @@ export function ProductForm({
               Slug
               <input
                 name="slug"
-                value={slug}
+                value={slugLocked ? slug : generatedSlug}
                 onChange={(event) => {
                   setSlugLocked(true);
                   setSlug(event.target.value);
@@ -395,7 +387,7 @@ export function ProductForm({
               <p className="admin-serif mt-1 text-xl leading-tight">{name || "Nouveau produit"}</p>
               <p className="mt-1 text-xs text-[#81756b]">{typeLabel}</p>
               <div className="mt-4 flex items-center justify-between text-sm">
-                <span className="font-semibold">{price ? `${price} MAD` : "—"}</span>
+                <span className="font-semibold">{price ? `${Number(price).toFixed(2)} EUR` : "—"}</span>
                 <span className="text-xs text-[#71665d]">{stock || "0"} unités</span>
               </div>
             </div>

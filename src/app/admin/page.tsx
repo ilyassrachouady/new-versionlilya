@@ -5,6 +5,7 @@ import { AdminMedia, MetricCard, PageHeader, SectionTitle, StatusBadge } from "@
 import { getAdminSession } from "@/lib/admin-auth";
 import { getAdminProducts } from "@/lib/admin-products";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { formatMoney, legacyMadToEur } from "@/lib/currency";
 
 function metadataValue(metadata: unknown, key: string) {
   return metadata && typeof metadata === "object" && key in metadata
@@ -31,7 +32,7 @@ export default async function AdminOverviewPage() {
   const healthy = Math.max(0, products.length - alerts.length);
   const totalStock = products.reduce((sum, product) => sum + product.stock_quantity, 0);
   const client = createAdminClient();
-  let ordersResult: { data: { id: string; total: number; status: string; created_at: string }[] | null; count: number | null } = {
+  let ordersResult: { data: { id: string; total: number; currency: string; status: string; created_at: string }[] | null; count: number | null } = {
     data: [],
     count: 0,
   };
@@ -40,7 +41,7 @@ export default async function AdminOverviewPage() {
   if (client) {
     try {
       [ordersResult, customersResult, collectionsResult] = await Promise.all([
-        client.from("orders").select("id,total,status,created_at", { count: "exact" }).order("created_at", { ascending: false }).limit(5),
+        client.from("orders").select("id,total,currency,status,created_at", { count: "exact" }).order("created_at", { ascending: false }).limit(5),
         client.from("customers").select("id", { count: "exact", head: true }),
         client.from("collections").select("id", { count: "exact", head: true }),
       ]);
@@ -49,7 +50,7 @@ export default async function AdminOverviewPage() {
     }
   }
   const recentOrders = ordersResult.data ?? [];
-  const revenue = recentOrders.reduce((sum, order) => sum + Number(order.total ?? 0), 0);
+  const revenue = recentOrders.reduce((sum, order) => sum + (order.currency === "MAD" ? legacyMadToEur(Number(order.total)) : Number(order.total)), 0);
   const hour = Number(
     new Intl.DateTimeFormat("en-GB", { timeZone: "Africa/Casablanca", hour: "2-digit", hour12: false }).format(new Date()),
   );
@@ -207,7 +208,7 @@ export default async function AdminOverviewPage() {
                 {recentOrders.map((order) => (
                   <tr key={order.id} className="border-t border-[#eee9e4] text-sm">
                     <td className="py-4 font-medium">{order.id.slice(0, 8)}</td>
-                    <td className="py-4">{Number(order.total).toLocaleString("fr-FR")} MAD</td>
+                    <td className="py-4">{formatMoney(Number(order.total), order.currency)}</td>
                     <td className="py-4">
                       <StatusBadge>{order.status}</StatusBadge>
                     </td>
@@ -215,7 +216,7 @@ export default async function AdminOverviewPage() {
                 ))}
               </tbody>
             </table>
-            <p className="mt-4 text-end text-sm font-semibold">Total récent : {revenue.toLocaleString("fr-FR")} MAD</p>
+            <p className="mt-4 text-end text-sm font-semibold">Total récent : {formatMoney(revenue)}</p>
           </div>
         )}
       </section>

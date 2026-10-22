@@ -1,26 +1,24 @@
 import type { Locale } from "@/lib/i18n/config";
 
-export const currencies = ["MAD", "EUR", "GBP", "USD", "CAD", "AED"] as const;
+export const currencies = ["EUR"] as const;
 export type Currency = (typeof currencies)[number];
 
 /**
- * The store prices in dirham. Everything else is a display conversion.
- *
- * NOTE FOR THE MAISON: these are static reference rates. Point
- * `getRates()` at your payment provider's FX feed before taking real orders,
- * and trim `enabledCurrencies` to the ones your gateway actually settles.
+ * EUR is the only catalogue and storefront currency.
  */
-export const baseCurrency: Currency = "MAD";
+export const baseCurrency: Currency = "EUR";
 
-export const enabledCurrencies: Currency[] = ["MAD", "EUR", "GBP", "USD", "CAD", "AED"];
+export const enabledCurrencies: Currency[] = ["EUR"];
+
+/** One-time migration reference; selling prices do not fluctuate with FX. */
+export const eurMigration = { date: "2026-10-22", madPerEur: 10.9953, source: "https://mparsio.com/outils/taux-de-change" } as const;
+
+export function legacyMadToEur(amount: number) {
+  return Math.round((amount / eurMigration.madPerEur + Number.EPSILON) * 100) / 100;
+}
 
 const referenceRates: Record<Currency, number> = {
-  MAD: 1,
-  EUR: 0.092,
-  GBP: 0.078,
-  USD: 0.1,
-  CAD: 0.137,
-  AED: 0.367,
+  EUR: 1,
 };
 
 export function getRates(): Record<Currency, number> {
@@ -28,22 +26,23 @@ export function getRates(): Record<Currency, number> {
 }
 
 const localeForCurrency: Record<Currency, string> = {
-  MAD: "fr-MA",
   EUR: "fr-FR",
-  GBP: "en-GB",
-  USD: "en-US",
-  CAD: "en-CA",
-  AED: "en-AE",
 };
 
-/** Round to a price that looks considered rather than converted. */
-function tidy(amount: number, currency: Currency): number {
-  if (currency === "MAD" || currency === "AED") return Math.round(amount / 5) * 5;
-  return Math.round(amount);
+/** Keep cents; never round a unit price to whole euros. */
+function tidy(amount: number): number {
+  return Math.round((amount + Number.EPSILON) * 100) / 100;
 }
 
 export function convert(amountInBase: number, currency: Currency): number {
-  return tidy(amountInBase * getRates()[currency], currency);
+  return tidy(amountInBase * getRates()[currency]);
+}
+
+/** Historical order amounts retain their original currency. */
+export function formatMoney(amount: number, currency = "EUR", locale: Locale = "fr") {
+  return new Intl.NumberFormat(locale === "ar" ? "ar-MA" : locale === "en" ? "en-IE" : "fr-FR", {
+    style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2,
+  }).format(amount);
 }
 
 export function formatPrice(
@@ -56,7 +55,7 @@ export function formatPrice(
   return new Intl.NumberFormat(intlLocale, {
     style: "currency",
     currency,
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
   }).format(value);
 }

@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 
 import { PageHeader, SectionTitle, StatusBadge } from "@/components/dashboard/AdminUI";
 import { getAdminOrder } from "@/lib/admin-commerce";
+import { formatMoney } from "@/lib/currency";
 
 export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -30,22 +31,22 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                       {item.sku} · Qté {item.quantity}
                     </p>
                   </div>
-                  <p className="admin-serif text-lg">{(item.unitPrice * item.quantity).toLocaleString("fr-FR")} MAD</p>
+                  <p className="admin-serif text-lg">{formatMoney(item.unitPrice * item.quantity, order.currency)}</p>
                 </div>
               ))}
             </div>
             <dl className="ms-auto mt-4 max-w-sm space-y-3 border-t border-[#d8cfc1] pt-5 text-sm">
               <div className="flex justify-between">
                 <dt className="text-[#82766c]">Sous-total</dt>
-                <dd>{order.subtotal.toLocaleString("fr-FR")} MAD</dd>
+                <dd>{formatMoney(order.subtotal, order.currency)}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-[#82766c]">Livraison</dt>
-                <dd>{order.shipping.toLocaleString("fr-FR")} MAD</dd>
+                <dd>{formatMoney(order.shipping, order.currency)}</dd>
               </div>
               <div className="flex justify-between border-t border-[#d8cfc1] pt-4 admin-serif text-xl">
                 <dt>Total</dt>
-                <dd>{order.total.toLocaleString("fr-FR")} MAD</dd>
+                <dd>{formatMoney(order.total, order.currency)}</dd>
               </div>
             </dl>
           </section>

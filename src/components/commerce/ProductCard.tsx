@@ -134,7 +134,7 @@ export function ProductCard({
             </Link>
           </h3>
           <Price
-            amountMAD={product.priceMAD}
+            amountEUR={product.priceEUR}
             locale={locale}
             className="shrink-0 font-sans text-[0.8125rem] text-espresso"
           />

@@ -12,16 +12,16 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { formatPayableMAD, inyadPayment } from "@/lib/payment";
+import { formatPayableEUR, inyadPayment } from "@/lib/payment";
 import { site } from "@/lib/site";
 
 export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const { items, subtotalMAD, hydrated, currency, clear } = useStore();
-  const overLimit = subtotalMAD > inyadPayment.maxMAD;
-  const showConverted = hydrated && currency !== "MAD";
+  const { items, subtotalEUR, hydrated, currency, clear } = useStore();
+  const overLimit = subtotalEUR > inyadPayment.maxEUR;
+  const showConverted = hydrated && currency !== "EUR";
   const [error, setError] = useState<PlaceOrderError | null>(null);
   const [placing, setPlacing] = useState(false);
-  const [placed, setPlaced] = useState<{ orderNumber: string; totalMAD: number; paymentUrl: string } | null>(null);
+  const [placed, setPlaced] = useState<{ orderNumber: string; totalEUR: number; paymentUrl: string } | null>(null);
 
   async function onSubmit(formData: FormData) {
     setError(null);
@@ -57,7 +57,7 @@ export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionar
               <div className="mt-8 border border-brass/30 bg-ivory-300/40 px-6 py-7">
                 <p className="label-xs text-ink-faint">{dict.checkout.amountLabel}</p>
                 <p className="mt-3 font-display text-[2.4rem] leading-none text-espresso tabular">
-                  {formatPayableMAD(placed.totalMAD)}
+                  {formatPayableEUR(placed.totalEUR)}
                 </p>
                 <p className="mt-4 text-[0.9rem] leading-relaxed text-ink-muted">{dict.checkout.amountHint}</p>
               </div>
@@ -111,7 +111,7 @@ export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionar
                       </p>
                     </div>
                     <Price
-                      amountMAD={product.priceMAD * quantity}
+                      amountEUR={product.priceEUR * quantity}
                       locale={locale}
                       className="shrink-0 text-[0.8125rem] text-espresso"
                     />
@@ -122,7 +122,7 @@ export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionar
               <div className="mt-8 border border-brass/30 bg-ivory-300/40 px-6 py-7 sm:px-8">
                 <p className="label-xs text-ink-faint">{dict.checkout.amountLabel}</p>
                 <p className="mt-3 font-display text-[2.4rem] leading-none text-espresso tabular">
-                  {formatPayableMAD(subtotalMAD)}
+                  {formatPayableEUR(subtotalEUR)}
                 </p>
                 <p className="mt-4 max-w-md text-[0.9rem] leading-relaxed text-ink-muted">
                   {dict.checkout.amountHint}
@@ -130,12 +130,17 @@ export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionar
                 {showConverted && (
                   <p className="mt-3 text-[0.85rem] text-ink-faint">
                     {dict.checkout.displayedAs}{" "}
-                    <Price amountMAD={subtotalMAD} locale={locale} className="text-espresso" />
+                    <Price amountEUR={subtotalEUR} locale={locale} className="text-espresso" />
                   </p>
                 )}
               </div>
 
-              {overLimit ? (
+              {!inyadPayment.url ? (
+                <div className="mt-8 border-t border-brass/20 pt-6">
+                  <p className="max-w-lg text-[0.95rem] leading-relaxed text-ink-muted">{dict.checkout.paymentUnavailable}</p>
+                  <a href={`mailto:${site.email}`} className="label-xs mt-4 inline-flex min-h-11 items-center text-espresso underline underline-offset-4">{dict.checkout.write}</a>
+                </div>
+              ) : overLimit ? (
                 <div className="mt-8">
                   <p className="max-w-lg text-[0.95rem] leading-relaxed text-burgundy">
                     {dict.checkout.overLimit}

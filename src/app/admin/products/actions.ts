@@ -60,7 +60,7 @@ function catalogFields(formData: FormData) {
     sku,
     slug,
     description: text(formData, "description") || null,
-    price_mad: positiveNumber(formData, "price_mad"),
+    price_eur: positiveNumber(formData, "price_eur"),
     stock_quantity: Math.floor(positiveNumber(formData, "stock_quantity")),
     low_stock_threshold: Math.floor(positiveNumber(formData, "low_stock_threshold", 10)),
     status,

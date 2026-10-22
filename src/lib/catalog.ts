@@ -31,7 +31,7 @@ export type Product = {
   size: string;
   volumeMl: number;
   withArgan: boolean;
-  priceMAD: number;
+  priceEUR: number;
   ritual: RitualId;
   needs: NeedId[];
   tagline: Localized;
@@ -76,7 +76,7 @@ export const products: Product[] = [
     size: "100 ML",
     volumeMl: 100,
     withArgan: false,
-    priceMAD: 150,
+    priceEUR: 13.64,
     ritual: "body",
     needs: ["nourish", "glow", "scent"],
     tagline: {
@@ -126,7 +126,7 @@ export const products: Product[] = [
     size: "100 ML",
     volumeMl: 100,
     withArgan: false,
-    priceMAD: 340,
+    priceEUR: 30.92,
     ritual: "scent",
     needs: ["scent"],
     tagline: {
@@ -176,7 +176,7 @@ export const products: Product[] = [
     size: "250 ML",
     volumeMl: 250,
     withArgan: true,
-    priceMAD: 150,
+    priceEUR: 13.64,
     ritual: "hammam",
     needs: ["cleanse", "glow"],
     tagline: {
@@ -226,7 +226,7 @@ export const products: Product[] = [
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 140,
+    priceEUR: 12.73,
     ritual: "hair",
     needs: ["nourish", "restore"],
     tagline: {
@@ -276,7 +276,7 @@ export const products: Product[] = [
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 110,
+    priceEUR: 10.00,
     ritual: "hair",
     needs: ["cleanse"],
     tagline: {
@@ -326,7 +326,7 @@ export const products: Product[] = [
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 120,
+    priceEUR: 11.82,
     ritual: "hair",
     needs: ["nourish", "restore"],
     tagline: {
@@ -376,7 +376,7 @@ export const products: Product[] = [
     size: "200 ML",
     volumeMl: 200,
     withArgan: true,
-    priceMAD: 130,
+    priceEUR: 11.82,
     ritual: "body",
     needs: ["hydrate", "scent"],
     tagline: {

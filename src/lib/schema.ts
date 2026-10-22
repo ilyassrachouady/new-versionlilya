@@ -41,7 +41,7 @@ export function productSchema(product: Product, locale: Locale) {
     countryOfOrigin: { "@type": "Country", name: "Morocco" },
     offers: {
       "@type": "Offer",
-      price: product.priceMAD,
+      price: product.priceEUR,
       priceCurrency: baseCurrency,
       availability: "https://schema.org/InStock",
       url: absolute(href(`/products/${product.slug}`, locale)),
