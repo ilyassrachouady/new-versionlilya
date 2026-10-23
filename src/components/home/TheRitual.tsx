@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { rituals } from "@/lib/content";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -14,7 +14,8 @@ const frame = {
 } as const;
 
 /** Four worlds, each an arch with one object standing in it. */
-export function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function TheRitual({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const { rituals } = await getStorefrontEditorial(locale);
   return (
     <section className="surface-grain relative overflow-hidden bg-forest py-16 text-cream sm:py-28 lg:py-36">
       <div

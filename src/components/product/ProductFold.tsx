@@ -11,7 +11,7 @@ import { WishlistButton } from "@/components/commerce/WishlistButton";
 import { Accordion } from "@/components/ui/Accordion";
 import { site } from "@/lib/site";
 import type { Product } from "@/lib/catalog";
-import { getIngredient } from "@/lib/content";
+import { useEditorial } from "@/components/chrome/editorial-context";
 import type { Locale } from "@/lib/i18n/config";
 import { href } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -25,7 +25,8 @@ export function ProductFold({
   locale: Locale;
   dict: Dictionary;
 }) {
-  const named = product.ingredients.map((id) => getIngredient(id));
+  const { ingredients } = useEditorial();
+  const named = product.ingredients.flatMap(id => ingredients.filter(item => item.id === id));
 
   return (
     <>

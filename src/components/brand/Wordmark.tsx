@@ -1,3 +1,5 @@
+"use client";
+import { useContactContent } from "@/components/chrome/editorial-context";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +47,7 @@ export function Wordmark({
 }: WordmarkProps) {
   const scale = sizes[size];
 
+  const contact = useContactContent();
   if (layout === "inline") {
     return (
       <span className={cn("font-display uppercase leading-none", scale.family, className)}>
@@ -75,7 +78,7 @@ export function Wordmark({
             )}
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
-            {site.tagline}
+            {contact.tagline}
           </span>
         )}
         <span className="flex flex-col items-start leading-none">

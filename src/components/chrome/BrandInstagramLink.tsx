@@ -1,5 +1,6 @@
+"use client";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { site } from "@/lib/site";
+import { useContactContent } from "./editorial-context";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -29,6 +30,7 @@ export function BrandInstagramLink({
   className?: string;
   iconClassName?: string;
 }) {
+  const site = useContactContent();
   return (
     <a
       href={site.instagram}

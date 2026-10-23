@@ -17,8 +17,9 @@ import {
 } from "@/lib/admin-product-form";
 import type { AdminProduct } from "@/lib/admin-products";
 import { cn } from "@/lib/utils";
+import { ProductTranslations } from "./ProductTranslations";
 import { rituals } from "@/lib/content";
-import type { RitualId } from "@/lib/catalog";
+import { catalogProducts, type RitualId } from "@/lib/catalog";
 
 const field =
   "mt-2 h-11 w-full rounded-lg border border-[#d5cabc] bg-white px-3 text-sm text-[#332a25] outline-none focus:border-[#6e5d4c]";
@@ -76,7 +77,9 @@ export function ProductForm({
   const [price, setPrice] = useState(String(product?.price_eur ?? ""));
   const [stock, setStock] = useState(String(product?.stock_quantity ?? 10));
   const [status, setStatus] = useState(product?.status ?? "draft");
-  const [description, setDescription] = useState(product?.description ?? "");
+  const baseProduct = product ? catalogProducts.find(item => item.sku === product.sku || item.slug === product.slug) : undefined;
+  const localizedDescription = (product?.metadata as { localized?: { description?: { fr?: string } } } | undefined)?.localized?.description?.fr;
+  const [description, setDescription] = useState(product?.description ?? localizedDescription ?? baseProduct?.description.fr ?? "");
   const [sku, setSku] = useState(product?.sku ?? suggestSku(initialType, initialFragrance, initialVolume));
   const [slug, setSlug] = useState(product?.slug ?? "");
   const [skuLocked, setSkuLocked] = useState(existing);
@@ -125,6 +128,7 @@ export function ProductForm({
   return (
     <div className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_20.5rem]">
       <form action={formAction} className="space-y-6">
+<ProductTranslations product={product} />
         {state?.error && (
           <p role="alert" className="rounded-xl border border-[#ead9d5] bg-[#fff7f4] px-4 py-3 text-sm text-[#8d5048]">
             {state.error}

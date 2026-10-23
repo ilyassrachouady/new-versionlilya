@@ -6,18 +6,15 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 import { href, type Locale } from "@/lib/i18n/config";
-import { signatureCopy, type SignatureId } from "@/lib/signature-collections";
+import { type SignatureId } from "@/lib/signature-collections";
 import styles from "./V2SignatureShowcase.module.css";
 
+import type { showcaseCopy } from "@/lib/showcase-content";
+type ShowcaseCopy = typeof showcaseCopy.fr;
 const chapters: SignatureId[] = ["fleur-doranger", "the-vert", "safran", "ambre-musc"];
-const copy = {
-  en: { label:"Signature", discover:"Discover", names:["Fleur d’Oranger", "Thé Vert", "Safran", "Ambre Musc"], lines:["A world of warmth and light.", "A calm, botanical world.", "A world in golden light.", "A world of depth and shadow."] },
-  fr: { label:"Signature", discover:"Découvrir", names:["Fleur d’Oranger", "Thé Vert", "Safran", "Ambre Musc"], lines:["Un univers de chaleur et de lumière.", "Un univers végétal, tout en calme.", "Un univers de lumière dorée.", "Un univers de profondeur et d’ombre."] },
-  ar: { label:"التوقيع", discover:"اكتشف", names:["زهر البرتقال", "الشاي الأخضر", "الزعفران", "العنبر والمسك"], lines:["عالم من الدفء والنور.", "عالم نباتي هادئ.", "عالم من الضوء الذهبي.", "عالم من العمق والظلال."] },
-};
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function Campaign({ id, index, locale }: { id: SignatureId; index:number; locale:Locale }) {
+function Campaign({ id, index, locale, text }: { id: SignatureId; index:number; locale:Locale; text: ShowcaseCopy }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const reduced = useReducedMotion();
   const [desktop, setDesktop] = useState(false);
@@ -29,7 +26,6 @@ function Campaign({ id, index, locale }: { id: SignatureId; index:number; locale
   }, []);
   const { scrollYProgress } = useScroll({ target:ref, offset:["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0,1], [1,1.008]);
-  const text = copy[locale];
   const source = `/campaign-v2/signatures/${id}-final.webp`;
   const rise = { hidden: { opacity:0, y:12 }, visible: { opacity:1, y:0 } };
   const words = text.names[index].split(" ");
@@ -51,12 +47,11 @@ function Campaign({ id, index, locale }: { id: SignatureId; index:number; locale
   );
 }
 
-export function V2SignatureShowcase({ locale }: { locale:Locale }) {
-  const heading = signatureCopy(locale);
+export function V2SignatureShowcase({ locale, heading, text }: { locale:Locale; heading: { nav: string; body: string }; text: ShowcaseCopy }) {
   return (
     <section id="home-signatures" aria-labelledby="home-signatures-title" className={styles.section}>
       <div className="v2-shell"><Reveal className={styles.intro}><p className="v2-kicker">{heading.nav}</p><h2 id="home-signatures-title" className="v2-display-section mt-5">{heading.body}</h2></Reveal></div>
-      <div className={styles.chapters}>{chapters.map((id,index)=><Campaign key={id} id={id} index={index} locale={locale} />)}</div>
+      <div className={styles.chapters}>{chapters.map((id,index)=><Campaign key={id} id={id} index={index} locale={locale} text={text} />)}</div>
     </section>
   );
 }

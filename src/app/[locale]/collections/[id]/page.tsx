@@ -4,14 +4,14 @@ import { notFound } from "next/navigation";
 
 import { FragranceCollection } from "@/components/commerce/FragranceCollection";
 import { QuietLink } from "@/components/ui/Button";
-import { getV2Copy } from "@/lib/v2-content";
+import { getStorefrontHomeCopy as getV2Copy } from "@/lib/storefront-content";
 import { CollectionGrid } from "@/components/commerce/CollectionGrid";
 import { CampaignHero } from "@/components/layout/CampaignHero";
 import { PageFrame } from "@/components/layout/PageFrame";
 import { isCollectionId, resolveCollection, collectionIds } from "@/lib/collections";
 import { getStorefrontProducts } from "@/lib/storefront-catalog";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { shopProductImages } from "@/lib/shop-product-images";
 import { site } from "@/lib/site";
 
@@ -27,9 +27,9 @@ export async function generateMetadata({
   const { locale: raw, id } = await params;
   if (!isLocale(raw) || !isCollectionId(id)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   const catalog = await getStorefrontProducts();
-  const collection = resolveCollection(id, locale, dict, catalog);
+  const collection = await resolveCollection(id, locale, dict, catalog);
   return {
     title: collection.title,
     description: collection.body,
@@ -50,9 +50,9 @@ export default async function CollectionPage({
   const { locale: raw, id } = await params;
   if (!isLocale(raw) || !isCollectionId(id)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   const catalog = await getStorefrontProducts();
-  const collection = resolveCollection(id, locale, dict, catalog);
+  const collection = await resolveCollection(id, locale, dict, catalog);
   const lead = collection.products[0];
 
   return (
@@ -85,7 +85,7 @@ export default async function CollectionPage({
       />}
       {collection.kind === "fragrance" ? (
         <>
-          <div className="shell py-6"><QuietLink href="#fragrance-cabinet">{getV2Copy(locale).hero.cta}</QuietLink></div>
+          <div className="shell py-6"><QuietLink href="#fragrance-cabinet">{(await getV2Copy(locale)).hero.cta}</QuietLink></div>
           <FragranceCollection products={collection.products} locale={locale} dict={dict} />
         </>
       ) : (

@@ -9,7 +9,7 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { isLocale, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { BrandInstagramLink } from "@/components/chrome/BrandInstagramLink";
 import { ContactEmails } from "@/components/chrome/ContactEmails";
 import { site } from "@/lib/site";
@@ -22,7 +22,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   return {
     title: dict.housePage.title,
     description: dict.housePage.standfirst,
@@ -41,7 +41,7 @@ export default async function HousePage({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
 
   return (
     <PageFrame>

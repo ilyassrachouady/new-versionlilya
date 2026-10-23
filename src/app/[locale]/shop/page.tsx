@@ -1,3 +1,6 @@
+import { shopCopy } from "@/lib/shop-content";
+import { merge } from "@/lib/content-model";
+import { managedContent } from "@/lib/storefront-content";
 import { ShopBanner } from "@/components/shop/ShopBanner";
 import { ShopCatalog } from "@/components/shop/ShopCatalog";
 import type { Metadata } from "next";
@@ -7,7 +10,7 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { fragrances } from "@/lib/catalog";
 import { forStoreClient, getStorefrontProducts } from "@/lib/storefront-catalog";
 import { isLocale, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 
 export async function generateMetadata({
   params,
@@ -17,7 +20,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
 
   return {
     title: dict.nav.shop,
@@ -37,12 +40,12 @@ export default async function ShopPage({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   const products = await getStorefrontProducts();
 return (
     <PageFrame>
       <ShopBanner locale={locale} dict={dict} />
-      <ShopCatalog products={[...products].sort((a, b) => {
+      <ShopCatalog text={merge(shopCopy[locale], await managedContent("shopUi", locale))} products={[...products].sort((a, b) => {
           const types = ["shampoo", "conditioner", "hair-mask", "body-oil", "body-milk", "body-scrub", "shower-gel", "hair-perfume"];
           return types.indexOf(a.productType) - types.indexOf(b.productType) || Object.keys(fragrances).indexOf(a.fragrance) - Object.keys(fragrances).indexOf(b.fragrance);
         }).map(forStoreClient)} locale={locale} dict={dict} />

@@ -1,3 +1,4 @@
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,20 +10,16 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ProductFold } from "@/components/product/ProductFold";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { QuietLink } from "@/components/ui/Button";
-import { catalogProducts as products, type Product } from "@/lib/catalog";
+import { catalogProducts as products } from "@/lib/catalog";
 import { getStorefrontProduct, getStorefrontProducts } from "@/lib/storefront-catalog";
-import { getIngredient } from "@/lib/content";
+
 import { href, isLocale, locales, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { productSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
+
 import { shopProductImages } from "@/lib/shop-product-images";
 import { cn } from "@/lib/utils";
-
-function withApprovedPhotography(product: Product): Product {
-  const image = shopProductImages[product.slug];
-  return image ? { ...product, image, gallery: [...new Set([image, ...(product.gallery ?? []), product.image])] } : product;
-}
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -37,7 +34,7 @@ export async function generateMetadata({
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
   const catalogProduct = await getStorefrontProduct(slug);
-  const product = catalogProduct && withApprovedPhotography(catalogProduct);
+  const product = catalogProduct;
   if (!product) return {};
   return {
     title: `${product.name[locale]} — ${product.scent}`,
@@ -71,20 +68,18 @@ export default async function ProductPage({
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const catalogProduct = await getStorefrontProduct(slug);
-  const product = catalogProduct && withApprovedPhotography(catalogProduct);
+  const product = catalogProduct;
   if (!product) notFound();
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   const live = await getStorefrontProducts();
   const sameRitual = live
     .filter((item) => item.slug !== product.slug && item.ritual === product.ritual)
     .sort((a, b) => Number(b.fragrance === product.fragrance) - Number(a.fragrance === product.fragrance))
-    .slice(0, 4)
-    .map(withApprovedPhotography);
+    .slice(0, 4);
   const also = live
     .filter((item) => item.slug !== product.slug && item.ritual !== product.ritual && !sameRitual.some((ritualItem) => ritualItem.slug === item.slug))
-    .slice(0, 4)
-    .map(withApprovedPhotography);
-  const ingredient = product.ingredients.length ? getIngredient(product.ingredients[0]) : undefined;
+    .slice(0, 4);
+  const ingredient = product.ingredients.length ? (await getStorefrontEditorial(locale)).ingredients.find(item => item.id === product.ingredients[0])! : undefined;
 
   return (
     <PageFrame>

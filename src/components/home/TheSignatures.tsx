@@ -3,8 +3,9 @@ import { ProductStage } from "@/components/commerce/ProductStage";
 import { QuietLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { getProduct, signatureSlugs } from "@/lib/catalog";
-import { getIngredient } from "@/lib/content";
+import { signatureSlugs } from "@/lib/catalog";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
@@ -12,9 +13,10 @@ import { cn } from "@/lib/utils";
 const tones = ["sand", "espresso", "ivory"] as const;
 
 /** The three the house is known for, given a full editorial spread each. */
-export function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const [catalog, { ingredients }] = await Promise.all([getStorefrontProducts(), getStorefrontEditorial(locale)]);
   const signatures = signatureSlugs
-    .map((slug) => getProduct(slug))
+    .map((slug) => catalog.find(item => item.slug === slug))
     .filter((product) => product !== undefined);
 
   return (
@@ -26,7 +28,7 @@ export function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictiona
       <div className="mt-16 flex flex-col gap-20 sm:gap-24 lg:gap-32">
         {signatures.map((product, index) => {
           const flipped = index % 2 === 1;
-          const ingredient = getIngredient(product.ingredients[0]);
+          const ingredient = ingredients.find(item => item.id === product.ingredients[0]);
 
           return (
             <div key={product.slug} className="shell">
@@ -73,7 +75,7 @@ export function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictiona
                           {dict.ingredientsSection.eyebrow}
                         </dt>
                         <dd className="mt-1.5 text-[0.9rem] text-espresso">
-                          {ingredient.name[locale]}
+                          {ingredient?.name[locale]}
                         </dd>
                       </div>
                       <div>
@@ -81,7 +83,7 @@ export function TheSignatures({ locale, dict }: { locale: Locale; dict: Dictiona
                           {dict.ingredientsSection.origin}
                         </dt>
                         <dd className="mt-1.5 text-[0.9rem] text-espresso">
-                          {ingredient.originShort[locale]}
+                          {ingredient?.originShort[locale]}
                         </dd>
                       </div>
                     </dl>

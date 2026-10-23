@@ -7,9 +7,9 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { rituals } from "@/lib/content";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import { href, isLocale, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import styles from "./Collections.module.css";
@@ -22,7 +22,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   return {
     title: dict.collectionsPage.title,
     description: dict.collectionsPage.body,
@@ -51,10 +51,12 @@ export default async function CollectionsPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
+
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
+ const { rituals } = await getStorefrontEditorial(locale);
 
   return (
     <PageFrame>

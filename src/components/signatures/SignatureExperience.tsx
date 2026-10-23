@@ -5,13 +5,14 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { PageFrame } from "@/components/layout/PageFrame";
 import { QuietLink } from "@/components/ui/Button";
 import { href, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontWorlds, getStorefrontDictionary as getDictionary, getStorefrontSignatureCopy as signatureCopy } from "@/lib/storefront-content";
 import type { Product } from "@/lib/catalog";
-import { ritualOrder, signatureCopy, signatureIds, signatureWorlds, type SignatureId } from "@/lib/signature-collections";
+import { ritualOrder, signatureIds, type SignatureId } from "@/lib/signature-collections";
 import styles from "./SignatureExperience.module.css";
 
-function SignatureHero({ locale, signature }: { locale: Locale; signature?: SignatureId }) {
-  const copy = signatureCopy(locale);
+async function SignatureHero({ locale, signature }: { locale: Locale; signature?: SignatureId }) {
+  const copy = await signatureCopy(locale);
+  const signatureWorlds = await getStorefrontWorlds(locale);
   const world = signature ? signatureWorlds[signature] : undefined;
   return (
     <section className={`${styles.hero} ${!signature ? styles.landingHero : ""}`} style={world ? { backgroundColor: world.background } : undefined}>
@@ -36,8 +37,9 @@ function SignatureHero({ locale, signature }: { locale: Locale; signature?: Sign
   );
 }
 
-export function SignatureLanding({ locale }: { locale: Locale }) {
-  const copy = signatureCopy(locale);
+export async function SignatureLanding({ locale }: { locale: Locale }) {
+  const copy = await signatureCopy(locale);
+  const signatureWorlds = await getStorefrontWorlds(locale);
   return (
     <PageFrame>
       <SignatureHero locale={locale} />
@@ -68,9 +70,10 @@ export function SignatureLanding({ locale }: { locale: Locale }) {
   );
 }
 
-export function SignatureDetail({ locale, signature, catalog }: { locale: Locale; signature: SignatureId; catalog: Product[] }) {
-  const copy = signatureCopy(locale);
-  const dict = getDictionary(locale);
+export async function SignatureDetail({ locale, signature, catalog }: { locale: Locale; signature: SignatureId; catalog: Product[] }) {
+  const copy = await signatureCopy(locale);
+  const signatureWorlds = await getStorefrontWorlds(locale);
+  const dict = await getDictionary(locale);
   const products = catalog.filter((product) => product.fragrance === signature);
   const groups = ritualOrder.map((ritual) => ({ ritual, products: products.filter((product) => product.ritual === ritual) })).filter((group) => group.products.length);
   return (

@@ -5,7 +5,7 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { isLocale, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   return {
     title: dict.ingredientsSection.title,
     description: dict.ingredientsSection.body,
@@ -40,7 +40,7 @@ export default async function IngredientsPage({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
 
   return (
     <PageFrame>

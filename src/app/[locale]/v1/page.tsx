@@ -12,7 +12,7 @@ import { TheIngredients } from "@/components/home/TheIngredients";
 import { TheJournal } from "@/components/home/TheJournal";
 import { TheRitual } from "@/components/home/TheRitual";
 import { TheSignatures } from "@/components/home/TheSignatures";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 
 /** Preserved first creative direction for direct comparison with V2. */
@@ -24,7 +24,7 @@ export default async function VersionOnePage({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
 
   return (
     <>

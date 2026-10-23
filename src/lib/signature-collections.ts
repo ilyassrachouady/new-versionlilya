@@ -27,10 +27,10 @@ export function signatureProducts(signature: FragranceId) {
 
 const copy = {
   en: {
-    nav: "Signatures", label: "Signature Collections", title: "The signatures\nof the Maison.",
-    body: "Four worlds. One Maison.", explore: "Explore the signatures", discover: "Discover the signature",
-    products: "Explore the objects", intro: "The objects of this signature, gathered by ritual.",
-    another: "Discover another signature", all: "All signatures", chapter: "The signature",
+    nav: "Signatures", label: "Our exclusive collections", title: "The rituals\nof the Maison",
+    body: "Different collections. One Maison.", explore: "Explore the rituals", discover: "Discover the collection",
+    products: "Discover our products", intro: "The essentials of our collection, brought together for your rituals.",
+    another: "Discover our fragrances", all: "All signatures", chapter: "The signature",
     rituals: { hair: "Hair", body: "Body", hammam: "Hammam", scent: "Scent" },
   },
   fr: {
@@ -41,10 +41,10 @@ const copy = {
     rituals: { hair: "Cheveux", body: "Corps", hammam: "Hammam", scent: "Parfum" },
   },
   ar: {
-    nav: "التوقيعات", label: "مجموعات التوقيعات", title: "توقيعات\nالدار.",
-    body: "أربعة عوالم. دار واحدة.", explore: "اكتشف التوقيعات", discover: "اكتشف التوقيع",
-    products: "اكتشف المنتجات", intro: "منتجات هذا التوقيع، مرتّبة بحسب الطقوس.",
-    another: "اكتشف توقيعاً آخر", all: "كل التوقيعات", chapter: "التوقيع",
+    nav: "التوقيعات", label: "مجموعاتنا الحصرية", title: "طقوس\nالدار",
+    body: "مجموعات متنوعة. دار واحدة.", explore: "اكتشف الطقوس", discover: "اكتشف المجموعة",
+    products: "اكتشف منتجاتنا", intro: "أساسيات مجموعتنا، مجتمعة لطقوس عنايتكم.",
+    another: "اكتشف عطورنا", all: "كل التوقيعات", chapter: "التوقيع",
     rituals: { hair: "الشعر", body: "الجسم", hammam: "الحمّام", scent: "العطر" },
   },
 };

@@ -9,7 +9,7 @@ import { BrassRule } from "@/components/brand/BrassRule";
 import { Price } from "@/components/commerce/Price";
 import { Reveal } from "@/components/ui/Reveal";
 import { productsByNeed, type NeedId } from "@/lib/catalog";
-import { needs } from "@/lib/content";
+import { useEditorial } from "@/components/chrome/editorial-context";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,7 @@ const frame = {
 } as const;
 
 export function RitualFinder({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const { needs } = useEditorial();
   const [selected, setSelected] = useState<NeedId | null>(null);
   const reduced = useReducedMotion();
 

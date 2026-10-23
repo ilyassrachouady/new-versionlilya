@@ -4,11 +4,12 @@ import Link from "next/link";
 import { QuietLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { articles } from "@/lib/content";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export function TheJournal({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function TheJournal({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const { articles } = await getStorefrontEditorial(locale);
   const [lead, ...rest] = articles;
 
   return (

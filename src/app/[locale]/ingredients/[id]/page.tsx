@@ -1,3 +1,4 @@
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -6,9 +7,9 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { products, type IngredientId } from "@/lib/catalog";
-import { getIngredient, ingredients } from "@/lib/content";
+import { ingredients } from "@/lib/content";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { site } from "@/lib/site";
 
 const plates: Record<IngredientId, string> = {
@@ -30,7 +31,7 @@ export async function generateMetadata({
   const { locale: raw, id } = await params;
   if (!isLocale(raw) || !ids.includes(id as IngredientId)) return {};
   const locale = raw as Locale;
-  const ingredient = getIngredient(id as IngredientId);
+  const ingredient = (await getStorefrontEditorial(locale)).ingredients.find(item => item.id === id as IngredientId)!;
   return {
     title: ingredient.name[locale],
     description: ingredient.story[locale],
@@ -51,8 +52,8 @@ export default async function IngredientPage({
   const { locale: raw, id } = await params;
   if (!isLocale(raw) || !ids.includes(id as IngredientId)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
-  const ingredient = getIngredient(id as IngredientId);
+  const dict = await getDictionary(locale);
+  const ingredient = (await getStorefrontEditorial(locale)).ingredients.find(item => item.id === id as IngredientId)!;
   const found = products.filter((product) => product.ingredients.includes(ingredient.id));
 
   return (

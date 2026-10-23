@@ -1,3 +1,7 @@
+import { contactDefaults } from "@/lib/contact-content";
+import { merge } from "@/lib/content-model";
+import { EditorialProvider, ContactProvider } from "@/components/chrome/editorial-context";
+import { getStorefrontEditorial, managedContent } from "@/lib/storefront-content";
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
 import dynamic from "next/dynamic";
@@ -15,7 +19,7 @@ import { Curtain } from "@/components/chrome/Curtain";
 import { RouteProgress } from "@/components/chrome/RouteProgress";
 import { Toast } from "@/components/chrome/Toast";
 import { isLocale, localeMeta, locales, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { site } from "@/lib/site";
 import { forStoreClient, getStorefrontProducts } from "@/lib/storefront-catalog";
 
@@ -73,7 +77,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
 
   const titles: Record<Locale, string> = {
     en: "Maison Lilya Zahra — Beauty, rooted in Morocco",
@@ -118,9 +122,10 @@ export default async function LocaleLayout({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   const { dir } = localeMeta[locale];
-  const catalog = (await getStorefrontProducts()).map(forStoreClient);
+  const [products, editorial, contact] = await Promise.all([getStorefrontProducts(), getStorefrontEditorial(locale), managedContent("contact", locale)]);
+  const catalog = products.map(forStoreClient);
 
   const fontVariables =
     locale === "ar"
@@ -130,7 +135,7 @@ export default async function LocaleLayout({
   return (
     <div lang={locale} dir={dir} className={`${fontVariables} storefront-fonts min-h-dvh antialiased`}>
         <ArchDefs />
-        <StoreProvider catalog={catalog}>
+        <ContactProvider value={merge(contactDefaults, contact)}><EditorialProvider value={{ rituals: editorial.rituals, ingredients: editorial.ingredients, needs: editorial.needs }}><StoreProvider catalog={catalog}>
           <ChromeProvider>
             <Curtain />
             <RouteProgress />
@@ -143,7 +148,7 @@ export default async function LocaleLayout({
             <SearchDialog locale={locale} dict={dict} catalog={catalog} />
             <Toast dict={dict} />
           </ChromeProvider>
-        </StoreProvider>
+        </StoreProvider></EditorialProvider></ContactProvider>
     </div>
   );
 }

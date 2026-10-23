@@ -8,7 +8,7 @@ import { Emblem } from "@/components/brand/Emblem";
 import { LocaleSwitcher } from "@/components/chrome/LocaleSwitcher";
 import { CurrencySwitcher } from "@/components/chrome/CurrencySwitcher";
 import { useChrome } from "@/components/chrome/chrome-context";
-import { rituals } from "@/lib/content";
+import { useEditorial, useContactContent } from "@/components/chrome/editorial-context";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/lib/site";
@@ -24,6 +24,8 @@ export function MobileMenu({
   locale: Locale;
   dict: Dictionary;
 }) {
+ const { rituals } = useEditorial();
+ const contact = useContactContent();
   const { setSearchOpen } = useChrome();
   const reduced = useReducedMotion();
   const links = [
@@ -132,7 +134,7 @@ export function MobileMenu({
                   <CurrencySwitcher tone="light" />
                 </div>
                 <p className="relative z-10 px-5 pb-5 text-[0.5625rem] tracking-[0.2em] text-cream/45 uppercase sm:px-6 sm:pb-6">
-                  {site.tagline}
+                  {contact.tagline}
                 </p>
               </motion.div>
             </Dialog.Content>

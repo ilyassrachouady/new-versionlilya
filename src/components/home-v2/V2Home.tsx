@@ -1,3 +1,5 @@
+import { showcaseCopy } from "@/lib/showcase-content";
+import { merge } from "@/lib/content-model";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,19 +9,19 @@ import { Newsletter } from "@/components/home/Newsletter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, QuietLink } from "@/components/ui/Button";
 import { products as staticProducts, signatureSlugs, type Product } from "@/lib/catalog";
-import { shopProductImages } from "@/lib/shop-product-images";
+
 import type { Locale } from "@/lib/i18n/config";
 import { href } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { getV2Copy } from "@/lib/v2-content";
+import { getStorefrontHomeCopy as getV2Copy, getStorefrontSignatureCopy, managedContent } from "@/lib/storefront-content";
 
 import { V2SignatureShowcase } from "@/components/home-v2/V2SignatureShowcase";
 import { V2Hero } from "@/components/home-v2/V2Hero";
 import { V2ProductRail } from "@/components/home-v2/V2ProductRail";
 
-export function V2Home({ locale, dict, products = staticProducts }: { locale: Locale; dict: Dictionary; products?: Product[] }) {
-  const copy = getV2Copy(locale);
-  const homepageProducts = products.map(product => ({ ...product, image: shopProductImages[product.slug] ?? product.image }));
+export async function V2Home({ locale, dict, products = staticProducts }: { locale: Locale; dict: Dictionary; products?: Product[] }) {
+  const copy = await getV2Copy(locale);
+  const homepageProducts = products;
   const signatures = signatureSlugs
     .map((slug) => homepageProducts.find((product) => product.slug === slug))
     .filter((product): product is Product => Boolean(product));
@@ -74,7 +76,7 @@ export function V2Home({ locale, dict, products = staticProducts }: { locale: Lo
         </div>
       </section>
 
-      <V2SignatureShowcase locale={locale} />
+      <V2SignatureShowcase locale={locale} heading={await getStorefrontSignatureCopy(locale)} text={merge(showcaseCopy[locale], await managedContent("showcase", locale))} />
 
       <section className="home-hammam relative isolate min-h-[88svh] overflow-hidden bg-[#3b110e] text-[#f5e6d6]">
         <Image

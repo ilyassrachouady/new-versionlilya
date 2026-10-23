@@ -1,6 +1,7 @@
-import { catalogProducts, getProduct, products, type Product, type RitualId, type FragranceId } from "@/lib/catalog";
-import { edits, getRitual, rituals, type Edit, type Ritual } from "@/lib/content";
-import { getV2Copy } from "@/lib/v2-content";
+import { getStorefrontEditorial, getStorefrontHomeCopy } from "@/lib/storefront-content";
+import { catalogProducts, products, type Product, type RitualId, type FragranceId } from "@/lib/catalog";
+import { edits, rituals, type Edit, type Ritual } from "@/lib/content";
+
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -53,14 +54,15 @@ export type ResolvedCollection =
       products: Product[];
     };
 
-export function resolveCollection(
+export async function resolveCollection(
   id: CollectionId,
   locale: Locale,
   dict: Dictionary,
   catalog: Product[] = catalogProducts,
-): ResolvedCollection {
+): Promise<ResolvedCollection> {
+  const { rituals, edits } = await getStorefrontEditorial(locale);
   if (id === "fleur-doranger") {
-    const copy = getV2Copy(locale);
+    const copy = await getStorefrontHomeCopy(locale);
     return {
       id, kind: "fragrance", eyebrow: copy.hero.eyebrow, title: copy.flower.title,
       line: copy.flower.note, body: copy.hero.body,
@@ -72,7 +74,7 @@ export function resolveCollection(
   if (id === "her" || id === "him") {
     const edit = edits.find((item) => item.id === id)!;
     const items = edit.slugs
-      .map((slug) => catalog.find((product) => product.slug === slug) ?? getProduct(slug))
+      .map((slug) => catalog.find((product) => product.slug === slug))
       .filter((product): product is Product => product !== undefined);
     return {
       id,
@@ -88,7 +90,7 @@ export function resolveCollection(
     };
   }
 
-  const ritual: Ritual = getRitual(id);
+  const ritual: Ritual = rituals.find(item => item.id === id)!;
   return {
     id,
     kind: "ritual",
@@ -103,8 +105,8 @@ export function resolveCollection(
   };
 }
 
-export function allCollections(locale: Locale, dict: Dictionary, catalog: Product[] = catalogProducts): ResolvedCollection[] {
-  return collectionIds.map((id) => resolveCollection(id, locale, dict, catalog));
+export async function allCollections(locale: Locale, dict: Dictionary, catalog: Product[] = catalogProducts): Promise<ResolvedCollection[]> {
+  return Promise.all(collectionIds.map((id) => resolveCollection(id, locale, dict, catalog)));
 }
 
 export { products, rituals, edits };

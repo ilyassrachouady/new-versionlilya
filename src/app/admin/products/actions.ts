@@ -41,8 +41,14 @@ function asFormError(error: unknown): ProductFormState {
 }
 
 function catalogFields(formData: FormData) {
+  if (formData.get("translations_reviewed") !== "on") throw new Error("Vérifiez les trois traductions.");
+  const localized = Object.fromEntries(["name", "tagline", "description", "ritualNote", "howToUse", "vessel"].map(key => [key, Object.fromEntries(["fr", "en", "ar"].map(locale => { const value = text(formData, locale === "fr" && ["name", "description"].includes(key) ? key : `localized:${key}:${locale}`); if (value.length > 20000) throw new Error("Texte trop long."); return [locale, value]; }))]));
   const name = text(formData, "name");
   if (!name) throw new Error("Donnez un nom au produit.");
+  for (const locale of ["en", "ar"]) {
+    if (!text(formData, `localized:name:${locale}`)) throw new Error(`Renseignez le nom en ${locale.toUpperCase()}.`);
+    if (text(formData, "description") && !text(formData, `localized:description:${locale}`)) throw new Error(`Renseignez la description en ${locale.toUpperCase()}.`);
+  }
   const type = parseProductType(text(formData, "product_type"));
   const fragrance = parseFragrance(text(formData, "fragrance"));
   const volume = Math.floor(positiveNumber(formData, "volume_ml", productTypeOptions.find((option) => option.id === type)?.volume ?? 200));
@@ -65,6 +71,7 @@ function catalogFields(formData: FormData) {
     low_stock_threshold: Math.floor(positiveNumber(formData, "low_stock_threshold", 10)),
     status,
     metadata: {
+      localized,
       productType: type,
       fragrance,
       scent,
@@ -81,6 +88,7 @@ function catalogFields(formData: FormData) {
 
 function refreshCatalog(sku?: string) {
   updateTag("storefront-catalog");
+  revalidatePath("/[locale]", "layout");
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
   revalidatePath("/admin/database");

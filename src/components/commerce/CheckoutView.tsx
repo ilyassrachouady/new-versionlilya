@@ -13,9 +13,10 @@ import { Button, ButtonLink } from "@/components/ui/Button";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { formatPayableEUR, inyadPayment } from "@/lib/payment";
-import { site } from "@/lib/site";
+import { useContactContent } from "@/components/chrome/editorial-context";
 
 export function CheckoutView({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const site = useContactContent();
   const { items, subtotalEUR, hydrated, currency, clear } = useStore();
   const overLimit = subtotalEUR > inyadPayment.maxEUR;
   const showConverted = hydrated && currency !== "EUR";

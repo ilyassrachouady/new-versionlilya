@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import { ProductCard } from "@/components/commerce/ProductCard";
 import { products, type Product, type RitualId } from "@/lib/catalog";
-import { rituals } from "@/lib/content";
+import { useEditorial } from "@/components/chrome/editorial-context";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,7 @@ export function CollectionGrid({
   filterable?: boolean;
   cleanPhotography?: boolean;
 }) {
+ const { rituals } = useEditorial();
   const [ritual, setRitual] = useState<RitualId | "all">("all");
 
   const shown = useMemo(() => {

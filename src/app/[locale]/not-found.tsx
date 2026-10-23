@@ -2,11 +2,11 @@ import { Emblem } from "@/components/brand/Emblem";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { ButtonLink } from "@/components/ui/Button";
 import { PageFrame } from "@/components/layout/PageFrame";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { defaultLocale } from "@/lib/i18n/config";
 
-export default function LocaleNotFound() {
-  const dict = getDictionary(defaultLocale);
+export default async function LocaleNotFound() {
+  const dict = await getDictionary(defaultLocale);
   return (
     <PageFrame>
       <div className="flex min-h-[70dvh] flex-col items-center justify-center px-6 py-24 text-center">

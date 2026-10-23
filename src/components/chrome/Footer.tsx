@@ -1,3 +1,6 @@
+import { getStorefrontEditorial, managedContent } from "@/lib/storefront-content";
+import { contactDefaults } from "@/lib/contact-content";
+import { merge } from "@/lib/content-model";
 import Link from "next/link";
 
 import { Emblem } from "@/components/brand/Emblem";
@@ -10,7 +13,8 @@ import { BrandInstagramLink } from "@/components/chrome/BrandInstagramLink";
 import { ContactEmails } from "@/components/chrome/ContactEmails";
 import { site } from "@/lib/site";
 
-export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const [{ rituals }, contact] = await Promise.all([getStorefrontEditorial(locale), managedContent("contact", locale)]);
   const columns = [
     {
       title: dict.footer.shop,
@@ -20,7 +24,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         { label: dict.footer.links.body, path: "/collections/body" },
         { label: dict.footer.links.hammam, path: "/collections/hammam" },
         { label: dict.footer.links.scent, path: "/collections/scent" },
-        { label: locale === "fr" ? "Produits Maison" : locale === "ar" ? "منتجات المنزل" : "Home Collection", path: "/collections/home" },
+        { label: rituals.find(item => item.id === "home")!.title[locale], path: "/collections/home" },
       ],
     },
     {
@@ -52,7 +56,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <Wordmark size="lg" className="text-cream sm:hidden" />
             <Wordmark size="xl" className="hidden text-cream sm:flex" />
             <p className="eyebrow text-cream/65">{dict.footer.tagline}</p>
-            <p className="label-xs text-cream/45">{site.tagline}</p>
+            <p className="label-xs text-cream/45">{merge(contactDefaults, contact).tagline}</p>
             <BrandInstagramLink
               dict={dict}
               className="label-xs inline-flex items-center gap-2 text-cream/70 transition-colors duration-500 hover:text-cream"

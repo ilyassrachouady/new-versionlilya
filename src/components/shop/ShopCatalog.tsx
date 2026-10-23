@@ -6,24 +6,19 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 import { ShopProductCard } from "@/components/shop/ShopProductCard";
 import { fragrances, type FragranceId, type Product, type RitualId } from "@/lib/catalog";
-import { rituals } from "@/lib/content";
+import { useEditorial } from "@/components/chrome/editorial-context";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import type { shopCopy } from "@/lib/shop-content";
 import { cn } from "@/lib/utils";
 
-const copy = {
-  fr: { search: "Rechercher un produit", scent: "Toutes les senteurs", reset: "Effacer les filtres", result: "résultat", results: "résultats", filter: "Filtrer", sort: "Trier", view: "Voir les produits", recommended: "Notre sélection", ascending: "Prix croissant", descending: "Prix décroissant" },
-  en: { search: "Search products", scent: "All scents", reset: "Clear filters", result: "result", results: "results", filter: "Filter", sort: "Sort", view: "View products", recommended: "Our selection", ascending: "Price: low to high", descending: "Price: high to low" },
-  ar: { search: "ابحثي عن منتج", scent: "كل الروائح", reset: "مسح الفلاتر", result: "نتيجة", results: "نتائج", filter: "تصفية", sort: "ترتيب", view: "عرض المنتجات", recommended: "اختياراتنا", ascending: "السعر تصاعدياً", descending: "السعر تنازلياً" },
-} as const;
-
-export function ShopCatalog({ products, locale, dict }: { products: Product[]; locale: Locale; dict: Dictionary }) {
+export function ShopCatalog({ products, locale, dict, text }: { products: Product[]; locale: Locale; dict: Dictionary; text: typeof shopCopy[Locale] }) {
+ const { rituals } = useEditorial();
   const [ritual, setRitual] = useState<RitualId | "all">("all");
   const [fragrance, setFragrance] = useState<FragranceId | "all">("all");
   const [query, setQuery] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
   const [sort, setSort] = useState("recommended");
-  const text = copy[locale];
 
   const shown = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase(locale);

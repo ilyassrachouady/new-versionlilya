@@ -7,7 +7,7 @@ export function JsonLd({ data }: { data: object | object[] }) {
           key={index}
           type="application/ld+json"
           // Structured data is generated from our own catalog, never user input.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(entry) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(entry).replace(/</g, "\\u003c") }}
         />
       ))}
     </>

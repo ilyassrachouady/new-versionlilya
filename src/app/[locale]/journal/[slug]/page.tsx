@@ -1,3 +1,4 @@
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +9,10 @@ import { PageFrame } from "@/components/layout/PageFrame";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { QuietLink } from "@/components/ui/Button";
-import { getProduct } from "@/lib/catalog";
-import { articles, getArticle } from "@/lib/content";
+import { getStorefrontProduct } from "@/lib/storefront-catalog";
+import { articles } from "@/lib/content";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 import { articleSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const article = getArticle(slug);
+  const article = (await getStorefrontEditorial(locale)).articles.find(item => item.slug === slug)!;
   if (!article) return {};
   return {
     title: article.title[locale],
@@ -49,11 +50,11 @@ export default async function ArticlePage({
   const { locale: raw, slug } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const article = getArticle(slug);
+  const article = (await getStorefrontEditorial(locale)).articles.find(item => item.slug === slug)!;
   if (!article) notFound();
-  const dict = getDictionary(locale);
-  const related = article.product ? getProduct(article.product) : undefined;
-  const more = articles.filter((item) => item.slug !== article.slug).slice(0, 3);
+  const dict = await getDictionary(locale);
+  const related = article.product ? await getStorefrontProduct(article.product) : undefined;
+  const more = (await getStorefrontEditorial(locale)).articles.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
     <PageFrame>

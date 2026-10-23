@@ -2,14 +2,15 @@ import Image from "next/image";
 import { CabinetProductCard } from "@/components/commerce/CabinetProductCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { QuietLink } from "@/components/ui/Button";
-import { rituals } from "@/lib/content";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import type { Product } from "@/lib/catalog";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { getV2Copy } from "@/lib/v2-content";
+import { getStorefrontHomeCopy as getV2Copy } from "@/lib/storefront-content";
 
-export function FragranceCollection({ products, locale, dict }: { products: Product[]; locale: Locale; dict: Dictionary }) {
-  const copy = getV2Copy(locale);
+export async function FragranceCollection({ products, locale, dict }: { products: Product[]; locale: Locale; dict: Dictionary }) {
+ const { rituals } = await getStorefrontEditorial(locale);
+  const copy = await getV2Copy(locale);
   return (
     <>
       <section id="fragrance-cabinet" className="relative scroll-mt-[var(--chrome-h)] overflow-hidden bg-ivory py-16 sm:py-20 lg:py-24">

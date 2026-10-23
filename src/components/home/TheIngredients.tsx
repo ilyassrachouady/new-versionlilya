@@ -4,8 +4,8 @@ import Link from "next/link";
 import { QuietLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { products } from "@/lib/catalog";
-import { ingredients } from "@/lib/content";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -15,7 +15,8 @@ const plates: Record<string, string> = {
 };
 
 /** An archive, not a benefits list: name, botanical, origin, story, objects. */
-export function TheIngredients({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function TheIngredients({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const [products, { ingredients }] = await Promise.all([getStorefrontProducts(), getStorefrontEditorial(locale)]);
   return (
     <section className="surface-linen relative bg-[#eae1d2] py-20 sm:py-28 lg:py-36">
       <div className="shell relative z-10">

@@ -94,11 +94,11 @@ function fromRow(row: StorefrontRow): Product {
   const scent = metaString(row.metadata, "scent") || local?.scent || fragrances[fragrance];
   const localized = (value: string) => ({ en: value, fr: value, ar: value });
   const copy = row.metadata && typeof row.metadata === "object"
-    ? (row.metadata as { localized?: Partial<Record<"name" | "tagline" | "description" | "howToUse" | "vessel", Partial<Product["name"]>>> }).localized
+    ? (row.metadata as { localized?: Partial<Record<"name" | "tagline" | "description" | "howToUse" | "ritualNote" | "vessel", Partial<Product["name"]>>> }).localized
     : undefined;
   const nameCopy = copy?.name;
-  const fieldCopy = (key: "tagline" | "description" | "howToUse" | "vessel") => ({
-    ...localized(""), ...copy?.[key],
+  const fieldCopy = (key: "tagline" | "description" | "howToUse" | "ritualNote" | "vessel") => ({
+    ...localized(""), ...local?.[key], ...copy?.[key],
     ...(key === "description" && row.description !== null ? { fr: row.description } : {}),
   });
   const managedRitual = metaString(row.metadata, "ritual");
@@ -112,7 +112,14 @@ function fromRow(row: StorefrontRow): Product {
       priceEUR: Number(row.price_eur),
       stockQuantity: row.stock_quantity,
       image,
-      description: local.description,
+      slug: row.slug,
+      productType, fragrance, scent, labelFr: row.name,
+      name: { ...local.name, ...nameCopy, fr: row.name },
+      description: fieldCopy("description"), tagline: fieldCopy("tagline"),
+      ritualNote: fieldCopy("ritualNote"), howToUse: fieldCopy("howToUse"), vessel: fieldCopy("vessel"),
+      ritual: ["hair", "body", "hammam", "scent", "home"].includes(managedRitual) ? managedRitual as RitualId : local.ritual,
+      size: metaString(row.metadata, "size") || local.size,
+      volumeMl: metaString(row.metadata, "volumeMl") !== "" ? Number(metaString(row.metadata, "volumeMl")) : local.volumeMl,
     }, row.image_url);
   }
 
@@ -138,7 +145,7 @@ function fromRow(row: StorefrontRow): Product {
     needs: [],
     tagline: fieldCopy("tagline"),
     description: fieldCopy("description"),
-    ritualNote: localized(""),
+    ritualNote: fieldCopy("ritualNote"),
     howToUse: fieldCopy("howToUse"),
     ingredients: [],
     vessel: fieldCopy("vessel"),

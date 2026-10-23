@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { CheckoutView } from "@/components/commerce/CheckoutView";
 import { isLocale, type Locale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getStorefrontDictionary as getDictionary } from "@/lib/storefront-content";
 
 export async function generateMetadata({
   params,
@@ -13,7 +13,7 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   return {
     title: dict.checkout.title,
     description: dict.checkout.body,
@@ -29,6 +29,6 @@ export default async function CheckoutPage({
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
-  const dict = getDictionary(locale);
+  const dict = await getDictionary(locale);
   return <CheckoutView locale={locale} dict={dict} />;
 }

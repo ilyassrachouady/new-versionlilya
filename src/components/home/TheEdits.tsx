@@ -4,8 +4,8 @@ import Link from "next/link";
 import { QuietLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { getProduct } from "@/lib/catalog";
-import { edits } from "@/lib/content";
+import { getStorefrontProducts } from "@/lib/storefront-catalog";
+import { getStorefrontEditorial } from "@/lib/storefront-content";
 import { href, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
@@ -17,7 +17,8 @@ const frame = {
 } as const;
 
 /** Two ways through one house — a sequence each, never a gender filter. */
-export function TheEdits({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export async function TheEdits({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+ const [catalog, { edits }] = await Promise.all([getStorefrontProducts(), getStorefrontEditorial(locale)]);
   return (
     <section className="surface-grain relative bg-ivory py-20 sm:py-28 lg:py-36">
       <div className="shell">
@@ -27,7 +28,7 @@ export function TheEdits({ locale, dict }: { locale: Locale; dict: Dictionary })
       <div className="mt-16 grid gap-px bg-brass/20 lg:grid-cols-2">
         {edits.map((edit, index) => {
           const items = edit.slugs
-            .map((slug) => getProduct(slug))
+            .map((slug) => catalog.find(item => item.slug === slug))
             .filter((product) => product !== undefined);
           const dark = edit.id === "him";
 
