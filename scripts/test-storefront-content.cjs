@@ -14,7 +14,7 @@ let authorized = true, rows = [], invalidations = [], products = [];
 const client = { from(table) {
   const chain = {
     select() { return chain; }, eq() { return chain; }, order() { return chain; }, like() { return chain; },
-    single() { return Promise.resolve({ data: { metadata: products[0]?.metadata ?? {} }, error: null }); },
+    single() { return Promise.resolve({ data: { metadata: products[0]?.metadata ?? {}, sku: products[0]?.sku }, error: null }); },
     then(resolve) { return Promise.resolve({ data: table === 'products' ? products : rows, error: null }).then(resolve); },
     async upsert(next) { rows = next; return { error: null }; },
   };
@@ -65,17 +65,30 @@ async function main() {
   assert.equal(edited.description.fr, 'Description FR éditée'); assert.equal(edited.description.ar, 'وصف معدل');
   assert.equal(edited.howToUse.en, 'Edited directions'); assert.equal(edited.ritualNote.en, '');
   assert.equal(edited.image, '/managed-product.png'); assert.equal(edited.priceEUR, 12);
-  const { updateProduct } = require('../src/app/admin/products/actions.ts');
+  const { updateProduct, saveProductTexts } = require('../src/app/admin/products/actions.ts');
   const productForm = new FormData();
   for (const [key, value] of Object.entries({ name: 'Nouveau nom', description: 'Nouvelle description', sku: base.sku, slug: base.slug, product_type: 'body-oil', fragrance: 'fleur-doranger', status: 'active', price_eur: '13', translations_reviewed: 'on' })) productForm.set(key, value);
   for (const locale of ['fr', 'en', 'ar']) for (const key of ['name', 'tagline', 'description', 'ritualNote', 'howToUse', 'vessel']) productForm.set(`localized:${key}:${locale}`, `${key} ${locale}`);
   await assert.rejects(() => updateProduct('fixture-id', null, productForm), error => error.digest === 'NEXT_REDIRECT');
+  assert.equal(products[0].metadata.localized.description.ar, 'وصف معدل');
+  assert.equal(products[0].name, 'Nom édité');
+  const beforeTextPrice = products[0].price_eur;
+  assert((await saveProductTexts('fixture-id', null, productForm)).success);
+  assert.equal(products[0].price_eur, beforeTextPrice);
   assert.equal(products[0].metadata.localized.description.ar, 'description ar');
   assert.equal(products[0].metadata.localized.description.fr, 'Nouvelle description');
   assert.equal(products[0].metadata.localized.howToUse.en, 'howToUse en');
   assert(invalidations.includes('storefront-catalog'));
   productForm.delete('translations_reviewed');
-  assert((await updateProduct('fixture-id', null, productForm)).error);
+  assert((await saveProductTexts('fixture-id', null, productForm)).error);
+  const savedCopy = JSON.stringify(products[0].metadata.localized);
+  for (const slug of ['conditioner-the-vert', 'conditioner-safran']) {
+    productForm.set('slug', slug); productForm.set('price_eur', '15.50');
+    for (const key of [...productForm.keys()]) if (key.startsWith('localized:')) productForm.delete(key);
+    await assert.rejects(() => updateProduct('fixture-id', null, productForm), error => error.digest === 'NEXT_REDIRECT');
+    assert.equal(products[0].price_eur, 15.5);
+    assert.equal(JSON.stringify(products[0].metadata.localized), savedCopy);
+  }
   const form = new FormData();
   for (const locale of ['fr', 'en', 'ar']) for (const field of fields(model.contentDefault('editorial', locale))) form.set(`${locale}:${field.path}`, field.value);
   form.set('reviewed', 'on'); form.set('ar:rituals.4.title', 'مجموعة منزلية معدلة');

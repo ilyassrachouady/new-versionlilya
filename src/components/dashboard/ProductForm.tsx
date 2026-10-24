@@ -17,7 +17,7 @@ import {
 } from "@/lib/admin-product-form";
 import type { AdminProduct } from "@/lib/admin-products";
 import { cn } from "@/lib/utils";
-import { ProductTranslations } from "./ProductTranslations";
+import { ProductTranslations, ProductTextEditor } from "./ProductTranslations";
 import { rituals } from "@/lib/content";
 import { catalogProducts, type RitualId } from "@/lib/catalog";
 
@@ -127,8 +127,8 @@ export function ProductForm({
 
   return (
     <div className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_20.5rem]">
+      <div className="min-w-0 space-y-8">
       <form action={formAction} className="space-y-6">
-<ProductTranslations product={product} />
         {state?.error && (
           <p role="alert" className="rounded-xl border border-[#ead9d5] bg-[#fff7f4] px-4 py-3 text-sm text-[#8d5048]">
             {state.error}
@@ -142,13 +142,15 @@ export function ProductForm({
               Nom
               <input
                 name="name"
-                value={name}
+                value={existing ? product?.name ?? name : name}
+                readOnly={existing}
                 onChange={(event) => setName(event.target.value)}
                 required
                 placeholder="Huile Corporelle"
                 className={cn(field, "h-12 text-base")}
               />
             </label>
+            {existing && <a href="#product-texts" className="inline-flex min-h-11 items-center text-sm text-[#173326] underline">Modifier le nom et les descriptions dans Textes et traductions ↓</a>}
 
             <div>
               <p className="text-xs text-[#81756b]">Famille</p>
@@ -332,7 +334,8 @@ export function ProductForm({
               Description
               <textarea
                 name="description"
-                value={description}
+                value={existing ? product?.description ?? localizedDescription ?? baseProduct?.description.fr ?? "" : description}
+                readOnly={existing}
                 onChange={(event) => setDescription(event.target.value)}
                 placeholder="Quelques lignes pour la fiche, si vous les avez."
                 className="mt-2 min-h-28 w-full rounded-lg border border-[#d5cabc] bg-white p-3 text-sm outline-none focus:border-[#6e5d4c]"
@@ -373,13 +376,17 @@ export function ProductForm({
           <input type="hidden" name="low_stock_threshold" value={product?.low_stock_threshold ?? 10} />
         </details>
 
-        <div className="flex justify-end">
+        {!existing && <ProductTranslations />}
+        <div className="sticky bottom-3 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-4 shadow-lg">
+          {existing && <p className="text-sm text-[#81756b]">Aucune validation des traductions nécessaire pour le prix ou le stock.</p>}
           <SubmitButton pendingLabel={existing ? "Enregistrement…" : "Création…"}>
             <Save className="size-4" />
-            {existing ? "Enregistrer" : "Créer le produit"}
+            {existing ? "Enregistrer les paramètres du produit" : "Créer le produit"}
           </SubmitButton>
         </div>
       </form>
+      {product && <ProductTextEditor product={product} />}
+      </div>
 
       <aside className="space-y-5 xl:sticky xl:top-28 xl:self-start">
         <section className="rounded-2xl border border-[#e5e0db] bg-white p-5">

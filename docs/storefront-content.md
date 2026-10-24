@@ -4,10 +4,10 @@
 
 - **Contenu** : accueil, textes des signatures, noms des fragrances, FAQ, Maison, navigation, pied de page, filtres, qualité, coordonnées, journal et ingrédients.
 - **Collections** : accès aux textes FR/EN/AR de chaque collection. La recherche préremplie peut être effacée pour afficher le reste de l’éditorial.
-- **Produits** : nom et description français dans les champs principaux ; autres champs éditoriaux et traductions dans « Textes et traductions ». Prix EUR, stock, photo et rubrique restent dans le même formulaire.
+- **Produits existants** : prix EUR, stock, photo, rubrique et publication dans le formulaire principal, sans validation linguistique. « Textes et traductions » dispose d’un formulaire indépendant, d’onglets FR/EN/AR et d’un bouton dédié restant visible au défilement. Ce formulaire inclut aussi le nom et la description français ; sa sauvegarde ne modifie jamais le prix ni le stock. Le formulaire commercial ne réécrit jamais les textes.
 - **Paramètres** : liens vers les coordonnées et les contenus réellement modifiables, sans faux bouton d’enregistrement.
 
-Choisir Français, English ou العربية. Modifier chaque version, puis cocher la confirmation de vérification des trois langues et publier. Il n’y a **pas de traduction automatique**, conformément au choix du propriétaire. Une modification française doit être répercutée manuellement dans les deux autres langues avant publication. Les noms EN/AR et les descriptions traduites, lorsqu’une description française existe, sont obligatoires pour enregistrer un produit.
+Choisir Français, English ou العربية. Modifier chaque version, puis cocher la confirmation de vérification des trois langues et publier. Il n’y a **pas de traduction automatique**, conformément au choix du propriétaire. Une modification française doit être répercutée manuellement dans les deux autres langues avant publication. Les noms EN/AR et les descriptions traduites, lorsqu’une description française existe, sont obligatoires pour enregistrer les textes ou créer un produit, mais pas pour modifier uniquement son prix ou son stock.
 
 Les champs arabes utilisent `lang="ar"` et `dir="rtl"`. La boutique conserve son layout et ses polices arabes. Les métadonnées des pages produit/article/collection sont lues depuis les mêmes données que le contenu affiché.
 
