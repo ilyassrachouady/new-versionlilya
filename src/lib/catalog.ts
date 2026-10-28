@@ -1,11 +1,12 @@
 import { importedProducts } from "@/lib/imported-products";
+import { ritualProducts } from "@/lib/ritual-products";
 import type { Locale } from "@/lib/i18n/config";
 
 export type Localized = Record<Locale, string>;
 
-export const fragrances = { "fleur-doranger": "Fleur d'Oranger", "the-vert": "Thé Vert", "ambre-musc": "Ambre Musc", safran: "Safran", "fleur-orientale": "Fleur orientale", "fleur-de-lin": "Fleur de Lin", "fleur-de-rose": "Fleur de Rose", serghina: "Serghina", "sans-parfum": "Sans parfum" } as const;
+export const fragrances = { "fleur-doranger": "Fleur d'Oranger", "the-vert": "Thé Vert", "ambre-musc": "Ambre Musc", safran: "Safran", "fleur-orientale": "Fleur orientale", "fleur-de-lin": "Fleur de Lin", "fleur-de-rose": "Fleur de Rose", serghina: "Serghina", "sans-parfum": "Sans parfum", "aker-fassi": "Aker Fassi", nila: "Nila", botanique: "Bain botanique" } as const;
 export type FragranceId = keyof typeof fragrances;
-export type ProductType = "shampoo" | "conditioner" | "hair-mask" | "body-scrub" | "body-oil" | "body-milk" | "hair-perfume" | "shower-gel" | "face-scrub" | "rose-water" | "reed-diffuser" | "home-fragrance" | "burner-oil" | "oil-burner";
+export type ProductType = "shampoo" | "conditioner" | "hair-mask" | "body-scrub" | "body-oil" | "body-milk" | "hair-perfume" | "shower-gel" | "face-scrub" | "rose-water" | "reed-diffuser" | "home-fragrance" | "burner-oil" | "oil-burner" | "soap" | "black-soap" | "shea-balm" | "botanical-bath";
 
 export type RitualId = "hair" | "body" | "hammam" | "scent" | "home";
 
@@ -411,7 +412,7 @@ export const products: Product[] = [
 ];
 
 /** Complete sellable catalog. The original products export preserves the homepage cabinet selection. */
-export const catalogProducts: Product[] = [...products, ...importedProducts];
+export const catalogProducts: Product[] = [...products, ...importedProducts, ...ritualProducts];
 
 export function getProduct(slug: string): Product | undefined {
   return catalogProducts.find((product) => product.slug === slug);

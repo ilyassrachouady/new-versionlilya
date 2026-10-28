@@ -15,12 +15,16 @@ export const productTypeOptions: { id: ProductType; label: string; code: string;
   { id: "home-fragrance", label: "Eau de Maison", code: "HF", volume: 100 },
   { id: "burner-oil", label: "Huile à brûler", code: "BU", volume: 50 },
   { id: "oil-burner", label: "Brûle-parfum en céramique", code: "OB", volume: 0 },
+  { id: "soap", label: "Savon", code: "SO", volume: 100 },
+  { id: "black-soap", label: "Savon noir", code: "NK", volume: 250 },
+  { id: "shea-balm", label: "Velours de karité", code: "VK", volume: 80 },
+  { id: "botanical-bath", label: "Bain botanique", code: "BB", volume: 200 },
 ];
 
 export const fragranceOptions = (Object.entries(fragrances) as [FragranceId, string][]).map(([id, label]) => ({
   id,
   label,
-  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR", "fleur-de-lin": "FL", "fleur-de-rose": "FR", serghina: "SE", "sans-parfum": "SP" }[id],
+  code: { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR", "fleur-de-lin": "FL", "fleur-de-rose": "FR", serghina: "SE", "sans-parfum": "SP", "aker-fassi": "AF", nila: "NI", botanique: "BT" }[id],
 }));
 
 export function slugify(value: string) {
@@ -62,6 +66,10 @@ export function parseProductType(value: string): ProductType {
   if (text.includes("milk") || text.includes("lait")) return "body-milk";
   if (text.includes("shower") || text.includes("douche")) return "shower-gel";
   if (text.includes("face") && (text.includes("scrub") || text.includes("gommage"))) return "face-scrub";
+  if (text.includes("savon noir") || text.includes("black soap") || text.includes("black-soap")) return "black-soap";
+  if (text.includes("savon") || text.includes("soap")) return "soap";
+  if (text.includes("velours") || text.includes("karité") || text.includes("karite")) return "shea-balm";
+  if (text.includes("bain") || text.includes("botanical")) return "botanical-bath";
   if (text.includes("rose")) return "rose-water";
   if (text.includes("scrub") || text.includes("gommage")) return "body-scrub";
   return "body-milk";
@@ -72,6 +80,9 @@ export function parseFragrance(value: string): FragranceId {
   const text = value.toLowerCase();
   const match = fragranceOptions.find((option) => text.includes(option.id) || text.includes(option.label.toLowerCase()));
   if (match) return match.id;
+  if (text.includes("aker")) return "aker-fassi";
+  if (text.includes("nila")) return "nila";
+  if (text.includes("botanique")) return "botanique";
   if (text.includes("thé") || text.includes("the vert") || text.includes("green")) return "the-vert";
   if (text.includes("ambre")) return "ambre-musc";
   if (text.includes("safran")) return "safran";

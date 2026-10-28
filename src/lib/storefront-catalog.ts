@@ -38,6 +38,9 @@ function metaString(metadata: unknown, key: string) {
 
 function inferFragrance(value: string): FragranceId {
   const text = value.toLowerCase();
+  if (text.includes("aker")) return "aker-fassi";
+  if (text.includes("nila")) return "nila";
+  if (text.includes("botanique") || text.includes("badiane") || text.includes("calendula")) return "botanique";
   if (text.includes("orientale")) return "fleur-orientale";
   if (text.includes("the-vert") || text.includes("thé vert") || text.includes("the vert")) return "the-vert";
   if (text.includes("ambre")) return "ambre-musc";
@@ -51,6 +54,10 @@ function inferType(value: string): ProductType {
   if (text.includes("condition") || text.includes("après")) return "conditioner";
   if (text.includes("mask") || text.includes("masque")) return "hair-mask";
   if (text.includes("face") && (text.includes("scrub") || text.includes("gommage"))) return "face-scrub";
+  if (text.includes("savon noir") || text.includes("black soap") || text.includes("black-soap")) return "black-soap";
+  if (text.includes("savon") || text.includes("soap")) return "soap";
+  if (text.includes("velours") || text.includes("karité") || text.includes("karite")) return "shea-balm";
+  if (text.includes("bain botanique") || text.includes("botanical")) return "botanical-bath";
   if (text.includes("rose")) return "rose-water";
   if (text.includes("scrub") || text.includes("gommage")) return "body-scrub";
   if (text.includes("oil") || text.includes("huile")) return "body-oil";
@@ -63,7 +70,7 @@ function inferType(value: string): ProductType {
 function inferRitual(type: ProductType): RitualId {
   if (["reed-diffuser", "home-fragrance", "burner-oil", "oil-burner"].includes(type)) return "home";
   if (type === "hair-perfume") return "scent";
-  if (type === "body-scrub" || type === "face-scrub" || type === "rose-water") return "hammam";
+  if (type === "body-scrub" || type === "face-scrub" || type === "rose-water" || type === "black-soap") return "hammam";
   if (type === "shampoo" || type === "conditioner" || type === "hair-mask") return "hair";
   return "body";
 }

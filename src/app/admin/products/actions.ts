@@ -89,7 +89,7 @@ function catalogFields(formData: FormData, includeTexts = true) {
         : ["reed-diffuser", "home-fragrance", "burner-oil", "oil-burner"].includes(type) ? "home"
         : ["shampoo", "conditioner", "hair-mask"].includes(type) ? "hair"
         : type === "hair-perfume" ? "scent"
-        : ["body-scrub", "face-scrub", "rose-water"].includes(type) ? "hammam" : "body",
+        : ["body-scrub", "face-scrub", "rose-water", "black-soap"].includes(type) ? "hammam" : "body",
     },
   };
 }

@@ -9,8 +9,8 @@ export const adminOrders = [
   { id: "MLZ-1043", customer: "Sofia Rossi", email: "sofia.r@example.com", items: 3, country: "Italie", total: 55.48, payment: "Payée", status: "Livrée" as OrderStatus, date: "10 oct. · 11:04" },
 ];
 
-const fragranceCodes = { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR", "fleur-de-lin": "FL", "fleur-de-rose": "FR", serghina: "SE", "sans-parfum": "SP" } as const;
-const productCodes = { shampoo: "SH", conditioner: "CO", "hair-mask": "HM", "body-scrub": "BS", "body-oil": "BO", "body-milk": "BM", "hair-perfume": "HP", "shower-gel": "SG", "face-scrub": "FS", "rose-water": "RW", "reed-diffuser": "RD", "home-fragrance": "HF", "burner-oil": "BU", "oil-burner": "OB" } as const;
+const fragranceCodes = { "fleur-doranger": "FO", "the-vert": "TV", "ambre-musc": "AM", safran: "SF", "fleur-orientale": "OR", "fleur-de-lin": "FL", "fleur-de-rose": "FR", serghina: "SE", "sans-parfum": "SP", "aker-fassi": "AF", nila: "NI", botanique: "BT" } as const;
+const productCodes = { shampoo: "SH", conditioner: "CO", "hair-mask": "HM", "body-scrub": "BS", "body-oil": "BO", "body-milk": "BM", "hair-perfume": "HP", "shower-gel": "SG", "face-scrub": "FS", "rose-water": "RW", "reed-diffuser": "RD", "home-fragrance": "HF", "burner-oil": "BU", "oil-burner": "OB", soap: "SO", "black-soap": "NK", "shea-balm": "VK", "botanical-bath": "BB" } as const;
 
 export const adminObjects = catalogProducts.map((product, index) => ({
   no: String(index + 1).padStart(2, "0"),
