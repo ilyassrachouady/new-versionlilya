@@ -1,7 +1,7 @@
 import type { Locale } from "@/lib/i18n/config";
 
 const en = {
-  announcement: "From Morocco, with care — worldwide delivery",
+  announcement: "Luxury Moroccan cosmetics",
   nav: {
     shop: "Shop",
     collections: "Collections",
@@ -324,7 +324,7 @@ export type Dictionary = typeof en;
 
 /** Same shape as `en`, written rather than machine-translated. */
 const fr: Dictionary = {
-  announcement: "Du Maroc, avec soin — livraison dans le monde entier",
+  announcement: "Haute cosmétique marocaine",
   nav: {
     shop: "Boutique",
     collections: "Collections",
@@ -643,7 +643,7 @@ const fr: Dictionary = {
 };
 
 const ar: Dictionary = {
-  announcement: "من المغرب، بعنايةٍ — شحنٌ إلى العالم",
+  announcement: "مستحضرات تجميل مغربية راقية",
   nav: {
     shop: "المتجر",
     collections: "المجموعات",

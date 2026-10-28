@@ -57,9 +57,9 @@ export const rituals: Ritual[] = [
     index: "III",
     title: { en: "Hammam", fr: "Hammam", ar: "الحمّام" },
     line: {
-      en: "Heat, then gommage, then oil.",
-      fr: "La chaleur, puis le gommage, puis l'huile.",
-      ar: "حرارةٌ، ثم تقشير، ثم زيت.",
+      en: "",
+      fr: "",
+      ar: "",
     },
     body: {
       en: "Exceptional exfoliating and purifying care inspired by Morocco’s great beauty rituals.",
@@ -91,9 +91,13 @@ export const rituals: Ritual[] = [
   {
     id: "home",
     index: "V",
-    title: { en: "Home Collection", fr: "Produits Maison", ar: "منتجات المنزل" },
+    title: { en: "Comforts of Home", fr: "Douceur d'intérieur", ar: "دفء المنزل" },
     line: { en: "Fragrances and objects for your home rituals.", fr: "Senteurs et objets pour vos rituels de maison.", ar: "عطور وقطع لطقوس منزلكم." },
-    body: { en: "Discover our home fragrances, reed diffuser, Serghina burner oil, ceramic burner and rose water.", fr: "Découvrez nos eaux de maison, notre diffuseur, l’huile à brûler Serghina, le brûle-parfum en céramique et l’eau de rose.", ar: "اكتشفوا عطور المنزل والناشر العطري وزيت السرغينة للتبخير والمبخرة الخزفية وماء الورد." },
+    body: {
+      en: "Discover a collection devoted entirely to well-being and the atmosphere of your home. Delicate fragrances and thoughtfully designed objects bring a touch of comfort and serenity to every room.",
+      fr: "Découvrez une collection entièrement dédiée au bien-être et à l'atmosphère de l'intérieur. Des senteurs délicates et des objets soigneusement conçus pour apporter une touche de douceur et de sérénité à chaque pièce de la maison.",
+      ar: "اكتشفوا مجموعة مخصصة بالكامل للراحة وأجواء المنزل. عطور رقيقة وقطع مصممة بعناية لإضفاء لمسة من الدفء والسكينة على كل غرفة في البيت.",
+    },
     texture: "/collections/campaigns/home.png",
     hero: "/products/maison/diffuseur-fleur-orientale.png",
     heroAspect: "column",
