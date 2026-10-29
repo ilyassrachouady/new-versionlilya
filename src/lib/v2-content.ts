@@ -157,8 +157,8 @@ const copy: Record<Locale, V2Copy> = {
     },
     origin: {
       eyebrow: "Née au Maroc",
-      title: "D'un lieu. Pour partout.",
-      body: "L'argan du Sud-Ouest. La fleur d'oranger distillée au printemps. Une maison de beauté contemporaine façonnée par la matière, la mémoire et le geste marocains.",
+      title: "L'Art du Voyage Olfactif",
+      body: "De la douceur de la fleur d'oranger à l'or rouge du safran, en passant par la fraîcheur du thé vert et les notes envoûtantes d'ambre et du musc, Maison Lilya Zahra assemble les plus beaux trésors de la nature. Une collection de soins précieux faits maison, façonnés pour éveiller vos sens et sublimer votre peau.",
       points: [
         { value: "07", label: "Objets" },
         { value: "02", label: "Botaniques nommées" },

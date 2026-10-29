@@ -145,7 +145,7 @@ export async function V2Home({ locale, dict, products = staticProducts }: { loca
                 <p className="v2-kicker text-[#e3b77e]">{copy.origin.eyebrow}</p>
               </Reveal>
               <Reveal delay={0.05}>
-                <h2 className="v2-display-section mt-5 max-w-[12ch]">{copy.origin.title}</h2>
+                <h2 className="v2-display-section mt-5 max-w-[16ch]">{copy.origin.title}</h2>
               </Reveal>
             </div>
             <div>
